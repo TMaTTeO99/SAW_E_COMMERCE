@@ -12,13 +12,18 @@ import { MyHeader } from './Myheader';
 export function Home() {
 
 	return (
+
 		<div id="Home_id">
 
+			{/**
+			 * Header della schermata home 
+			 */}
 			<MyHeader className={'headerClass'}/>	
 				
 			<main>
 
 			</main>
+
 			<footer>
 
 

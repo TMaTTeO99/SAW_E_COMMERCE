@@ -1,28 +1,56 @@
 import './Style/StyleHeader.css'
-import logo from './logo1.png'
+import { Link } from 'react-router-dom';
+import {auth} from "./LoginConfig";
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import logo from './logo1.png';
+import {LoginContext} from './LoginContext';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 export function MyHeader({className}) {
 
+
+	const rederict = '/test';
+
+	const [dataLogin, setdataLogin] = useContext(LoginContext);
+	const navigate = useNavigate();
 	/**
-	 * Qui dovrò inserire tutta la logica del header per il trasferimento alle pagine successive,
-	 * Comincio con il trasferimento alla pagina dei contenuti da uomo per provare
-	 * Inizio a implementare il back-end nel fra tempo per il funzionamento.
+	 * Comincio con la logica per il login
 	 */
+	
+	const provider = new GoogleAuthProvider();
+
+	function onClickLoginHandler() {
+
+		signInWithPopup(auth, provider)
+		.then((result) => {
+
+			setdataLogin({...result});
+			navigate(rederict);
+
+		}).catch((errore) => {
+			setdataLogin({});
+		});
+
+	}
+
 
 	return (
+		
 		<div className={className}>
-
+			
 			<img className="logoHome" src={logo} alt='MyEcommerce'/>		
 			<div id='sezioniID'>
 						
 				<div className='containerClothes' >
-					<a className='clothesClass'>UOMO</a>
+					<Link className='clothesClass' onClick={() => navigate(rederict)}>UOMO</Link>
 				</div>
 				<div className='containerClothes'>
-					<a className='clothesClass' >DONNA</a>
+					<Link className='clothesClass' onClick={() => navigate(rederict)}>DONNA</Link>
 				</div>
 				<div className='containerClothes'>
-					<a className='clothesClass'>BAMBINI</a>
+					<Link className='clothesClass' onClick={() => navigate(rederict)} >BAMBINI</Link>
 				</div>
 			</div>
 					
@@ -32,9 +60,14 @@ export function MyHeader({className}) {
 			</div>	
 			
 			{/**
-			 * qui devo inserire i componenti per il login 
+			 * Componenti per il login e la registrazione
 			 */}
-
+			<div className='DIVLogInSignUp'>
+			 	<Link className='logIn' onClick={onClickLoginHandler}>LOG-IN</Link>
+				{/**
+				 * <Link className='signUp'>REGISTRAZIONE</Link>
+				 */}
+			</div>
 		</div>
 	);
 }

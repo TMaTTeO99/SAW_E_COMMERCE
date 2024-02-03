@@ -1,14 +1,30 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import {Home} from './Home'
+import {Home} from './Home';
+import {MyProvider} from './LoginContext';
+import {Test} from './TestAfterLogin';
+
 
 export default function App() {
-  return (
+  
+  
 
+  
+  
+  return (
+  
     <Router>
       <switch>
         <Routes>
-          <Route path="/" element={<Home/>}/>
-        
+          <Route path="/" element=
+          {<MyProvider>
+            <Home/>
+          </MyProvider>}/>
+          
+          <Route path="/test" element=
+          {<MyProvider>
+            <Test/>
+          </MyProvider>}/>
+
 
 
         </Routes>
