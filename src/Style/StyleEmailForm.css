@@ -1,0 +1,15 @@
+@media screen and (max-width: 768px) {
+	.EmailFormTop_2 {
+	  margin-top: 50px; 
+	}
+	#DivForm {
+	  margin-left: 20px; 
+	}
+	.PWD_EMAIL_div input {
+	  width: 100%; 
+	}
+	.extraOptions {
+	  margin-top: 30px; /* Riduci il margine superiore */
+	  margin-left: 20px; /* Riduci il margine sinistro */
+	}
+}

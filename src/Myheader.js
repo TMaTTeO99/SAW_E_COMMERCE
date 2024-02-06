@@ -1,10 +1,7 @@
 import './Style/StyleHeader.css'
-import { Link } from 'react-router-dom';
-import {auth} from "./LoginConfig";
-import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import logo from './logo1.png';
-import {LoginContext} from './LoginContext';
-import { useContext } from 'react';
+import profile from './profilo.png';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -12,27 +9,15 @@ export function MyHeader({className}) {
 
 
 	const rederict = '/test';
-
-	const [dataLogin, setdataLogin] = useContext(LoginContext);
 	const navigate = useNavigate();
-	/**
-	 * Comincio con la logica per il login
-	 */
-	
-	const provider = new GoogleAuthProvider();
 
-	function onClickLoginHandler() {
-
-		signInWithPopup(auth, provider)
-		.then((result) => {
-
-			setdataLogin({...result});
-			navigate(rederict);
-
-		}).catch((errore) => {
-			setdataLogin({});
-		});
-
+	function onClickAccessHandler() {	
+		navigate('/DoLogin');
+		
+	}
+	function onClicckHandlerProfile() {
+		//qui devo navigare in un componente per vedere le info sul profilo
+		//navigate('/DoLogin');
 	}
 
 
@@ -40,7 +25,7 @@ export function MyHeader({className}) {
 		
 		<div className={className}>
 			
-			<img className="logoHome" src={logo} alt='MyEcommerce'/>		
+			<img className='logoHome' src={logo} alt='MyEcommerce'/>		
 			<div id='sezioniID'>
 						
 				<div className='containerClothes' >
@@ -63,7 +48,8 @@ export function MyHeader({className}) {
 			 * Componenti per il login e la registrazione
 			 */}
 			<div className='DIVLogInSignUp'>
-			 	<Link className='logIn' onClick={onClickLoginHandler}>LOG-IN</Link>
+			 	<Link className='logIn' to={'/DoLogin'} onClick={() => {navigate('/DoLogin')}}>ACCEDI</Link>
+				<img className='imgProfile' src={profile} alt='profilo' onClick={onClicckHandlerProfile}/>
 				{/**
 				 * <Link className='signUp'>REGISTRAZIONE</Link>
 				 */}

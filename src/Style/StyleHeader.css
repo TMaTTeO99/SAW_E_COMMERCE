@@ -13,9 +13,16 @@
 	width: 60px;
 	margin-left: 20px;
 }  
+.imgProfile {
+	height: 30px;
+	width: 30px;
+	margin-left: 20px;
+	cursor: pointer;
+}
 .searchBarBTN:hover, .containerClothes:hover
 {
 	background-color: #9b2be6;
+	color: white; 
 }
   
 .searchBarBTN, .containerClothes
@@ -83,7 +90,7 @@
 	display: flex;
 	justify-content: space-between;
 	flex-direction: row;
-	margin-left: 10px;
+	margin-left: 80px;
 }
 .logIn , .signUp
 {

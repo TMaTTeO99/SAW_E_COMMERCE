@@ -1,0 +1,115 @@
+/*
+.doLogin {
+
+	display: flex;
+	height: 100vh;
+	flex-direction: row;
+	background-color: black;
+
+}
+.logoHomeLogin {
+
+	display: flex;
+	height: 100px;
+	width: 100px;
+	margin-top: 250px;
+	margin-left: 150px;
+}
+.divLogoImage {
+	display: flex;
+	flex-direction: row;
+}
+#h2_1 {
+	display: flex;
+	color: #9b2be6	;
+	margin-top: 285px;
+	margin-left: 150px;
+}
+.divLoginOption {
+
+	border-radius: 5px;
+	width: 300px;
+	margin: 250px;
+
+	background-color: white;
+
+}*/
+/* StyleDoLogin.css */
+.doLogin {
+	display: flex;
+	height: 100vh; 
+}
+  
+.logoHomeLogin {
+
+	height: 150px;
+	width: 150px;
+	margin-top: 250px;
+	margin-left: 150px;
+}
+#h2_1 {
+	display: flex;
+	color: #9b2be6	;
+	margin-top: 310px;
+	margin-left: 130px;
+}
+#h2_2 {
+	margin-left: 180px;
+}
+.divLogoImage {
+	display: flex;
+	background-color: black; 
+	color: #9b2be6; 
+	padding: 20px; 
+	width: 65%; 
+	box-sizing: border-box;
+}
+  
+.divLoginOption {
+	
+	display: flex;
+	flex-direction: column;
+	background-color: white; 
+	padding: 10px; 
+	width: 35%; 	 
+}
+
+.Login_class_1, .Login_class_2
+{
+	display: flex;
+	flex-direction: row;
+	cursor: pointer;
+	background-color: #9b2be6; 
+	padding: 5px;
+	border-radius: 15px;
+}
+.h3 {
+	padding: 5px;
+	margin-left: 30px;
+}
+.Link_ {
+	padding: 10px;
+	height: 50px;
+	width: 50px;
+}
+.Login_class_2 {
+	margin-top: 10px;
+}
+
+
+.containerLoginType {
+	
+	display: flex;
+	flex-direction: column;
+	margin-top: 130px;
+}
+#ContainerLogDiv {
+
+	display: flex;
+	margin-top: 40px;
+	flex-direction: column;
+	padding: 10px;
+	border-radius: 5px;
+}
+  
+  
