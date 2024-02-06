@@ -4,8 +4,7 @@ import {MyProvider} from './LoginContext';
 import {Test} from './TestAfterLogin';
 import {DoLogin} from './DoLogin'
 import './Style/StyleEmailForm.css';
-import {CreateAccount} from './CreateAccount';
-
+import {motion} from 'framer-motion';
 export default function App() {
   
   
@@ -18,9 +17,19 @@ export default function App() {
       <switch>
         <Routes>
           <Route path="/" element=
-          {<MyProvider>
-            <Home/>
-          </MyProvider>}/>
+          {
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}>
+
+              <MyProvider>
+                <Home/>
+              </MyProvider>
+
+            </motion.div>
+          }/>
           
           <Route path="/test" element=
           {<MyProvider>
@@ -29,11 +38,6 @@ export default function App() {
           <Route path="/DoLogin" element=
           {<MyProvider>
             <DoLogin/>
-          </MyProvider>}/>
-
-          <Route path="/CreateAccount" element=
-          {<MyProvider>
-            <CreateAccount/>
           </MyProvider>}/>
 
 

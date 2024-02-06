@@ -27,7 +27,8 @@ function CreateAccount({handleBack}){
 		
 		createUserWithEmailAndPassword(auth, email, password)
 		.then((userCredential) => {
-			alert(userCredential.name);
+			alert(userCredential.user.uid);
+			alert("ok");
 		})
 		.catch((error) => {
 			alert(error);
@@ -78,6 +79,7 @@ function CreateAccount({handleBack}){
 
 function MyFormLogin({handleBack, ViewCreateAccount, ViewResetPassword}) {
 
+	const [dataLogin, setdataLogin] = useContext(LoginContext);
 	const navigate = useNavigate();
 
 	const handleSubmit = (e) => {
@@ -88,7 +90,8 @@ function MyFormLogin({handleBack, ViewCreateAccount, ViewResetPassword}) {
 		
 		signInWithEmailAndPassword(auth, email, password)
 		.then((userCredential) => {
-			alert(userCredential.name);
+			setdataLogin(userCredential);
+			navigate('/test');
 		})
 		.catch((error) => {
 			alert(error);
