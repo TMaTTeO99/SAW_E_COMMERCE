@@ -1,206 +1,36 @@
 import './Style/StyleDoLogin.css';
 import './Style/TempForm.css';
-import back from './back.png'
-import logo from './logo1.png';
-import email from './email.png'
-import google from './google.png'
+
 import { motion } from 'framer-motion';
 import {auth} from "./LoginConfig";
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import {LoginContext} from './LoginContext';
 import { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {useNavigate } from 'react-router-dom';
+import {MyFormLogin} from './MyFormLogin';
+import {CreateAccount} from './CreateAccount';
+import {LeftColumn, RightColumn} from './LoginBase';
+import { ResetPassword } from './ResetPassword';
 
 
-//modulo per l inserimento di username e password
-
-function CreateAccount({handleBack}){
-
-
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		const email = e.target.elements.email.value;
-		const password = e.target.elements.password.value;
-		
-		
-		createUserWithEmailAndPassword(auth, email, password)
-		.then((userCredential) => {
-			alert(userCredential.user.uid);
-			alert("ok");
-		})
-		.catch((error) => {
-			alert(error);
-			alert(error.code);
-		});
-	};
-	return (
-		<div className='EmailFormTop_1'>
-			
-			<div id='divBack'>
-				<img src={back} id='backID' onClick={handleBack}/>
-				<button onClick={handleBack}> BACK</button>
-			</div>
-
-			<div className='EmailFormTop_2'>
-				
-				<h2 id='h2_2'>ISCRIVITI</h2>
-		
-				<div id='DivForm'>
-		
-					<form onSubmit={handleSubmit} id='formID'>
-					  	
-						<div className='PWD_EMAIL_div'>
-							
-							<div id='dive_mail'> 
-								<h3>Email</h3>
-								<input id='inEmail' type='email' name='email' required />
-							</div>
-							<div id='dive_pwd'>
-								<h3>Password</h3>
-								<input id='inPWD' type='password' name='password'  required />
-							</div>
-							<div id='dive_btn'>
-								<button id='btnAccedi' type='submit'>Iscriviti</button>
-							</div>
-							
-					  	</div>
-					</form>
-		
-				</div>
-			</div>	
-
-		</div>
-	);	
-
-}
-
-
-function MyFormLogin({handleBack, ViewCreateAccount, ViewResetPassword}) {
-
-	const [dataLogin, setdataLogin] = useContext(LoginContext);
-	const navigate = useNavigate();
-
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		const email = e.target.elements.email.value;
-		const password = e.target.elements.password.value;
-		
-		
-		signInWithEmailAndPassword(auth, email, password)
-		.then((userCredential) => {
-			setdataLogin(userCredential);
-			navigate('/test');
-		})
-		.catch((error) => {
-			alert(error);
-			alert(error.code);
-		});
-	};
-
-	function onLogin(){}
-	function onForgotPassword() {}
-	function GoogleHandler(){}
-
-	return (
-
-		<div className='EmailFormTop_1'>
-			
-			<div id='divBack'>
-				<img src={back} id='backID' onClick={handleBack}/>
-				<button onClick={handleBack}> BACK</button>
-			</div>
-
-			<div className='EmailFormTop_2'>
-				
-				<h2 id='h2_2'>LOG-IN</h2>
-		
-				<div id='DivForm'>
-		
-					<form onSubmit={handleSubmit} id='formID'>
-					  	
-						<div className='PWD_EMAIL_div'>
-							
-							<div id='dive_mail'> 
-								<h3>Email</h3>
-								<input id='inEmail' type='email' name='email' required />
-							</div>
-							<div id='dive_pwd'>
-								<h3>Password</h3>
-								<input id='inPWD' type='password' name='password'  required />
-							</div>
-							<div id='dive_btn'>
-								<button id='btnAccedi' type='submit'>Accedi</button>
-							</div>
-							
-					  	</div>
-					</form>
-		
-				</div>
-				<div className='extraOptions'>
-				  <Link id='create' onClick={ViewCreateAccount}>Crea un account</Link>
-				  <Link id='reset' onClick={ViewResetPassword}>Recupera la password</Link>
-				</div>
-			</div>	
-
-		</div>
-	  );
-
-}
-
-
-//modulo per renderizzare la parte destra della schermata
-function RightColumn({GoogleHandler, EmailPasswordhandler}) {
-
-	return (
-
-		<div className='divLoginOption'>
-
-			<div className='containerLoginType' >
-				<h2 id='h2_2'>LOG-IN</h2>
-
-				<div id='ContainerLogDiv'>		
-					<div className='Login_class_1' onClick={GoogleHandler}>
-						<img src={google} className='Link_' />
-						<h3 className='h3'>Accedi con google</h3>
-					</div>		
-					<div className='Login_class_2' onClick={EmailPasswordhandler}>
-						<img src={email} className='Link_' />
-						<h3 className='h3'>Accedi con email e password</h3>
-					</div>						
-				</div>
-			</div>
-			{/**
-			 * qui posso inserire una opzione di creazione dell account
-			 */}
-
-		</div>
-
-	);
-
-}
-
-
-//modulo per renderizzare la parte sinistra della schermata
-function LeftColumn() {
-	
-	return (
-		<div className='divLogoImage'>
-			<img className='logoHomeLogin' src={logo} alt='MyEcommerce'/>
-			<h2 id='h2_1'>MY_E_COMMERCE</h2>
-		</div>
-	);
-}
 
 export function DoLogin({className}) {
 
 
-	
+	/**
+	 * uso una variabile flag per capire da dove accedo al componente per la creazione dell account
+	 * in modo che quando l utente usa il tasto back possa visualizzare il modulo precedente
+	 * corretto.
+	 * True indica che l utente accede alla creazione dell account dalla schermata di login con email
+	 * e password, altrimenti accede dalla schermata di default, quella della scielta di come fare il login
+	 */
+
+	const [fromNavigation, setFromNavigation] = useState(true);
+
 	const [optionLogin, setOptionLogin] = useState(true);
 	const [formLogin, setFormLogin] = useState(false);
 	const [formCreate, setFormCreate] = useState(false);
-
+	const [formResetPWD, setFormResetPWD] = useState(false);
 	const [dataLogin, setdataLogin] = useContext(LoginContext);
 	
 
@@ -214,6 +44,7 @@ export function DoLogin({className}) {
 
 	provider.addScope('profile');
 	
+	//funzione per l autenticazione con google provider 
 	function GoogleHandler() {	
 	
 		
@@ -221,11 +52,15 @@ export function DoLogin({className}) {
 		signInWithPopup(auth, provider)
 		.then((result) => {
 
+			//in caso si duccesso salvo nel contesto le info dell utente per poi poterle usare altrove
+			//salvo i dati anche nello storage del browser per poter recuperare le info in caso di ricarica 
+			//della pagina
+			localStorage.setItem("loginData", JSON.stringify(result));
 			setdataLogin({...result});
-			navigate(rederict);
+			navigate(rederict); // TODO: per ora solo modulo di test, da modificare.
 
 		}).catch((errore) => {
-			setdataLogin({});
+			setdataLogin({});// TODO: devo gestire correttamente l errore
 		});
 
 	}
@@ -239,20 +74,41 @@ export function DoLogin({className}) {
 		})
 		
 	}*/
-	function hiddenViewOptionLogin() {
+
+	/**
+	 * funzione che nasconde il modulo per l opzione di accesso
+	 * Viene richiamato quando un untente vuole accedere con email e password oppure 
+	 * vuole creare un account
+	 */
+
+	function hiddenViewOptionLogin() { 
 		setOptionLogin(false);
 		setFormCreate(false);
-		setFormLogin(true);	
+		setFormResetPWD(false);
+		setFormLogin(true);
+		setFromNavigation(true);
 	}
+	//funzione che resetta la visibilità del modulo di default
 	function setViewOptionLogin() {
 		setOptionLogin(true);
 		setFormLogin(false);
 		setFormCreate(false);
+		setFormResetPWD(false);
 	}
+	//funzione che setta la visibilità del modulo pre la creazione di un profilo
 	function setviewCreate() {
 		setFormCreate(true);
 		setFormLogin(false);
 		setOptionLogin(false);
+		setFormResetPWD(false);
+	}
+	function setViewRecuperaPWD() {
+
+		setFormCreate(false);
+		setFormLogin(false);
+		setOptionLogin(false);
+		setFormResetPWD(true);
+
 	}
 	return (
 
@@ -266,13 +122,24 @@ export function DoLogin({className}) {
 			
 
 				<LeftColumn/>
-				 	
+				
+				{/**
+				 * Riguardo faccio in modo che solo uno dei 3 componenti alla volta venga renderizzato in base a cosa
+				 * fa l utente, di default sicccome viene renderizzato il modulo che fa scegliere con quale metodo ci si
+				 * vuole autenticare
+				 */}
 				{optionLogin && 
 					<RightColumn 
 						GoogleHandler={GoogleHandler}
 						EmailPasswordhandler={hiddenViewOptionLogin}
+						ViewCreateAccount={setviewCreate}
+						CheckBack={setFromNavigation}
 					/>
 				}
+				{/**
+				 * Caso in cui l utente vuole accedere con email e password
+				 */} 
+
 				{formLogin && 
 					<motion.div
 						initial={{ opacity: 0 }}
@@ -283,21 +150,41 @@ export function DoLogin({className}) {
 						<MyFormLogin 
 							handleBack={setViewOptionLogin}
 							ViewCreateAccount={setviewCreate}
+							ViewResetPassword={setViewRecuperaPWD}
 							
 							/>
 
 					</motion.div>
 				}
+				{/**
+				 * Caso in cui l utente vuole creare un profilo
+				 */}
 				{formCreate && 
 					<motion.div
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
 						transition={{ duration: 0.5 }}>
-				
-						<CreateAccount handleBack={hiddenViewOptionLogin}/>
-
+						 
+						{/**
+						 * Se l utente accede alla creazione dell account dalla scelta del sign-in
+						 * allora utilizzo setViewOptionLogin, altrimenti hiddenViewOptionLogin
+						 * in questo modo posso ritornare alla schermrata corretta
+						 */}
+						<CreateAccount handleBack={
+							fromNavigation ? hiddenViewOptionLogin : setViewOptionLogin
+							}/>
 					</motion.div>	
+				}
+				{formResetPWD && 
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						transition={{ duration: 0.5 }}>
+						<ResetPassword handleBack={hiddenViewOptionLogin}/>
+
+					</motion.div>
 				}
 			</div>
 		</motion.div>

@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {Home} from './Home';
-import {MyProvider} from './LoginContext';
+//import {MyProvider} from './LoginContext';
 import {Test} from './TestAfterLogin';
 import {DoLogin} from './DoLogin'
 import './Style/StyleEmailForm.css';
@@ -24,21 +24,23 @@ export default function App() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}>
 
-              <MyProvider>
+              {/*<MyProvider>*/}
                 <Home/>
-              </MyProvider>
+                {/*</MyProvider>*/}
+              
 
             </motion.div>
           }/>
           
           <Route path="/test" element=
-          {<MyProvider>
+          {<Test/>/*<MyProvider>
             <Test/>
-          </MyProvider>}/>
+        </MyProvider>*/}
+        />
           <Route path="/DoLogin" element=
-          {<MyProvider>
+          {<DoLogin/>/*<MyProvider>
             <DoLogin/>
-          </MyProvider>}/>
+      </MyProvider>*/}/>
 
 
 

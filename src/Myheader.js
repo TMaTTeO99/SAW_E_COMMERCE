@@ -11,10 +11,6 @@ export function MyHeader({className}) {
 	const rederict = '/test';
 	const navigate = useNavigate();
 
-	function onClickAccessHandler() {	
-		navigate('/DoLogin');
-		
-	}
 	function onClicckHandlerProfile() {
 		//qui devo navigare in un componente per vedere le info sul profilo
 		//navigate('/DoLogin');
@@ -48,7 +44,7 @@ export function MyHeader({className}) {
 			 * Componenti per il login e la registrazione
 			 */}
 			<div className='DIVLogInSignUp'>
-			 	<Link className='logIn' to={'/DoLogin'} onClick={() => {navigate('/DoLogin')}}>ACCEDI</Link>
+			 	<Link className='logIn' to={'/DoLogin'} >ACCEDI</Link>
 				<img className='imgProfile' src={profile} alt='profilo' onClick={onClicckHandlerProfile}/>
 				{/**
 				 * <Link className='signUp'>REGISTRAZIONE</Link>

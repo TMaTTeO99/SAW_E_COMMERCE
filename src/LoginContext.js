@@ -4,7 +4,7 @@
  */
 
 import React from "react";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 
 const LoginContext = React.createContext();//creo il contesto
 
@@ -14,6 +14,16 @@ const LoginContext = React.createContext();//creo il contesto
 const MyProvider = ({children}) => {
 
 	const [datalogin, setDataLogin] = useState({});
+	
+	useEffect(() => {
+
+		const savedData = localStorage.getItem("loginData");
+		if(savedData) {
+			setDataLogin(JSON.parse(savedData));
+			console.log(JSON.stringify(datalogin) + "  <---- I dati setatto nel contesto");
+		}
+	}, []);
+	
 	return (
 		<LoginContext.Provider value={[datalogin, setDataLogin]}>
 			{children}
