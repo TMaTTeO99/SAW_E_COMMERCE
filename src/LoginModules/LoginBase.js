@@ -1,7 +1,7 @@
-import email from './email.png';
-import google from './google.png';
+import email from '../Images/email.png';
+import google from '../Images/google.png';
 import { Link} from 'react-router-dom'; 
-import logo from './logo1.png';
+import logo from '../Images/logo1.png';
 
 export function RightColumn({GoogleHandler, EmailPasswordhandler, ViewCreateAccount, CheckBack}) {
 
@@ -46,10 +46,10 @@ export function RightColumn({GoogleHandler, EmailPasswordhandler, ViewCreateAcco
 
 
 //modulo per renderizzare la parte sinistra della schermata
-export function LeftColumn() {
+export function LeftColumn({backBlurred}) {
 	
 	return (
-		<div className='divLogoImage'>
+		<div className='divLogoImage' id={backBlurred ? 'blur-effect': 'null_ID'}>
 			<img className='logoHomeLogin' src={logo} alt='MyEcommerce'/>
 			<h2 id='h2_1'>MY_E_COMMERCE</h2>
 		</div>

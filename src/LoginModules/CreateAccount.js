@@ -1,12 +1,11 @@
-
 import { useContext} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import {LoginContext} from './LoginContext';
+import { useNavigate } from 'react-router-dom';
+import {LoginContext} from '../LoginContext';
 import {auth} from "./LoginConfig";
-import back from './back.png';
+import back from '../Images/back.png';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
-export function MyFormLogin({handleBack, ViewCreateAccount, ViewResetPassword}) {
+export function CreateAccount({handleBack}){
 
 	const [dataLogin, setdataLogin] = useContext(LoginContext);
 	const navigate = useNavigate();
@@ -17,7 +16,7 @@ export function MyFormLogin({handleBack, ViewCreateAccount, ViewResetPassword}) 
 		const password = e.target.elements.password.value;
 		
 		
-		signInWithEmailAndPassword(auth, email, password)
+		createUserWithEmailAndPassword(auth, email, password)
 		.then((userCredential) => {
 			//salvo i dati anche nello storage del browser per poter recuperare le info in caso di ricarica 
 			//della pagina
@@ -30,13 +29,7 @@ export function MyFormLogin({handleBack, ViewCreateAccount, ViewResetPassword}) 
 			alert(error.code);
 		});
 	};
-
-	function onLogin(){}
-	function onForgotPassword() {}
-	function GoogleHandler(){}
-
 	return (
-
 		<div className='EmailFormTop_1'>
 			
 			<div id='divBack'>
@@ -46,7 +39,7 @@ export function MyFormLogin({handleBack, ViewCreateAccount, ViewResetPassword}) 
 
 			<div className='EmailFormTop_2'>
 				
-				<h2 id='h2_2'>LOG-IN</h2>
+				<h2 id='h2_2'>ISCRIVITI</h2>
 		
 				<div id='DivForm'>
 		
@@ -63,20 +56,16 @@ export function MyFormLogin({handleBack, ViewCreateAccount, ViewResetPassword}) 
 								<input id='inPWD' type='password' name='password'  required />
 							</div>
 							<div id='dive_btn'>
-								<button id='btnAccedi' type='submit'>Accedi</button>
+								<button id='btnAccedi' type='submit'>Iscriviti</button>
 							</div>
 							
 					  	</div>
 					</form>
 		
 				</div>
-				<div className='extraOptions'>
-				  <Link id='create' onClick={ViewCreateAccount}>Crea un account</Link>
-				  <Link id='reset' onClick={ViewResetPassword}>Recupera la password</Link>
-				</div>
 			</div>	
 
 		</div>
-	  );
+	);	
 
 }

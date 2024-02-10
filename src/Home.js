@@ -3,10 +3,10 @@
  * 
  * 
  */
-
 import React from 'react'
 import './Style/StyleHeader.css'
 import { MyHeader } from './Myheader';
+
 
 
 export function Home() {
@@ -21,7 +21,6 @@ export function Home() {
 			<MyHeader className={'headerClass'}/>	
 		 
 			<main>
-	
 			</main>
 			<footer>
 	

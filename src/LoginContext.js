@@ -15,6 +15,8 @@ const MyProvider = ({children}) => {
 
 	const [datalogin, setDataLogin] = useState({});
 	
+	//ad ogni avvio recupero i dati del login dal localstorage, al primo saranno vuoti
+	//se pero l utente ricarica la pagina dopo il login deve rimanere loggato
 	useEffect(() => {
 
 		const savedData = localStorage.getItem("loginData");

@@ -1,6 +1,6 @@
 import './Style/StyleHeader.css'
-import logo from './logo1.png';
-import profile from './profilo.png';
+import logo from './Images/logo1.png';
+import profile from './Images/profilo.png';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 

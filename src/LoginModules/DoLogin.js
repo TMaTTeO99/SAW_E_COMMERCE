@@ -1,10 +1,10 @@
-import './Style/StyleDoLogin.css';
-import './Style/TempForm.css';
+import '../Style/StyleDoLogin.css';
+import '../Style/TempForm.css';
 
 import { motion } from 'framer-motion';
 import {auth} from "./LoginConfig";
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import {LoginContext} from './LoginContext';
+import {LoginContext} from '../LoginContext';
 import { useContext, useState } from 'react';
 import {useNavigate } from 'react-router-dom';
 import {MyFormLogin} from './MyFormLogin';
@@ -16,6 +16,9 @@ import { ResetPassword } from './ResetPassword';
 
 export function DoLogin({className}) {
 
+
+
+	const [backBlurred, setBackBlurred] = useState(false);//gestisco l attivazione della regola css per rendere lo sfondo sfocato 
 
 	/**
 	 * uso una variabile flag per capire da dove accedo al componente per la creazione dell account
@@ -64,24 +67,17 @@ export function DoLogin({className}) {
 		});
 
 	}
-	/*function EmailPasswordhandler() {
-		signInWithEmailAndPassword(auth)
-		.then((userCredential) => {
-
-		})
-		.catch((error) => {
-
-		})
-		
-	}*/
+	
 
 	/**
 	 * funzione che nasconde il modulo per l opzione di accesso
 	 * Viene richiamato quando un untente vuole accedere con email e password oppure 
 	 * vuole creare un account
 	 */
+	const activeBlur = () => setBackBlurred(true);
+	const deactiveBlur = () => setBackBlurred(false);
 
-	function hiddenViewOptionLogin() { 
+	const hiddenViewOptionLogin = () => { 
 		setOptionLogin(false);
 		setFormCreate(false);
 		setFormResetPWD(false);
@@ -89,20 +85,20 @@ export function DoLogin({className}) {
 		setFromNavigation(true);
 	}
 	//funzione che resetta la visibilità del modulo di default
-	function setViewOptionLogin() {
+	const setViewOptionLogin = () => {
 		setOptionLogin(true);
 		setFormLogin(false);
 		setFormCreate(false);
 		setFormResetPWD(false);
 	}
 	//funzione che setta la visibilità del modulo pre la creazione di un profilo
-	function setviewCreate() {
+	const setviewCreate = () => {
 		setFormCreate(true);
 		setFormLogin(false);
 		setOptionLogin(false);
 		setFormResetPWD(false);
 	}
-	function setViewRecuperaPWD() {
+	const setViewRecuperaPWD = () =>  {
 
 		setFormCreate(false);
 		setFormLogin(false);
@@ -117,11 +113,10 @@ export function DoLogin({className}) {
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
 			transition={{ duration: 0.5 }}>	
-
-			<div className='doLogin'>
+			<div className='doLogin' >
 			
 
-				<LeftColumn/>
+				<LeftColumn backBlurred={backBlurred}/>
 				
 				{/**
 				 * Riguardo faccio in modo che solo uno dei 3 componenti alla volta venga renderizzato in base a cosa
@@ -182,7 +177,11 @@ export function DoLogin({className}) {
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
 						transition={{ duration: 0.5 }}>
-						<ResetPassword handleBack={hiddenViewOptionLogin}/>
+						<ResetPassword 
+							handleBack={hiddenViewOptionLogin}
+							BlurOn={activeBlur}
+							BlurOff={deactiveBlur}
+							backBlurred={backBlurred}/>
 
 					</motion.div>
 				}

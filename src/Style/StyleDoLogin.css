@@ -1,45 +1,15 @@
-/*
-.doLogin {
-
-	display: flex;
-	height: 100vh;
-	flex-direction: row;
-	background-color: black;
-
-}
-.logoHomeLogin {
-
-	display: flex;
-	height: 100px;
-	width: 100px;
-	margin-top: 250px;
-	margin-left: 150px;
-}
-.divLogoImage {
-	display: flex;
-	flex-direction: row;
-}
-#h2_1 {
-	display: flex;
-	color: #9b2be6	;
-	margin-top: 285px;
-	margin-left: 150px;
-}
-.divLoginOption {
-
-	border-radius: 5px;
-	width: 300px;
-	margin: 250px;
-
-	background-color: white;
-
-}*/
-/* StyleDoLogin.css */
 .doLogin {
 	display: flex;
 	height: 100vh; 
+	
 }
-  
+/*Aggiungo questa regola che si riferisce alla classe che aggiungo 
+(per ora solo)al componente che sta sotto la visualizzazione del popup 
+*/
+#blur-effect {
+	filter: blur(8px);
+	transition: all 0.2s ease;
+}
 .logoHomeLogin {
 
 	height: 150px;
