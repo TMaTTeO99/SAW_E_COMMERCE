@@ -1,6 +1,7 @@
 import back from '../Images/back.png';
 import '../Style/TempForm.css';
 import { auth } from './LoginConfig';
+import { useNavigate } from 'react-router-dom';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { TestPopUp } from './TestPopUp';
 import { useState } from 'react';
@@ -8,7 +9,7 @@ import { useState } from 'react';
 export function ResetPassword({handleBack, BlurOn, BlurOff, backBlurred}) {
 
 	const [confirmEmail, setConfirmEmail] = useState(false);//uso uno stato per visualizzare il pop-up 
-
+	const navigate = useNavigate();
 	const resetPopUp = () => {//handler per chiudere la visualizzazione del pop-up
 		
 		BlurOff();
@@ -31,7 +32,8 @@ export function ResetPassword({handleBack, BlurOn, BlurOff, backBlurred}) {
 			setConfirmEmail(true);
 		})
 		.catch((error) => {
-			alert(error.code);
+			navigate('Error_Reset');
+			
 		});
 		
 			

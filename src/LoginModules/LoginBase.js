@@ -2,6 +2,7 @@ import email from '../Images/email.png';
 import google from '../Images/google.png';
 import { Link} from 'react-router-dom'; 
 import logo from '../Images/logo1.png';
+import { useEffect, useState} from 'react';
 
 export function RightColumn({GoogleHandler, EmailPasswordhandler, ViewCreateAccount, CheckBack}) {
 
@@ -30,13 +31,12 @@ export function RightColumn({GoogleHandler, EmailPasswordhandler, ViewCreateAcco
 					</div>		
 					<div className='Login_class_2' onClick={EmailPasswordhandler}>
 						<img src={email} className='Link_' />
-						<h3 className='h3'>Accedi con email e password</h3>
+						<h3 className='h3'>Email e password</h3>
 					</div>						
 				</div>
-			</div>
-			<div className='extraOptions'>
 				<Link id='create' onClick={setViewFromDefult}>Crea un account</Link>
 			</div>
+			
 
 		</div>
 
@@ -48,10 +48,41 @@ export function RightColumn({GoogleHandler, EmailPasswordhandler, ViewCreateAcco
 //modulo per renderizzare la parte sinistra della schermata
 export function LeftColumn({backBlurred}) {
 	
+	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+	useEffect(() => {
+		const handleResize = () => {
+		  setWindowWidth(window.innerWidth);
+		};
+	
+		window.addEventListener('resize', handleResize);
+	
+		// Pulizia dell'evento quando il componente viene smontato
+		return () => {
+		  window.removeEventListener('resize', handleResize);
+		};
+	}, []);
+	const soglia = 793;
 	return (
-		<div className='divLogoImage' id={backBlurred ? 'blur-effect': 'null_ID'}>
-			<img className='logoHomeLogin' src={logo} alt='MyEcommerce'/>
-			<h2 id='h2_1'>MY_E_COMMERCE</h2>
-		</div>
+		<>
+		{windowWidth > soglia ? 
+			
+			(<div className='divLogoImage' id={backBlurred ? 'blur-effect': 'null_ID'}>
+				<div className='DivContainerLeftColumn'>
+					<img className='logoHomeLogin' src={logo} alt='MyEcommerce'/>
+					<h2 id='h2_1'>MY_E_COMMERCE</h2>
+				</div>
+			</div>
+			):
+			(
+				<div className='divLogoImage' id={backBlurred ? 'blur-effect': 'null_ID'}>
+					<img className='logoHomeLogin' src={logo} alt='MyEcommerce'/>
+						<h2 id='h2_1'>MY_E_COMMERCE</h2>
+				</div>
+			)
+		
+		
+		}
+		</>
 	);
 }

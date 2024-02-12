@@ -25,8 +25,7 @@ export function CreateAccount({handleBack}){
 			navigate('/test');
 		})
 		.catch((error) => {
-			alert(error);
-			alert(error.code);
+			navigate('/Error_Create');
 		});
 	};
 	return (

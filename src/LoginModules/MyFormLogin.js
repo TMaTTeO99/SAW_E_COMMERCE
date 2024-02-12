@@ -28,8 +28,12 @@ export function MyFormLogin({handleBack, ViewCreateAccount, ViewResetPassword}) 
 			navigate('/test');
 		})
 		.catch((error) => {
-			alert(error);
-			alert(error.code);
+
+			/**
+			 * Caso in cui il log-in ha fallito faccio visualizzare all'utente un modulo di errore
+			 */
+			navigate('/Error_Login');//rediriggo l utente verso il modulo di errore
+			
 		});
 	};
 

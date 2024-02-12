@@ -63,7 +63,11 @@ export function DoLogin({className}) {
 			navigate(rederict); // TODO: per ora solo modulo di test, da modificare.
 
 		}).catch((errore) => {
-			setdataLogin({});// TODO: devo gestire correttamente l errore
+			/**
+			 * Caso in cui il log-in ha fallito faccio visualizzare all'utente un modulo di errore
+			 */
+			navigate('/Error_Login');
+			setdataLogin({});// Setto il contesto del login con  un oggetto vuoto 
 		});
 
 	}

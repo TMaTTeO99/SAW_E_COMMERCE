@@ -1,85 +1,209 @@
-.doLogin {
-	display: flex;
-	height: 100vh; 
-	
-}
-/*Aggiungo questa regola che si riferisce alla classe che aggiungo 
-(per ora solo)al componente che sta sotto la visualizzazione del popup 
+
+/*
+	regole da applicare quando la larghezza del browser 
+	non supera i 704px
 */
-#blur-effect {
-	filter: blur(8px);
-	transition: all 0.2s ease;
-}
-.logoHomeLogin {
-
-	height: 150px;
-	width: 150px;
-	margin-top: 250px;
-	margin-left: 150px;
-}
-#h2_1 {
-	display: flex;
-	color: #9b2be6	;
-	margin-top: 310px;
-	margin-left: 130px;
-}
-#h2_2 {
-	margin-left: 180px;
-}
-.divLogoImage {
-	display: flex;
-	background-color: black; 
-	color: #9b2be6; 
-	padding: 20px; 
-	width: 65%; 
-	box-sizing: border-box;
-}
-  
-.divLoginOption {
+@media screen and (max-width: 793px) {
 	
-	display: flex;
-	flex-direction: column;
-	background-color: white; 
-	padding: 10px; 
-	width: 35%; 	 
-}
 
-.Login_class_1, .Login_class_2
-{
-	display: flex;
-	flex-direction: row;
-	cursor: pointer;
-	background-color: #9b2be6; 
-	padding: 5px;
-	border-radius: 15px;
-}
-.h3 {
-	padding: 5px;
-	margin-left: 30px;
-}
-.Link_ {
-	padding: 10px;
-	height: 50px;
-	width: 50px;
-}
-.Login_class_2 {
-	margin-top: 10px;
-}
-
-
-.containerLoginType {
+	.doLogin {
+		display: flex;
+		flex-direction: row;
+	}
+	/*Aggiungo questa regola che si riferisce alla classe che aggiungo 
+	(per ora solo)al componente che sta sotto la visualizzazione del popup 
+	*/
+	#blur-effect {
+		filter: blur(8px);
+		transition: all 0.2s ease;
+	}
+	.logoHomeLogin {
 	
-	display: flex;
-	flex-direction: column;
-	margin-top: 130px;
-}
-#ContainerLogDiv {
+		display: flex;
+		justify-content: center;
+		height: 10%;
+		width: 40%;
+	}
+	#h2_1 {
+		display: flex;
+		color: #9b2be6	;
+		font-size: 60%;
+	}
 
-	display: flex;
-	margin-top: 40px;
-	flex-direction: column;
-	padding: 10px;
-	border-radius: 5px;
+	#h2_2 {
+		display: flex;
+		justify-content: center;
+
+	}
+	.divLogoImage {
+		
+		background-color: white; 
+		min-height: 100vh;
+		width: 65%; 
+	}
+	  
+	.divLoginOption {
+		
+		display: flex;
+		flex-direction: column;
+		background-color: white; 
+		padding: 10px; 
+		width: 35%; 	 
+	}
+	
+	.Login_class_1, .Login_class_2
+	{
+		display: flex;
+		flex-direction: row;
+		cursor: pointer;
+		background-color: #9b2be6; 
+		padding: 5px;
+		border-radius: 15px;
+	}
+	.h3 {
+		padding: 5px;
+		margin-left: 30px;
+	}
+	.Link_ {
+		padding: 10px;
+		height: 50px;
+		width: 50px;
+	}
+	.Login_class_2 {
+		margin-top: 10px;
+	}
+	.containerLoginType {
+		
+		display: flex;
+		flex-direction: column;
+		margin-top: 130px;
+	}
+	#ContainerLogDiv {
+	
+		display: flex;
+		margin-top: 40px;
+		flex-direction: column;
+		padding: 10px;
+		border-radius: 5px;
+	}
+
+	
+
+
 }
+
+
+
+/*
+	regole da applicare quando la larghezza del browser 
+	supera i 1015px
+*/
+@media screen and (min-width: 794px) {
+	
+	.doLogin {
+		display: flex;
+		height: auto; 
+	}
+	/*Aggiungo questa regola che si riferisce alla classe che aggiungo 
+	(per ora solo)al componente che sta sotto la visualizzazione del popup 
+	*/
+	#blur-effect {
+		filter: blur(8px);
+		transition: all 0.2s ease;
+	}
+	.DivContainerLeftColumn {
+
+		display: flex;
+		flex-direction: column;
+		margin-left: 40%;
+	}
+	.logoHomeLogin {
+		margin-left: 3%;
+		height: 150px;
+		width: 150px;
+	}
+	#h2_1 {
+		
+		font-size: 130%;
+		color: #9b2be6	;
+	}
+	#h2_2 {
+
+		display: flex;
+		justify-content: center;
+		
+	}
+	.divLogoImage {
+		
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+		justify-content: center;
+		background-color: black; 
+		color: #9b2be6; 
+		width: 65%; 
+	}
+	  
+	.divLoginOption {
+		
+		display: flex;
+	
+		flex-direction: column;
+		background-color: white; 
+		padding: 10px; 
+		width: 35%; 	 
+	}
+	
+	.Login_class_1, .Login_class_2
+	{
+		display: flex;
+		cursor: pointer;
+		background-color: #9b2be6; 
+		padding: 5px;
+		border-radius: 15px;
+		height: 40%;
+		width: 70%;
+	}
+	.Login_class_2 {
+		margin-top: 1%;
+	}
+	.Login_class_1 {
+		margin-right: 2%;
+	}
+	.h3 {
+		margin-left: 1%;
+	}
+	.Link_ {
+		margin-top: 2%;
+		padding: 10px;
+		height: 30px;
+		width: 30px;
+	}
+	.containerLoginType {
+		
+		display: flex;
+		flex-direction: column;
+		margin-top: 40%;
+
+	}
+	#ContainerLogDiv {
+	
+		display: flex;
+		justify-content: center;
+		margin-top: 10vh;
+		flex-direction: column;
+		padding:1%;
+		margin-left: 25%;
+	}
+	#create{
+		display: flex;
+		justify-content: center;
+		margin-top: 5%;
+
+	}
+
+}
+
+
   
   

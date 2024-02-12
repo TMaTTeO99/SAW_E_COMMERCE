@@ -18,7 +18,7 @@ export function Home() {
 			{/**
 			 * Header della schermata home 
 			 */}
-			<MyHeader className={'headerClass'}/>	
+			<MyHeader/>	
 		 
 			<main>
 			</main>
