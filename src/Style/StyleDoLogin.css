@@ -1,232 +1,103 @@
-
-/*
-	regole da applicare quando la larghezza del browser 
-	non supera i 704px
+.doLogin {
+	display: flex;
+	height: auto; 
+}
+/*Aggiungo questa regola che si riferisce alla classe che aggiungo 
+(per ora solo)al componente che sta sotto la visualizzazione del popup 
 */
-@media screen and (max-width: 793px) {
+#blur-effect {
+	filter: blur(8px);
+	transition: all 0.2s ease;
+}
+.DivContainerLeftColumn {
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-left: 20%;
+	margin-right: 30%;
+	padding: 10%;
+}
+.logoHomeLogin {
 	
+	height: 90px;
+	width: 90px;
+	margin-left: 15%;
+}
+#h2_1 {
+	font-size: 90%;
+	color: #9b2be6	;
+}
+#h2_2 {
 
-
-	/*Aggiungo questa regola che si riferisce alla classe che aggiungo 
-		(per ora solo)al componente che sta sotto la visualizzazione del popup 
-	*/
-	#blur-effect {
-		filter: blur(8px);
-		transition: all 0.2s ease;
-	}
-
-	.doLogin {
-		display: flex;
-		height: 100vh;
-		width: 100vw;
-		min-height: 100vh;
-
-	}
-	.divLogoImage {
-
-		background-color: black;
-		min-height: 100%;
-		width: 55%; 
-	}
-	.divLoginOption {
-		
-		display: flex;
+	display: flex;
+	justify-content: center;
+	margin-left: 10%;
+}
+.divLogoImage {
 	
-		flex-direction: column;
-		background-color: white; 
-		padding: 10px; 
-		width: 45%; 	 
-	}
-	#h2_2 {
-		display: flex;
-		justify-content: center;
-
-	}
-	.containerLoginType {
-		
-		display: flex;
-		flex-direction: column;
-		margin-top: 40%;
-
-	}
-	#ContainerLogDiv {
+	display: flex;
+	min-height: 100vh;
+	justify-content: start;
+	background-color: black; 
+	color: #9b2be6; 
+	width: 65%; 
+}
+  
+.divLoginOption {
 	
-		display: flex;
-		justify-content: center;
-		margin-top: 1%;
-		flex-direction: column;
-		padding:1%;
-		margin-left: 1%;
-	}
-	/*//////////////*/
-	.Login_class_1, .Login_class_2
-	{
-		display: flex;
-		flex-direction: column;
-		cursor: pointer;
-		background-color: #9b2be6; 
-		padding: 10%;
-		margin-left: 10%;
-		border-radius: 15px;
-		height: 40%;
-		width: 70%;
-	}
-	.Login_class_2 {
-		margin-top: 10%;
-	}
-	.Login_class_1 {
-		margin-right: 2%;
-	}
-	.Link_ {
-		margin-top: 2%;
-		padding: 10px;
-		height: 30px;
-		width: 30px;
-	}
-	.h3 {
-		font-size: 80%;
-	}
-	#create{
-		display: flex;
-		justify-content: center;
-		margin-top: 1%;
-		margin-left: 15%;
-	}
-	.logoHomeLogin {
-		display: flex;
-		height: 80px;
-		width: 80px;
-		margin-left: 15%;
-	}
-	#h2_1 {
-		
-		color: #9b2be6	;
-		font-size: 60%;
-		margin-left: 15%;
-	}
-	.DivContainerLeftColumn {
+	display: flex;
 
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		margin-top: 20%;
-		
-	}
 	
+	background-color: white; 
+	padding: 10px; 
+	width: 35%; 	 
 }
 
-
-
-/*
-	regole da applicare quando la larghezza del browser 
-	supera i 1015px
-*/
-@media screen and (min-width: 794px) {
+.Login_class_1, .Login_class_2
+{
+	display: flex;
+	cursor: pointer;
+	background-color: #9b2be6; 
+	padding: 5px;
+	border-radius: 15px;
+	height: 20%;
+	width: 70%;
+}
+.Login_class_2 {
+	margin-top: 4%;
+}
+.h3 {
+	font-size: 2%;
+	display: flex;
+}
+.Link_ {
+	margin-top: 2%;
+	padding: 10px;
+	height: 50%;
+	width: 30%;	
+}
+.containerLoginType {
 	
-	.doLogin {
-		display: flex;
-		height: auto; 
-	}
-	/*Aggiungo questa regola che si riferisce alla classe che aggiungo 
-	(per ora solo)al componente che sta sotto la visualizzazione del popup 
-	*/
-	#blur-effect {
-		filter: blur(8px);
-		transition: all 0.2s ease;
-	}
-	.DivContainerLeftColumn {
-
-		display: flex;
-		flex-direction: column;
-		margin-left: 40%;
-	}
-	.logoHomeLogin {
-		margin-left: 3%;
-		height: 150px;
-		width: 150px;
-	}
-	#h2_1 {
-		
-		font-size: 130%;
-		color: #9b2be6	;
-	}
-	#h2_2 {
-
-		display: flex;
-		justify-content: center;
-		
-	}
-	.divLogoImage {
-		
-		display: flex;
-		flex-direction: column;
-		min-height: 100vh;
-		justify-content: center;
-		background-color: black; 
-		color: #9b2be6; 
-		width: 65%; 
-	}
-	  
-	.divLoginOption {
-		
-		display: flex;
 	
-		flex-direction: column;
-		background-color: white; 
-		padding: 10px; 
-		width: 35%; 	 
-	}
-	
-	.Login_class_1, .Login_class_2
-	{
-		display: flex;
-		cursor: pointer;
-		background-color: #9b2be6; 
-		padding: 5px;
-		border-radius: 15px;
-		height: 40%;
-		width: 70%;
-	}
-	.Login_class_2 {
-		margin-top: 1%;
-	}
-	.Login_class_1 {
-		margin-right: 2%;
-	}
-	.h3 {
-		margin-left: 1%;
-	}
-	.Link_ {
-		margin-top: 2%;
-		padding: 10px;
-		height: 30px;
-		width: 30px;
-	}
-	.containerLoginType {
-		
-		display: flex;
-		flex-direction: column;
-		margin-top: 40%;
-
-	}
-	#ContainerLogDiv {
-	
-		display: flex;
-		justify-content: center;
-		margin-top: 10vh;
-		flex-direction: column;
-		padding:1%;
-		margin-left: 25%;
-	}
-	#create{
-		display: flex;
-		justify-content: center;
-		margin-top: 5%;
-
-	}
+	flex-direction: column;
+	justify-content: center;
+	margin-top: 40vh;
+	margin-left: 25%;
 
 }
+#ContainerLogDiv {
 
+	display: flex;
+	justify-content: center;
+	margin-top: 10vh;
+	flex-direction: column;
+	padding:1%;
+	margin-left: 25%;
+}
+#create{
+	display: flex;
+	justify-content: center;
+	margin-top: 5%;
 
-  
-  
+}
