@@ -76,8 +76,10 @@ export function LeftColumn({backBlurred}) {
 			):
 			(
 				<div className='divLogoImage' id={backBlurred ? 'blur-effect': 'null_ID'}>
-					<img className='logoHomeLogin' src={logo} alt='MyEcommerce'/>
+					<div className='DivContainerLeftColumn'>
+						<img className='logoHomeLogin' src={logo} alt='MyEcommerce'/>
 						<h2 id='h2_1'>MY_E_COMMERCE</h2>
+					</div>
 				</div>
 			)
 		

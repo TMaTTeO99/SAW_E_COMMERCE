@@ -6,90 +6,113 @@
 @media screen and (max-width: 793px) {
 	
 
-	.doLogin {
-		display: flex;
-		flex-direction: row;
-	}
+
 	/*Aggiungo questa regola che si riferisce alla classe che aggiungo 
-	(per ora solo)al componente che sta sotto la visualizzazione del popup 
+		(per ora solo)al componente che sta sotto la visualizzazione del popup 
 	*/
 	#blur-effect {
 		filter: blur(8px);
 		transition: all 0.2s ease;
 	}
-	.logoHomeLogin {
-	
-		display: flex;
-		justify-content: center;
-		height: 10%;
-		width: 40%;
-	}
-	#h2_1 {
-		display: flex;
-		color: #9b2be6	;
-		font-size: 60%;
-	}
 
+	.doLogin {
+		display: flex;
+		height: 100vh;
+		width: 100vw;
+		min-height: 100vh;
+
+	}
+	.divLogoImage {
+
+		background-color: black;
+		min-height: 100%;
+		width: 55%; 
+	}
+	.divLoginOption {
+		
+		display: flex;
+	
+		flex-direction: column;
+		background-color: white; 
+		padding: 10px; 
+		width: 45%; 	 
+	}
 	#h2_2 {
 		display: flex;
 		justify-content: center;
 
 	}
-	.divLogoImage {
-		
-		background-color: white; 
-		min-height: 100vh;
-		width: 65%; 
-	}
-	  
-	.divLoginOption {
-		
-		display: flex;
-		flex-direction: column;
-		background-color: white; 
-		padding: 10px; 
-		width: 35%; 	 
-	}
-	
-	.Login_class_1, .Login_class_2
-	{
-		display: flex;
-		flex-direction: row;
-		cursor: pointer;
-		background-color: #9b2be6; 
-		padding: 5px;
-		border-radius: 15px;
-	}
-	.h3 {
-		padding: 5px;
-		margin-left: 30px;
-	}
-	.Link_ {
-		padding: 10px;
-		height: 50px;
-		width: 50px;
-	}
-	.Login_class_2 {
-		margin-top: 10px;
-	}
 	.containerLoginType {
 		
 		display: flex;
 		flex-direction: column;
-		margin-top: 130px;
+		margin-top: 40%;
+
 	}
 	#ContainerLogDiv {
 	
 		display: flex;
-		margin-top: 40px;
+		justify-content: center;
+		margin-top: 1%;
 		flex-direction: column;
-		padding: 10px;
-		border-radius: 5px;
+		padding:1%;
+		margin-left: 1%;
 	}
+	/*//////////////*/
+	.Login_class_1, .Login_class_2
+	{
+		display: flex;
+		flex-direction: column;
+		cursor: pointer;
+		background-color: #9b2be6; 
+		padding: 10%;
+		margin-left: 10%;
+		border-radius: 15px;
+		height: 40%;
+		width: 70%;
+	}
+	.Login_class_2 {
+		margin-top: 10%;
+	}
+	.Login_class_1 {
+		margin-right: 2%;
+	}
+	.Link_ {
+		margin-top: 2%;
+		padding: 10px;
+		height: 30px;
+		width: 30px;
+	}
+	.h3 {
+		font-size: 80%;
+	}
+	#create{
+		display: flex;
+		justify-content: center;
+		margin-top: 1%;
+		margin-left: 15%;
+	}
+	.logoHomeLogin {
+		display: flex;
+		height: 80px;
+		width: 80px;
+		margin-left: 15%;
+	}
+	#h2_1 {
+		
+		color: #9b2be6	;
+		font-size: 60%;
+		margin-left: 15%;
+	}
+	.DivContainerLeftColumn {
 
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		margin-top: 20%;
+		
+	}
 	
-
-
 }
 
 
