@@ -1,5 +1,5 @@
 #divBack button {
-
+	display: flex;
 	padding: 10px 20px; 
 	background-color: transparent;
 	color: black; 
@@ -24,7 +24,6 @@
 	margin-top: 10px;
 	margin-left: 5px;
 }
-
 #divBack button:hover , #backID:hover{
 	color: #9b2be6; 
 }

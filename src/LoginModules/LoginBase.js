@@ -1,9 +1,16 @@
 import email from '../Images/email.png';
+import back from '../Images/back.png';
 import google from '../Images/google.png';
-import { Link} from 'react-router-dom'; 
 import logo from '../Images/logo1.png';
+import '../Style/Back.css';
+import { Link} from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 
 export function RightColumn({GoogleHandler, EmailPasswordhandler, ViewCreateAccount, CheckBack}) {
+
+	const navigate = useNavigate();
+	const handleBack = () => navigate('/');
+
 
 	/**
 	 * Funzione che viene richiamata quando un utente vuole creare un profilo
@@ -18,9 +25,17 @@ export function RightColumn({GoogleHandler, EmailPasswordhandler, ViewCreateAcco
 
 	return (
 
+		<>
+			<div id='divBack'>
+				<img src={back} id='backID' onClick={handleBack}/>
+				<button onClick={handleBack}> BACK</button>
+			</div>
+		
 		<div className='divLoginOption'>
 
 			<div className='containerLoginType' >
+
+
 				<h2 id='h2_2'>LOG-IN</h2>
 
 				<div id='ContainerLogDiv'>		
@@ -36,7 +51,7 @@ export function RightColumn({GoogleHandler, EmailPasswordhandler, ViewCreateAcco
 			
 
 		</div>
-
+		</>
 	);
 
 }

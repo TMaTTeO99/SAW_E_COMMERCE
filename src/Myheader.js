@@ -33,7 +33,7 @@ export function MyHeader() {
 
 	function onClicckHandlerProfile() {
 		//qui devo navigare in un componente per vedere le info sul profilo
-		//navigate('/DoLogin');
+		navigate('/DoLogin');
 	}
 
 	const soglia = 704;
