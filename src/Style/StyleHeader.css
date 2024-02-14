@@ -146,6 +146,7 @@
 
 	.headerClass 
 	{	
+		
 		width: auto;
 		display: flex;
 		align-items: center;
@@ -153,6 +154,7 @@
 		flex-direction: row;
 		background-color: #000000;
 		height:50px;
+		
 	}
 	.logoHome 
 	{

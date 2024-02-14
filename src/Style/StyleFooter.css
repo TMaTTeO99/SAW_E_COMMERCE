@@ -1,0 +1,21 @@
+footer {
+	display: flex;
+	flex-direction: column;
+	background-color: rgb(220, 199, 248);
+	color: #fff;
+	text-align: center;
+	padding: 20px;
+}
+
+/* Stile per i link nel footer */
+footer a {
+	color: #fff;
+	text-decoration: none;
+	margin: 0 10px;
+}
+
+/* Centra il footer orizzontalmente */
+footer {
+	display: flex;
+	justify-content: center;
+}
