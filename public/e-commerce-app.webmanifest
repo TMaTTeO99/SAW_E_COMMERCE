@@ -2,16 +2,18 @@
 
 	"name" : "e-commerce-app",
 	"short_name" : "MyApp",
-	"display" : "browser",
+	"display" : "standalone",
 	"background_color" : "black",
+	"them_color" : "#9b2be6",
 	"start_url" : "/",
 	"scope" : "/",
 	"icons" : [
 		
 		{
 			"src" : "./Icons/logo1.png",
-			"sizes" : "128x128",
+			"sizes" : "144x144",
 			"type" : "image/png"
+			
 		},
 		{
 			"src" : "./Icons/logo1_p.png",

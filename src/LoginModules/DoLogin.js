@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import {auth} from "./LoginConfig";
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import {LoginContext} from '../LoginContext';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import {useNavigate } from 'react-router-dom';
 import {MyFormLogin} from './MyFormLogin';
 import {CreateAccount} from './CreateAccount';
@@ -17,6 +17,7 @@ import { ResetPassword } from './ResetPassword';
 export function DoLogin({className}) {
 
 
+	const [online, setOnline] = useState(navigator.onLine);
 
 	const [backBlurred, setBackBlurred] = useState(false);//gestisco l attivazione della regola css per rendere lo sfondo sfocato 
 
@@ -44,31 +45,56 @@ export function DoLogin({className}) {
 	 * uso google come provider per l autenticazione
 	 */
 	const provider = new GoogleAuthProvider();
-
 	provider.addScope('profile');
 	
+	useEffect(() => {
+		const updateOnlineStatus = () => {
+		  setOnline(navigator.onLine);
+		};
+	
+		window.addEventListener('online', updateOnlineStatus);
+		window.addEventListener('offline', updateOnlineStatus);
+	
+		return () => {
+		  window.removeEventListener('online', updateOnlineStatus);
+		  window.removeEventListener('offline', updateOnlineStatus);
+		};
+	  }, []);
+
+
 	//funzione per l autenticazione con google provider 
 	function GoogleHandler() {	
 	
 		
 		//effettuo il login tramite Oauth2
-		signInWithPopup(auth, provider)
-		.then((result) => {
+		
+		if(online) {
 
-			//in caso si duccesso salvo nel contesto le info dell utente per poi poterle usare altrove
-			//salvo i dati anche nello storage del browser per poter recuperare le info in caso di ricarica 
-			//della pagina
-			localStorage.setItem("loginData", JSON.stringify(result));
-			setdataLogin({...result});
-			navigate(rederict); // TODO: per ora solo modulo di test, da modificare.
+			signInWithPopup(auth, provider)
+			.then((result) => {
 
-		}).catch((errore) => {
-			/**
-			 * Caso in cui il log-in ha fallito faccio visualizzare all'utente un modulo di errore
-			 */
+				//in caso si duccesso salvo nel contesto le info dell utente per poi poterle usare altrove
+				//salvo i dati anche nello storage del browser per poter recuperare le info in caso di ricarica 
+				//della pagina
+				localStorage.setItem("loginData", JSON.stringify(result));
+				setdataLogin({...result});
+				navigate(rederict); // TODO: per ora solo modulo di test, da modificare.
+
+			}).catch((errore) => {
+				/**
+				 * Caso in cui il log-in ha fallito faccio visualizzare all'utente un modulo di errore
+				 */
+				navigate('/Error_Login');
+				setdataLogin({});// Setto il contesto del login con  un oggetto vuoto 
+			});
+
+		}
+		else {
 			navigate('/Error_Login');
-			setdataLogin({});// Setto il contesto del login con  un oggetto vuoto 
-		});
+			setdataLogin({});
+		} 
+
+
 
 	}
 	
