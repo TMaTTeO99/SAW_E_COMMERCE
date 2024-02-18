@@ -5,7 +5,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import {LoginContext} from '../LoginContext';
 import {auth} from "./LoginConfig";
 import back from '../Images/back.png';
-
+import {adminEmail} from './LoginConfig';
 
 export function MyFormLogin({handleBack, ViewCreateAccount, ViewResetPassword}) {
 
@@ -25,13 +25,21 @@ export function MyFormLogin({handleBack, ViewCreateAccount, ViewResetPassword}) 
 			//della pagina
 			localStorage.setItem("loginData", JSON.stringify(userCredential));
 			setdataLogin(userCredential);
-			navigate('/test');
+
+			if(email === adminEmail) {
+				navigate('/Admin');
+			} 
+			else {
+				navigate('/test');
+			}// TODO: per ora solo modulo di test, da modificare.
+
 		})
 		.catch((error) => {
 
 			/**
 			 * Caso in cui il log-in ha fallito faccio visualizzare all'utente un modulo di errore
 			 */
+			//qui in base all errore devo visualizzare un modulo differente
 			navigate('/Error_Login');//rediriggo l utente verso il modulo di errore
 			
 		});

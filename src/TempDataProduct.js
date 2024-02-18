@@ -4,34 +4,42 @@ export const catalogo = {
 		
 		pantaloni : [
 			{
+				name: 'pt1.jpeg' ,
 				url: 'Catalogo/IMG/pt1.jpeg',
 				prezzo : '30€'
 			},
 			{
+				name: 'pt2.jpeg',
 				url: 'Catalogo/IMG/pt2.jpeg',
 				prezzo : '35€'
 			},
 			{
+				name: 'pt3.jpeg',
 				url : 'Catalogo/IMG/pt3.jpeg',
 				prezzo : '30€'
 			},
 			{
+				name: 'pt4.jpeg',
 				url : 'Catalogo/IMG/pt4.jpeg',
 				prezzo : '30€'
 			},
 			{
+				name: 'pt5.jpeg',
 				url : 'Catalogo/IMG/pt5.jpeg',
 				prezzo : '30€'
 			},
 			{
+				name: 'pt6.jpeg',
 				url : 'Catalogo/IMG/pt6.jpeg',
 				prezzo : '30€'
 			},
 			{
+				name: 'pt7.jpeg',
 				url : 'Catalogo/IMG/pt7.jpeg',
 				prezzo : '30€'
 			},
 			{
+				name: 'pt8.jpeg',
 				url : 'Catalogo/IMG/pt8.jpeg',
 				prezzo : '30€'
 			},

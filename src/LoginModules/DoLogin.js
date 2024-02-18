@@ -3,21 +3,21 @@ import '../Style/TempForm.css';
 
 import { motion } from 'framer-motion';
 import {auth} from "./LoginConfig";
-import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import {LoginContext} from '../LoginContext';
 import { useContext, useState, useEffect } from 'react';
 import {useNavigate } from 'react-router-dom';
 import {MyFormLogin} from './MyFormLogin';
 import {CreateAccount} from './CreateAccount';
 import {LeftColumn, RightColumn} from './LoginBase';
-import { ResetPassword } from './ResetPassword';
+import {ResetPassword} from './ResetPassword';
+import {adminEmail} from './LoginConfig';
 
 
 
 export function DoLogin({className}) {
 
 
-	const [online, setOnline] = useState(navigator.onLine);
+	//const [online, setOnline] = useState(navigator.onLine);
 
 	const [backBlurred, setBackBlurred] = useState(false);//gestisco l attivazione della regola css per rendere lo sfondo sfocato 
 
@@ -31,8 +31,8 @@ export function DoLogin({className}) {
 
 	const [fromNavigation, setFromNavigation] = useState(true);
 
-	const [optionLogin, setOptionLogin] = useState(true);
-	const [formLogin, setFormLogin] = useState(false);
+	//const [optionLogin, setOptionLogin] = useState(true);
+	const [formLogin, setFormLogin] = useState(true);
 	const [formCreate, setFormCreate] = useState(false);
 	const [formResetPWD, setFormResetPWD] = useState(false);
 	const [dataLogin, setdataLogin] = useContext(LoginContext);
@@ -41,64 +41,7 @@ export function DoLogin({className}) {
 	const navigate = useNavigate();
 	const rederict = '/test';
 
-	/**
-	 * uso google come provider per l autenticazione
-	 */
-	const provider = new GoogleAuthProvider();
-	provider.addScope('profile');
 	
-	useEffect(() => {
-		const updateOnlineStatus = () => {
-		  setOnline(navigator.onLine);
-		};
-	
-		window.addEventListener('online', updateOnlineStatus);
-		window.addEventListener('offline', updateOnlineStatus);
-	
-		return () => {
-		  window.removeEventListener('online', updateOnlineStatus);
-		  window.removeEventListener('offline', updateOnlineStatus);
-		};
-	  }, []);
-
-
-	//funzione per l autenticazione con google provider 
-	function GoogleHandler() {	
-	
-		
-		//effettuo il login tramite Oauth2
-		
-		if(online) {
-
-			signInWithPopup(auth, provider)
-			.then((result) => {
-
-				//in caso si duccesso salvo nel contesto le info dell utente per poi poterle usare altrove
-				//salvo i dati anche nello storage del browser per poter recuperare le info in caso di ricarica 
-				//della pagina
-				localStorage.setItem("loginData", JSON.stringify(result));
-				setdataLogin({...result});
-				navigate(rederict); // TODO: per ora solo modulo di test, da modificare.
-
-			}).catch((errore) => {
-				/**
-				 * Caso in cui il log-in ha fallito faccio visualizzare all'utente un modulo di errore
-				 */
-				navigate('/Error_Login');
-				setdataLogin({});// Setto il contesto del login con  un oggetto vuoto 
-			});
-
-		}
-		else {
-			navigate('/Error_Login');
-			setdataLogin({});
-		} 
-
-
-
-	}
-	
-
 	/**
 	 * funzione che nasconde il modulo per l opzione di accesso
 	 * Viene richiamato quando un untente vuole accedere con email e password oppure 
@@ -108,31 +51,26 @@ export function DoLogin({className}) {
 	const deactiveBlur = () => setBackBlurred(false);
 
 	const hiddenViewOptionLogin = () => { 
-		setOptionLogin(false);
+		//setOptionLogin(false);
 		setFormCreate(false);
 		setFormResetPWD(false);
 		setFormLogin(true);
 		setFromNavigation(true);
 	}
 	//funzione che resetta la visibilità del modulo di default
-	const setViewOptionLogin = () => {
-		setOptionLogin(true);
-		setFormLogin(false);
-		setFormCreate(false);
-		setFormResetPWD(false);
-	}
+	const setViewOptionLogin = () => navigate('/');
 	//funzione che setta la visibilità del modulo pre la creazione di un profilo
 	const setviewCreate = () => {
 		setFormCreate(true);
 		setFormLogin(false);
-		setOptionLogin(false);
+		//setOptionLogin(false);
 		setFormResetPWD(false);
 	}
 	const setViewRecuperaPWD = () =>  {
 
 		setFormCreate(false);
 		setFormLogin(false);
-		setOptionLogin(false);
+		//setOptionLogin(false);
 		setFormResetPWD(true);
 
 	}
@@ -148,22 +86,7 @@ export function DoLogin({className}) {
 
 				<LeftColumn backBlurred={backBlurred}/>
 				
-				{/**
-				 * Riguardo faccio in modo che solo uno dei 3 componenti alla volta venga renderizzato in base a cosa
-				 * fa l utente, di default sicccome viene renderizzato il modulo che fa scegliere con quale metodo ci si
-				 * vuole autenticare
-				 */}
-				{optionLogin && 
-					<RightColumn 
-						GoogleHandler={GoogleHandler}
-						EmailPasswordhandler={hiddenViewOptionLogin}
-						ViewCreateAccount={setviewCreate}
-						CheckBack={setFromNavigation}
-					/>
-				}
-				{/**
-				 * Caso in cui l utente vuole accedere con email e password
-				 */} 
+			
 
 				{formLogin && 
 					<motion.div

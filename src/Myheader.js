@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState} from 'react';
 
+//import temporanei quelli giu
+import {auth} from "./LoginModules/LoginConfig";
+import { signOut } from 'firebase/auth';
 
 export function MyHeader() {
 
@@ -30,6 +33,14 @@ export function MyHeader() {
 		};
 	}, []);
 
+	/**
+	 * Funzione di logout temporanea
+	 */
+	function doLogout() {
+		signOut(auth).
+		then(() => console.log("logout fatto"))
+		.catch((error) => console.log("logout fallito"));
+	}
 
 	function onClicckHandlerProfile() {
 		//qui devo navigare in un componente per vedere le info sul profilo
@@ -43,6 +54,11 @@ export function MyHeader() {
 		{ windowWidth > soglia ? 
 			(<div className='headerClass'>
 				
+				{/**
+				 * Bottone di test per il logout
+				 */}
+				 <button onClick={doLogout}>LOGOUT</button>
+
 				<img className='logoHome' src={logo} alt='MyEcommerce'/>		
 				<div id='sezioniID'>
 							

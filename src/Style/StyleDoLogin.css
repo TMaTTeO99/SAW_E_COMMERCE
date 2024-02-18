@@ -38,7 +38,7 @@
 	
 	display: flex;
 	min-height: 100vh;
-	justify-content: start;
+	justify-content: flex-start; /*prima era solo start*/
 	background-color: black; 
 	color: #9b2be6; 
 	width: 65%; 

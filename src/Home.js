@@ -4,6 +4,9 @@ import './Style/StyleProducts.css';
 import './Style/StyleFooter.css';
 import { MyHeader } from './Myheader';
 import { catalogo } from './TempDataProduct'; 
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import {app} from './LoginModules/LoginConfig';
+import { useState } from 'react';
 
 function ProductPreview({product, image}) {
 	return (
@@ -15,9 +18,15 @@ function ProductPreview({product, image}) {
 
 export function Home() {
 
+
+	const [urlImage, setUrlImage] = useState(null);
+	const [flagURL, setFlagUrl] = useState(false);
+
 	const speed = 4;
 	const pantaloniUomo = catalogo.uomo.pantaloni;
 	const scrollContainer = useRef(null);//per evitare il re-rendering e poter effettuare lo scroll della lista
+	const storage = getStorage(app);
+
 
 	const scroll = (scrollOffset) => {//funzione usata per navigare la lista
 
@@ -50,6 +59,8 @@ export function Home() {
 	}, []);
 
 	return (
+
+		
 		<div id="Home_id">
 
 			<MyHeader/>	
@@ -58,8 +69,38 @@ export function Home() {
 
 				<div className="product-list" ref={scrollContainer}>
 					{pantaloniUomo.map((product, index) => {
-						var path = process.env.PUBLIC_URL + "/" + product.url;
-						return <ProductPreview key={index} product={product} image={path} />
+
+
+						/**
+						 * Qui dovro recuperare le immagini che ho su firebaseStorage
+						 */
+						
+						var imageRef = ref(storage, "Gatto.png");
+						
+						getDownloadURL(imageRef)
+						.then((url) => {
+							console.log("la url: " + url);
+							setUrlImage(url);
+							setFlagUrl(true);
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+
+						if(flagURL){
+							return <ProductPreview key={index} product={product} image={urlImage} />
+						}
+						else {
+							return <ProductPreview key={index} product={product} image={'https://cdn3.vectorstock.com/i/1000x1000/58/87/loading-icon-load-white-background-vector-27845887.jpg'} />
+						}
+						
+
+						//var path = process.env.PUBLIC_URL + "/" + product.url;
+						//return <ProductPreview key={index} product={product} image={path} />
+
+
+
+
 					})}
 				</div>
 				
