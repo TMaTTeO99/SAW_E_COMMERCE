@@ -105,8 +105,8 @@ self.addEventListener('fetch', event => {
 
   //non faccio cacheing delle cross origin in modo da essere eseguite normalmente
   const requestUrl = new URL(event.request.url);
- 
-  if (requestUrl.pathname.startsWith('/img/products')) {
+
+  if (requestUrl.pathname.startsWith('/v0/b/')) {
     event.respondWith(
       caches.match(event.request)
         .then(cachedResponse => {
@@ -119,6 +119,7 @@ self.addEventListener('fetch', event => {
           return fetch(event.request).then(response =>
             caches.open(CACHE_NAME).then(cache => {
               cache.put(event.request, response.clone());
+
               return response;
             })
           );
