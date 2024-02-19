@@ -1,13 +1,7 @@
-
 const CACHE_NAME = 'my-cache-v1';
 
-//dati dda cacheare
+
 const urlsToCache = [
-  /**
-   * Qui devo aggiungere le URL delle immagini che recupero da 
-   * firebase storage dopo averle caricate, anche se 
-   * credo che non c'è bisogno perche a regola 
-   */
   '/',
   '/index.html',
 ];
@@ -17,7 +11,7 @@ function cleanDataType(dataType) {
 
   return dataType.split(" ")[0].replace(";", "");
 
-}
+}	
 
 function selectDataReturn(dataType, response) {
   
@@ -133,7 +127,7 @@ self.addEventListener('fetch', event => {
   }
   else if (isCrossOrigin(requestUrl) || requestUrl.pathname === '/favicon.ico' || requestUrl.pathname === "/v1/accounts:signInWithPassword"
   || requestUrl.pathname === "/v1/accounts:signUp") {
-    console.log(requestUrl.pathname);
+  
     event.waitUntil(fetch(event.request));  
     return;
   }

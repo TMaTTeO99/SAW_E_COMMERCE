@@ -1,11 +1,10 @@
-
 import { useContext} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import {LoginContext} from '../LoginContext';
 import {auth} from "./LoginConfig";
 import back from '../Images/back.png';
-import {adminEmail} from './LoginConfig';
+
 
 export function MyFormLogin({handleBack, ViewCreateAccount, ViewResetPassword}) {
 
@@ -26,13 +25,9 @@ export function MyFormLogin({handleBack, ViewCreateAccount, ViewResetPassword}) 
 			localStorage.setItem("loginData", JSON.stringify(userCredential));
 			setdataLogin(userCredential);
 
-			if(email === adminEmail) {
-				navigate('/Admin');
-			} 
-			else {
-				navigate('/test');
-			}// TODO: per ora solo modulo di test, da modificare.
-
+			// TODO: per ora solo modulo di test, da modificare.
+			navigate('/test');
+			
 		})
 		.catch((error) => {
 
@@ -44,10 +39,6 @@ export function MyFormLogin({handleBack, ViewCreateAccount, ViewResetPassword}) 
 			
 		});
 	};
-
-	function onLogin(){}
-	function onForgotPassword() {}
-	function GoogleHandler(){}
 
 	return (
 
@@ -70,7 +61,7 @@ export function MyFormLogin({handleBack, ViewCreateAccount, ViewResetPassword}) 
 							
 							<div id='dive_mail'> 
 								<h3>Email</h3>
-								<input id='inEmail' type='email' name='email' required />
+								<input id='inEmail' type='email' name='email' required autoComplete='off'/>
 							</div>
 							<div id='dive_pwd'>
 								<h3>Password</h3>

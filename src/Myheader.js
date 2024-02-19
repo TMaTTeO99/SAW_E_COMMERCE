@@ -4,22 +4,27 @@ import profile from './Images/profilo.png';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState} from 'react';
+import {useContext} from 'react';
+import {LoginContext} from './LoginContext';
 
 //import temporanei quelli giu
-import {auth} from "./LoginModules/LoginConfig";
-import { signOut } from 'firebase/auth';
+//import {auth} from "./LoginModules/LoginConfig";
+//import { signOut } from 'firebase/auth';
 
-export function MyHeader() {
+export function MyHeader({textForUser}) {
 
 
 	//in questo modo posso controllare la dimensione della
 	//finestra su cui è visualizzata la pagina
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+	const [myData, setmyData] = useContext(LoginContext);
 
 	const rederict = '/test';
 	const navigate = useNavigate();
 
+	const flagLogin = Object.keys(myData).length !== 0 ? true : false;
 
+	
 	useEffect(() => {
 		const handleResize = () => {
 		  setWindowWidth(window.innerWidth);
@@ -35,17 +40,14 @@ export function MyHeader() {
 
 	/**
 	 * Funzione di logout temporanea
-	 */
-	function doLogout() {
+	 * function doLogout() {
 		signOut(auth).
 		then(() => console.log("logout fatto"))
 		.catch((error) => console.log("logout fallito"));
 	}
+	 */
 
-	function onClicckHandlerProfile() {
-		//qui devo navigare in un componente per vedere le info sul profilo
-		navigate('/DoLogin');
-	}
+	const onClicckHandlerProfile = () =>  flagLogin ? navigate('/ManageAccount') : navigate('/DoLogin');
 
 	const soglia = 704;
 	return (
@@ -56,8 +58,9 @@ export function MyHeader() {
 				
 				{/**
 				 * Bottone di test per il logout
-				 */}
+				 * 
 				 <button onClick={doLogout}>LOGOUT</button>
+				 */}
 
 				<img className='logoHome' src={logo} alt='MyEcommerce'/>		
 				<div id='sezioniID'>
@@ -82,11 +85,9 @@ export function MyHeader() {
 				 * Componenti per il login e la registrazione
 				 */}
 				<div className='DIVLogInSignUp'>
-				 	<Link className='logIn' to={'/DoLogin'} >ACCEDI</Link>
+				 	<Link className='logIn' to={flagLogin ? '/' : '/DoLogin'}>{textForUser}</Link>
 					<img className='imgProfile' src={profile} alt='profilo' onClick={onClicckHandlerProfile}/>
-					{/**
-					 * <Link className='signUp'>REGISTRAZIONE</Link>
-					 */}
+					
 				</div>
 			</div>)
 			: 

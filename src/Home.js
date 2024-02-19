@@ -1,45 +1,62 @@
-import React, { useRef, useEffect } from 'react';
 import './Style/StyleHeader.css';
 import './Style/StyleProducts.css';
 import './Style/StyleFooter.css';
+import { LoadingSpinnerList } from './LoadingSpinnerList';
+import React, { useRef, useEffect } from 'react';
 import { MyHeader } from './Myheader';
-import { catalogo } from './TempDataProduct'; 
+import {Preview} from './TempDataProduct'; 
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import {app} from './LoginModules/LoginConfig';
 import { useState } from 'react';
 
-function ProductPreview({product, image}) {
-	return (
-		<div className="product-preview">
-			<img className='imageProduct' src={image}/>
-    	</div>
-	);
-}
-
-export function Home() {
-
-
+function ProductPreview({product}) {
+	
 	const [urlImage, setUrlImage] = useState(null);
 	const [flagURL, setFlagUrl] = useState(false);
-
-	const speed = 4;
-	const pantaloniUomo = catalogo.uomo.pantaloni;
-	const scrollContainer = useRef(null);//per evitare il re-rendering e poter effettuare lo scroll della lista
 	const storage = getStorage(app);
 
+	useEffect(() => {
+		var imageRef = ref(storage, product.url);
+		
+		getDownloadURL(imageRef)
+		.then((url) => {
+			setUrlImage(url);
+			setFlagUrl(true);
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+	}, [product, storage]);
 
-	const scroll = (scrollOffset) => {//funzione usata per navigare la lista
+	if(flagURL){
+		return (
+			<div className="product-preview">
+				<img className='imageProduct' src={urlImage}/>
+			</div>
+		);
+	}
+	else {
+		return (
+			<div className="product-preview">
+				<LoadingSpinnerList/>
+			</div>
+		);
+	}
+}
 
+export function Home({textForUser}) {
+	const speed = 4;
+	const listPreview = Preview.prodotti;
+	const scrollContainer = useRef(null);
+
+	const scroll = (scrollOffset) => {
 		if (scrollContainer.current) {
-
-			scrollOffset *= speed; //aumento la dimensione dello scroll di 4 per velocizzare lo scorrimento
+			scrollOffset *= speed;
 			scrollContainer.current.scrollBy({ top: 0, left: scrollOffset, behavior: "smooth" });
-			
 		}
 	};
 
 	useEffect(() => {
-
 		const handleWheel = (e) => {
 			if (e.deltaY) {
 				e.preventDefault();
@@ -59,55 +76,17 @@ export function Home() {
 	}, []);
 
 	return (
-
-		
 		<div id="Home_id">
-
-			<MyHeader/>	
-		 
+			<MyHeader textForUser={textForUser}/>	
 			<main className='mainclassnm'>
-
 				<div className="product-list" ref={scrollContainer}>
-					{pantaloniUomo.map((product, index) => {
-
-
-						/**
-						 * Qui dovro recuperare le immagini che ho su firebaseStorage
-						 */
-						
-						var imageRef = ref(storage, "Gatto.png");
-						
-						getDownloadURL(imageRef)
-						.then((url) => {
-							console.log("la url: " + url);
-							setUrlImage(url);
-							setFlagUrl(true);
-						})
-						.catch((error) => {
-							console.log(error);
-						});
-
-						if(flagURL){
-							return <ProductPreview key={index} product={product} image={urlImage} />
-						}
-						else {
-							return <ProductPreview key={index} product={product} image={'https://cdn3.vectorstock.com/i/1000x1000/58/87/loading-icon-load-white-background-vector-27845887.jpg'} />
-						}
-						
-
-						//var path = process.env.PUBLIC_URL + "/" + product.url;
-						//return <ProductPreview key={index} product={product} image={path} />
-
-
-
-
-					})}
+					{listPreview.map((product, index) => (
+						<ProductPreview key={index} product={product} />
+					))}
 				</div>
-				
 			</main>
 			<footer>
-
-				 <p>Get connected with us on social networks:</p>
+				<p>Get connected with us on social networks:</p>
        			 <p href="#">Facebook</p>
        			 <p href="#">Twitter</p>
        			 <p href="#">Instagram</p>
@@ -117,7 +96,6 @@ export function Home() {
        			 <p>+ 01 234 567 88</p>
        			 <p>+ 01 234 567 89</p>
        		 	 <p>&copy; 2024 Copyright: MyWebsite.com</p>
-
 			</footer>
 		</div>
 	);

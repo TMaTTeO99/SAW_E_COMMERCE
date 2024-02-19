@@ -1,0 +1,63 @@
+/*
+<div className='divContainer' >
+
+	<h2 id='h2_2'>ACCOUNT</h2>
+	<div id='DivContainerOption'>		
+		<div className='recupero_class' onClick={GoogleHandler}>
+			
+		</div>		
+		<div className='logout_class' onClick={EmailPasswordhandler}>
+			
+		</div>						
+		<div className='delate_class' onClick={EmailPasswordhandler}>
+			
+		</div>
+								
+	</div>
+	
+</div>*/
+
+.divContainer{
+	display: flex;
+	flex-direction: column;
+	padding-left: 12vw;
+	margin-top: 20%;
+}
+#DivContainerOption {
+
+	font-size: 80%;
+	background-color: white;
+	margin-top: 20%;
+	padding: 20%;
+}
+.recupero_class {
+
+	padding: 10%;
+	background-color: white;
+	border-radius: 10px;
+	transition: color 0.3s ease;
+	cursor: pointer;
+}
+.logout_class {
+	
+	padding: 10%;
+	margin-top: 5%;
+	background-color: white;
+	border-radius: 10px;
+	transition: color 0.3s ease;
+	cursor: pointer;
+}
+.delate_class {
+
+	padding: 10%;
+	margin-top: 5%;
+	background-color: white;
+	border-radius: 10px;
+	transition: color 0.3s ease;
+	cursor: pointer;
+}
+.delate_class:hover , .logout_class:hover, .recupero_class:hover 
+{
+	color: #9b2be6;
+}
+
