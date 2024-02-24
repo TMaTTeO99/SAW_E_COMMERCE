@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './Style/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { getPreview } from './FetchProducts';
 import {MyProvider} from './LoginContext';
 
 
@@ -26,15 +27,17 @@ if('serviceWorker' in navigator) {
 
 }
 else {
-  //notificare all utente di cambiare browser
+  //notificare all utente di cambiare browser e fallire
 }
 
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const previewData = await getPreview(); 
+
 root.render(
   <MyProvider>
-      <App />
+      <App dataHome={previewData}/>
   </MyProvider>
   /**
     <React.StrictMode>

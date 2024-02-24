@@ -4,17 +4,18 @@ import './Style/StyleFooter.css';
 import { LoadingSpinnerList } from './LoadingSpinnerList';
 import React, { useRef, useEffect } from 'react';
 import { MyHeader } from './Myheader';
-import {Preview} from './TempDataProduct'; 
+import { getFirestore } from "firebase/firestore";
+import { collection, getDocs} from "firebase/firestore"; 
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import {app} from './LoginModules/LoginConfig';
 import { useState } from 'react';
 
-function ProductPreview({product}) {
+
+export function ProductPreview({product}) {
 	
 	const [urlImage, setUrlImage] = useState(null);
 	const [flagURL, setFlagUrl] = useState(false);
 	const storage = getStorage(app);
-
 	useEffect(() => {
 		var imageRef = ref(storage, product.url);
 		
@@ -44,9 +45,11 @@ function ProductPreview({product}) {
 	}
 }
 
-export function Home({textForUser}) {
+
+
+export function Home({textForUser, setProducts, dataPreview}) {
+	
 	const speed = 4;
-	const listPreview = Preview.prodotti;
 	const scrollContainer = useRef(null);
 
 	const scroll = (scrollOffset) => {
@@ -77,10 +80,12 @@ export function Home({textForUser}) {
 
 	return (
 		<div id="Home_id">
-			<MyHeader textForUser={textForUser}/>	
+			<MyHeader textForUser={textForUser}
+					  setProducts={setProducts}
+					  />	
 			<main className='mainclassnm'>
 				<div className="product-list" ref={scrollContainer}>
-					{listPreview.map((product, index) => (
+					{dataPreview.map((product, index) => (
 						<ProductPreview key={index} product={product} />
 					))}
 				</div>

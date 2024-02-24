@@ -20,6 +20,7 @@ export function SelectOption({handlePassword, handleDelate}) {
 		then(() => {
 			console.log("logout fatto")
 			setdataLogin({});
+			localStorage.setItem("loginData", JSON.stringify({}));
 			navigate('/');
 		})
 		.catch((error) => console.log("logout fallito: " + error));

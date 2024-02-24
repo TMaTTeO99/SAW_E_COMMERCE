@@ -8,13 +8,15 @@ import {Test} from './TestAfterLogin';
 import {DoLogin} from './LoginModules/DoLogin';
 import {LoginContext} from './LoginContext';
 import {motion} from 'framer-motion';
-import { useContext} from 'react';
-import {ManageAccount} from './ManageAccountModule/ManagerAccount'
+import { useContext, useState} from 'react';
+import {ProductSearched} from './ListProductSearched';
+import {ManageAccount} from './ManageAccountModule/ManagerAccount';
 import './Style/StyleEmailForm.css';
 
 
-export default function App() {
+export default function App({dataHome}) {
   
+  const [products, setProducts] = useState([]);
   const [myData, setmyData] = useContext(LoginContext);
   
   var text = 'ACCEDI'; //testo da settare nell header 
@@ -36,16 +38,18 @@ export default function App() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}>
-              <Home textForUser={text}/>
+              <Home textForUser={text}
+                    setProducts={setProducts}
+                    dataPreview={dataHome}
+                    />
             </motion.div>
           }/>
           
           
           <Route path="/test" element={<Test/>}/>
           <Route path="/DoLogin" element={<DoLogin/>}/>
-          
           <Route path="/ManageAccount" element={<ManageAccount/>}/>
-
+          <Route path='/ProductSearched' element={<ProductSearched searchedProducts={products}/>}/>
           <Route path="/Error_Login" element={<Error mex={LoginFailed}/>}/>
           <Route path="/Error_Reset" element={<Error mex={ResetPasswordFailed}/>}/>
           <Route path="/Error_Create" element={<Error mex={CreateFailed}/>}/>

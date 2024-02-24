@@ -6,13 +6,19 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState} from 'react';
 import {useContext} from 'react';
 import {LoginContext} from './LoginContext';
+import {upload} from './FetchProducts';
+import { fetchData } from './FetchProducts';
 
-//import temporanei quelli giu
-//import {auth} from "./LoginModules/LoginConfig";
-//import { signOut } from 'firebase/auth';
+//temp
+import {catalogo} from "./TempDataProduct";
+import { dictionary } from "./TempDataProduct";
+import { productDictionary } from "./TempDataProduct";
+import {getDictionary} from './FetchProducts';
+//temp
 
 export function MyHeader({textForUser}) {
 
+	const [inputSearchValue, setSearchValue] = useState('');
 
 	//in questo modo posso controllare la dimensione della
 	//finestra su cui è visualizzata la pagina
@@ -24,6 +30,7 @@ export function MyHeader({textForUser}) {
 
 	const flagLogin = Object.keys(myData).length !== 0 ? true : false;
 
+	
 	
 	useEffect(() => {
 		const handleResize = () => {
@@ -38,16 +45,28 @@ export function MyHeader({textForUser}) {
 		};
 	}, []);
 
-	/**
-	 * Funzione di logout temporanea
-	 * function doLogout() {
-		signOut(auth).
-		then(() => console.log("logout fatto"))
-		.catch((error) => console.log("logout fallito"));
-	}
-	 */
-
 	const onClicckHandlerProfile = () =>  flagLogin ? navigate('/ManageAccount') : navigate('/DoLogin');
+	const onSubmitSearch = async (event) => {
+
+		event.preventDefault();
+		var arrayInput = inputSearchValue.split(' ');
+		var fetchResult = await fetchData(arrayInput);
+
+		fetchResult.forEach((obj) => {
+			console.log(obj);
+		});
+		//renderizzo un componente piu tosto che un altro
+		//rispetto al valore di ritorno della fetch
+		
+
+	}
+	//temp
+	const styleObject = {
+		color: 'yellow',
+		cursor: 'pointer',
+	};
+	//temp
+
 
 	const soglia = 704;
 	return (
@@ -56,15 +75,17 @@ export function MyHeader({textForUser}) {
 		{ windowWidth > soglia ? 
 			(<div className='headerClass'>
 				
-				{/**
-				 * Bottone di test per il logout
-				 * 
-				 <button onClick={doLogout}>LOGOUT</button>
-				 */}
-
+				{/*temp */}
+					<p style={styleObject} onClick={(e) => upload()}>UPLOAD-dizionario</p>
+				{/*temp */}
+					
+				{/*temp */}
+					<p style={styleObject} onClick={(e) => getDictionary()}>_____get-dizionario</p>
+				{/*temp */}
+				
 				<img className='logoHome' src={logo} alt='MyEcommerce'/>		
 				<div id='sezioniID'>
-							
+
 					<div className='containerClothes' >
 						<Link className='clothesClass' onClick={() => navigate(rederict)}>UOMO</Link>
 					</div>
@@ -76,10 +97,12 @@ export function MyHeader({textForUser}) {
 					</div>
 				</div>
 						
-				<div id='searchDiv'>
-					<input className="searchBarIn"type="text" placeholder="Prodotti e Brand" />
-					<button className="searchBarBTN" type="button">Cerca</button>
-				</div>	
+					
+				<form onSubmit={onSubmitSearch} id='searchDiv'>
+					<input className="searchBarIn"type="text" placeholder="Prodotti e Brand" onChange={(e) => setSearchValue(e.target.value)}/>
+					<button className="searchBarBTN" type='submit' >Cerca</button>
+				</form>
+					
 				
 				{/**
 				 * Componenti per il login e la registrazione
@@ -87,7 +110,6 @@ export function MyHeader({textForUser}) {
 				<div className='DIVLogInSignUp'>
 				 	<Link className='logIn' to={flagLogin ? '/' : '/DoLogin'}>{textForUser}</Link>
 					<img className='imgProfile' src={profile} alt='profilo' onClick={onClicckHandlerProfile}/>
-					
 				</div>
 			</div>)
 			: 
@@ -118,10 +140,10 @@ export function MyHeader({textForUser}) {
 						</div>
 					</div>
 
-					<div id='searchDiv'>
-						<input className="searchBarIn"type="text" placeholder="Prodotti e Brand" />
-						<button className="searchBarBTN" type="button">Cerca</button>
-					</div>	
+					<form onSubmit={onSubmitSearch} id='searchDiv'>
+						<input className="searchBarIn"type="text" placeholder="Prodotti e Brand" onChange={(e) => setSearchValue(e.target.value)}/>
+						<button className="searchBarBTN" type='submit' >Cerca</button>
+					</form>
 				</div>	
 			)}
 		</>	
