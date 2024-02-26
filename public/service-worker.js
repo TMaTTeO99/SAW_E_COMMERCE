@@ -1,4 +1,4 @@
-/*const CACHE_NAME = 'my-cache-v1';
+const CACHE_NAME = 'my-cache-v1';
 
 const urlsToCache = [
   '/',
@@ -10,7 +10,7 @@ function cleanDataType(dataType) {
 
   return dataType.split(" ")[0].replace(";", "");
 
-}	
+}	  
 
 function selectDataReturn(dataType, response) {
   
@@ -137,4 +137,4 @@ self.addEventListener('fetch', event => {
  
   }
   
-});*/
+});

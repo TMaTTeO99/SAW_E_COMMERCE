@@ -4,31 +4,34 @@ import profile from './Images/profilo.png';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState} from 'react';
-import {useContext} from 'react';
-import {LoginContext} from './LoginContext';
+
+
 import {upload} from './FetchProducts';
 import { fetchData } from './FetchProducts';
-
+import { useContext} from 'react';
+import {LoginContext} from './LoginContext';
 //temp
 import {catalogo} from "./TempDataProduct";
 import { dictionary } from "./TempDataProduct";
 import { productDictionary } from "./TempDataProduct";
 import {getDictionary} from './FetchProducts';
+//import { getURLs } from './FetchProducts';
 //temp
 
 export function MyHeader({textForUser}) {
 
 	const [inputSearchValue, setSearchValue] = useState('');
-
+	const {datalogin, setDataLogin, inputSearch, setinputSearch} = useContext(LoginContext);
+	
 	//in questo modo posso controllare la dimensione della
 	//finestra su cui è visualizzata la pagina
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-	const [myData, setmyData] = useContext(LoginContext);
+
 
 	const rederict = '/test';
 	const navigate = useNavigate();
 
-	const flagLogin = Object.keys(myData).length !== 0 ? true : false;
+	const flagLogin = Object.keys(datalogin).length !== 0 ? true : false;
 
 	
 	
@@ -46,19 +49,14 @@ export function MyHeader({textForUser}) {
 	}, []);
 
 	const onClicckHandlerProfile = () =>  flagLogin ? navigate('/ManageAccount') : navigate('/DoLogin');
-	const onSubmitSearch = async (event) => {
+	const onSubmitSearch = /*async*/ (event) => {
 
 		event.preventDefault();
 		var arrayInput = inputSearchValue.split(' ');
-		var fetchResult = await fetchData(arrayInput);
-
-		fetchResult.forEach((obj) => {
-			console.log(obj);
-		});
-		//renderizzo un componente piu tosto che un altro
-		//rispetto al valore di ritorno della fetch
+		localStorage.setItem("searchData", JSON.stringify(arrayInput));
+		setinputSearch(arrayInput);
+		navigate('/ProductSearched');
 		
-
 	}
 	//temp
 	const styleObject = {
@@ -99,7 +97,7 @@ export function MyHeader({textForUser}) {
 						
 					
 				<form onSubmit={onSubmitSearch} id='searchDiv'>
-					<input className="searchBarIn"type="text" placeholder="Prodotti e Brand" onChange={(e) => setSearchValue(e.target.value)}/>
+					<input className="searchBarIn"type="text" placeholder="Prodotti" onChange={(e) => setSearchValue(e.target.value)}/>
 					<button className="searchBarBTN" type='submit' >Cerca</button>
 				</form>
 					
@@ -123,7 +121,7 @@ export function MyHeader({textForUser}) {
 						 * Componenti per il login e la registrazione
 						 */}
 						<div className='DIVLogInSignUp'>
-						 	<Link className='logIn' to={'/DoLogin'} >ACCEDI</Link>
+						 	<Link className='logIn' to={flagLogin ? '/' : '/DoLogin'} >{textForUser}</Link>
 							<img className='imgProfile' src={profile} alt='profilo' onClick={onClicckHandlerProfile}/>
 						</div>
 					</div>
@@ -141,7 +139,7 @@ export function MyHeader({textForUser}) {
 					</div>
 
 					<form onSubmit={onSubmitSearch} id='searchDiv'>
-						<input className="searchBarIn"type="text" placeholder="Prodotti e Brand" onChange={(e) => setSearchValue(e.target.value)}/>
+						<input className="searchBarIn"type="text" placeholder="Prodotti" onChange={(e) => setSearchValue(e.target.value)}/>
 						<button className="searchBarBTN" type='submit' >Cerca</button>
 					</form>
 				</div>	

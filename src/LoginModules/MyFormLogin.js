@@ -8,7 +8,7 @@ import back from '../Images/back.png';
 
 export function MyFormLogin({handleBack, ViewCreateAccount, ViewResetPassword}) {
 
-	const [dataLogin, setdataLogin] = useContext(LoginContext);
+	const {datalogin, setDataLogin, inputSearch, setinputSearch} = useContext(LoginContext);
 	const navigate = useNavigate();
 
 	const handleSubmit = (e) => {
@@ -23,7 +23,7 @@ export function MyFormLogin({handleBack, ViewCreateAccount, ViewResetPassword}) 
 			//salvo i dati anche nello storage del browser per poter recuperare le info in caso di ricarica 
 			//della pagina
 			localStorage.setItem("loginData", JSON.stringify(userCredential));
-			setdataLogin(userCredential);
+			setDataLogin(userCredential);
 
 			// TODO: per ora solo modulo di test, da modificare.
 			navigate('/test');

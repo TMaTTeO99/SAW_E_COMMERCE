@@ -15,19 +15,23 @@ export function ProductPreview({product}) {
 	
 	const [urlImage, setUrlImage] = useState(null);
 	const [flagURL, setFlagUrl] = useState(false);
+	
 	const storage = getStorage(app);
 	useEffect(() => {
-		var imageRef = ref(storage, product.url);
+		
+	var imageRef = ref(storage, product.url);
 		
 		getDownloadURL(imageRef)
 		.then((url) => {
+			
 			setUrlImage(url);
 			setFlagUrl(true);
 		})
 		.catch((error) => {
+			console.log("imageRef : " + imageRef);
 			console.log(error);
 		});
-	}, [product, storage]);
+	}, [product]);
 
 	if(flagURL){
 		return (
@@ -47,7 +51,7 @@ export function ProductPreview({product}) {
 
 
 
-export function Home({textForUser, setProducts, dataPreview}) {
+export function Home({textForUser, dataPreview}) {
 	
 	const speed = 4;
 	const scrollContainer = useRef(null);
@@ -81,9 +85,10 @@ export function Home({textForUser, setProducts, dataPreview}) {
 	return (
 		<div id="Home_id">
 			<MyHeader textForUser={textForUser}
-					  setProducts={setProducts}
+					
 					  />	
 			<main className='mainclassnm'>
+				
 				<div className="product-list" ref={scrollContainer}>
 					{dataPreview.map((product, index) => (
 						<ProductPreview key={index} product={product} />

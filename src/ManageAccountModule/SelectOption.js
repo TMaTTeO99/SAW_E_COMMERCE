@@ -9,7 +9,7 @@ import '../Style/StyleSelectOptionAccount.css';
 
 export function SelectOption({handlePassword, handleDelate}) {
 
-	const [dataLogin, setdataLogin] = useContext(LoginContext);
+	const {datalogin, setDataLogin, inputSearch, setinputSearch} = useContext(LoginContext);
 
 	const navigate = useNavigate();
 	const handleBack = () => navigate('/');
@@ -19,7 +19,7 @@ export function SelectOption({handlePassword, handleDelate}) {
 		signOut(auth).
 		then(() => {
 			console.log("logout fatto")
-			setdataLogin({});
+			setDataLogin({});
 			localStorage.setItem("loginData", JSON.stringify({}));
 			navigate('/');
 		})

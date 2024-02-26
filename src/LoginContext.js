@@ -14,6 +14,7 @@ const LoginContext = React.createContext();//creo il contesto
 const MyProvider = ({children}) => {
 
 	const [datalogin, setDataLogin] = useState({});
+	const [inputSearch, setinputSearch] = useState([]);
 	
 	//ad ogni avvio recupero i dati del login dal localstorage, al primo saranno vuoti
 	//se pero l utente ricarica la pagina dopo il login deve rimanere loggato
@@ -22,12 +23,18 @@ const MyProvider = ({children}) => {
 		const savedData = localStorage.getItem("loginData");
 		if(savedData) {
 			setDataLogin(JSON.parse(savedData));
-			console.log(JSON.stringify(datalogin) + "  <---- I dati setatto nel contesto");
+			//console.log(JSON.stringify(datalogin) + "  <---- I dati setatto nel contesto");
 		}
+		const savedSearchData = localStorage.getItem("searchData");
+		if(savedSearchData) {
+			setinputSearch(JSON.parse(savedSearchData));
+			console.log(JSON.stringify(savedSearchData) + "  <---- I dati setatto nel contesto");
+		}
+
 	}, []);
 	
 	return (
-		<LoginContext.Provider value={[datalogin, setDataLogin]}>
+		<LoginContext.Provider value={{datalogin, setDataLogin, inputSearch, setinputSearch}}>
 			{children}
 		</LoginContext.Provider>
 	)

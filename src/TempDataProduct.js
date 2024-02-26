@@ -21,6 +21,7 @@ export const catalogo = {
 		donna : [
 			{
 			  description : ["marrone", "cotone", "elegante", "48", "pantaloni"],	
+				genere: "donna",
 			  name : "ptd1.jpeg",
 			  url : "Catalogo/IMG/ptd1.jpeg",
 			  prezzo  : "30€",
@@ -31,6 +32,7 @@ export const catalogo = {
 			{
 			  
 			  description : ["nero", "cotone", "elegante", "48", "pantaloni"],
+			  genere: "donna",
 			  name : "ptd2.jpeg",
 			  url : "Catalogo/IMG/ptd2.jpeg",
 			  prezzo  : "35€",
@@ -42,6 +44,7 @@ export const catalogo = {
 				description : ["rosa", "poliestere", "elegante", "48", "pantaloni"],
 			  name : "ptd3.jpeg",
 			  url  : "Catalogo/IMG/ptd3.jpeg",
+			  genere: "donna",
 			  prezzo  : "30€",
 			  disp : "si",
 			  quantita : 10,
@@ -53,6 +56,7 @@ export const catalogo = {
 			{	
 				description : ["verde", "cotone", "casual", "48", "pantaloni"],
 				name : "pt1.jpeg",
+				genere: "uomo",
 				  url : "Catalogo/IMG/pt1.jpeg",
 				  prezzo : "30€",	
 				  disp : "si",
@@ -63,6 +67,7 @@ export const catalogo = {
 			{
 				description : ["grigio", "", "casual", "48", "pantaloni"],
 				name : "pt2.jpeg",
+				genere: "uomo",
 				url : "Catalogo/IMG/pt2.jpeg",
 				prezzo : "35€",
 				genere:"uomo",
@@ -75,6 +80,7 @@ export const catalogo = {
 				  name : "pt3.jpeg",
 				  url  : "Catalogo/IMG/pt3.jpeg",
 				  prezzo  : "30€",
+				  genere: "uomo",
 				  disp : "si",
 				quantita : 10,
 				genere:"uomo"
@@ -170,8 +176,8 @@ export const catalogo = {
 		donna: [
 			{
 				description : ["grigio", "", "elegante", "38", "scarpe"],
-				name : "scd1.jpag",
-				url : "Catalogo/IMG/scd1.jpag",
+				name : "scd1.jpeg",
+				url : "Catalogo/IMG/scd1.jpeg",
 				prezzo  : "80€",
 				genere:  "donna",
 				disp : "si",
@@ -180,8 +186,8 @@ export const catalogo = {
 			  },
 			  {
 				description : ["nero", "cuoio", "elegante", "39", "scarpe"],
-				name : "scd2.jpag",
-				url : "Catalogo/IMG/scd2.jpag",
+				name : "scd2.jpeg",
+				url : "Catalogo/IMG/scd2.jpeg",
 				prezzo  : "90€",
 				genere:  "donna",
 				disp : "si",
@@ -190,8 +196,8 @@ export const catalogo = {
 			  },
 			  {
 				description : ["nero", "tela", "sportivo", "40", "scarpe"],
-				name : "scd3.jpag",
-				url  : "Catalogo/IMG/scd3.jpag",
+				name : "scd3.jpeg",
+				url  : "Catalogo/IMG/scd3.jpeg",
 				prezzo  : "50€",
 				genere:  "donna",
 				disp : "si",
@@ -203,8 +209,8 @@ export const catalogo = {
 			{
 
 				description : ["bianco", "tela", "sportivo", "42", "scarpe"],
-				name : "sc1.jpag",
-				url : "Catalogo/IMG/sc1.jpag",
+				name : "sc1.jpeg",
+				url : "Catalogo/IMG/sc1.jpeg",
 				prezzo  : "80€",
 				genere:  "uomo",
 				disp : "si",
@@ -213,8 +219,8 @@ export const catalogo = {
 			  },
 			  {
 				description : ["bianco", "tela", "sportivo", "45", "scarpe"],
-				name : "sc2.jpag",
-				url : "Catalogo/IMG/sc2.jpag",
+				name : "sc2.jpeg",
+				url : "Catalogo/IMG/sc2.jpeg",
 				prezzo  : "90€",
 				genere:  "uomo",
 				disp : "si",
@@ -223,8 +229,8 @@ export const catalogo = {
 			  },
 			  {
 				description : ["bianco", "tela", "sportivo", "44", "scarpe"],
-				name : "sc3.jpag",
-				url  : "Catalogo/IMG/sc3.jpag",
+				name : "sc3.jpeg",
+				url  : "Catalogo/IMG/sc3.jpeg",
 				prezzo  : "50€",
 				genere:  "uomo",
 				disp : "si",
@@ -272,8 +278,8 @@ export const catalogo = {
 		donna: [
 			{
 				description : ["azzurro", "cotone", "casual", "S", "maglie"],
-				name : "mgd1.jpag",
-				url : "Catalogo/IMG/mgd1.jpag",
+				name : "mgd1.jpeg",
+				url : "Catalogo/IMG/mgd1.jpeg",
 				prezzo  : "30€",
 				genere:  "donna",
 				disp : "si",
@@ -282,8 +288,8 @@ export const catalogo = {
 			  },
 			  {
 				description : ["rosa", "cotone", "casual", "M", "maglie"],
-				name : "mgd2.jpag",
-				url : "Catalogo/IMG/mgd2.jpag",
+				name : "mgd2.jpeg",
+				url : "Catalogo/IMG/mgd2.jpeg",
 				prezzo  : "35€",
 				genere:  "donna",
 				disp : "si",
@@ -292,8 +298,8 @@ export const catalogo = {
 			  },
 			  {
 				description : ["grigio", "cotone", "elegante", "L", "maglie"],
-				name : "mgd3.jpag",
-				url  : "Catalogo/IMG/mgd3.jpag",
+				name : "mgd3.jpeg",
+				url  : "Catalogo/IMG/mgd3.jpeg",
 				prezzo  : "30€",
 				genere:  "donna",
 				disp : "si",
@@ -304,8 +310,8 @@ export const catalogo = {
 		uomo: [
 			{
 				description : ["nera", "cotone", "elegante", "M", "maglie"],
-				name : "mg1.jpag",
-				url : "Catalogo/IMG/mg1.jpag",
+				name : "mg1.jpeg",
+				url : "Catalogo/IMG/mg1.jpeg",
 				prezzo  : "30€",
 				genere:  "uomo",
 				disp : "si",
@@ -314,8 +320,8 @@ export const catalogo = {
 			  },
 			  {
 				description : ["marrone", "cotone", "casual", "L", "maglie"],
-				name : "mg2.jpag",
-				url : "Catalogo/IMG/mg2.jpag",
+				name : "mg2.jpeg",
+				url : "Catalogo/IMG/mg2.jpeg",
 				prezzo  : "35€",
 				genere:  "uomo",
 				disp : "si",
@@ -324,8 +330,8 @@ export const catalogo = {
 			  },
 			  {
 				description : ["bianca", "cotone", "casual", "S", "maglie"],
-				name : "mg3.jpag",
-				url  : "Catalogo/IMG/mg3.jpag",
+				name : "mg3.jpeg",
+				url  : "Catalogo/IMG/mg3.jpeg",
 				prezzo  : "30€",
 				genere:  "uomo",
 				disp : "si",
@@ -469,8 +475,8 @@ export const catalogo = {
 	  ],
 	  maglie : [
 		{
-		  name : "mg1.jpag",
-		  url : "Catalogo/IMG/mg1.jpag",
+		  name : "mg1.jpeg",
+		  url : "Catalogo/IMG/mg1.jpeg",
 		  prezzo  : "30€",
 		  taglia : "M",
 		  disp : "si",
@@ -480,8 +486,8 @@ export const catalogo = {
 		  stile : "elegante"
 		},
 		{
-		  name : "mg2.jpag",
-		  url : "Catalogo/IMG/mg2.jpag",
+		  name : "mg2.jpeg",
+		  url : "Catalogo/IMG/mg2.jpeg",
 		  prezzo  : "35€",
 		  taglia : "L",
 		  disp : "si",
@@ -491,8 +497,8 @@ export const catalogo = {
 		  stile : "casual"
 		},
 		{
-		  name : "mg3.jpag",
-		  url  : "Catalogo/IMG/mg3.jpag",
+		  name : "mg3.jpeg",
+		  url  : "Catalogo/IMG/mg3.jpeg",
 		  prezzo  : "30€",
 		  taglia : "S",
 		  disp : "si",
@@ -504,8 +510,8 @@ export const catalogo = {
 	  ],
 	  scarpe : [
 		{
-		  name : "sc1.jpag",
-		  url : "Catalogo/IMG/sc1.jpag",
+		  name : "sc1.jpeg",
+		  url : "Catalogo/IMG/sc1.jpeg",
 		  prezzo  : "80€",
 		  taglia : "42",
 		  disp : "si",
@@ -515,8 +521,8 @@ export const catalogo = {
 		  stile : "sportivo"
 		},
 		{
-		  name : "sc2.jpag",
-		  url : "Catalogo/IMG/sc2.jpag",
+		  name : "sc2.jpeg",
+		  url : "Catalogo/IMG/sc2.jpeg",
 		  prezzo  : "90€",
 		  taglia : "43",
 		  disp : "si",
@@ -526,8 +532,8 @@ export const catalogo = {
 		  stile : "sportivo"
 		},
 		{
-		  name : "sc3.jpag",
-		  url  : "Catalogo/IMG/sc3.jpag",
+		  name : "sc3.jpeg",
+		  url  : "Catalogo/IMG/sc3.jpeg",
 		  prezzo  : "50€",
 		  taglia : "44",
 		  disp : "si",
@@ -576,8 +582,8 @@ export const catalogo = {
 	  ],
 	  maglie : [
 		{
-		  name : "mgd1.jpag",
-		  url : "Catalogo/IMG/mgd1.jpag",
+		  name : "mgd1.jpeg",
+		  url : "Catalogo/IMG/mgd1.jpeg",
 		  prezzo  : "30€",
 		  taglia : "S",
 		  disp : "si",
@@ -587,8 +593,8 @@ export const catalogo = {
 		  stile : "casual"
 		},
 		{
-		  name : "mgd2.jpag",
-		  url : "Catalogo/IMG/mgd2.jpag",
+		  name : "mgd2.jpeg",
+		  url : "Catalogo/IMG/mgd2.jpeg",
 		  prezzo  : "35€",
 		  taglia : "M",
 		  disp : "si",
@@ -598,8 +604,8 @@ export const catalogo = {
 		  stile : "casual"
 		},
 		{
-		  name : "mgd3.jpag",
-		  url  : "Catalogo/IMG/mgd3.jpag",
+		  name : "mgd3.jpeg",
+		  url  : "Catalogo/IMG/mgd3.jpeg",
 		  prezzo  : "30€",
 		  taglia : "L",
 		  disp : "si",
@@ -611,8 +617,8 @@ export const catalogo = {
 	  ],
 	  scarpe : [
 		{
-		  name : "scd1.jpag",
-		  url : "Catalogo/IMG/scd1.jpag",
+		  name : "scd1.jpeg",
+		  url : "Catalogo/IMG/scd1.jpeg",
 		  prezzo  : "80€",
 		  taglia : "38",
 		  disp : "si",
@@ -622,8 +628,8 @@ export const catalogo = {
 		  stile : "elegante"
 		},
 		{
-		  name : "scd2.jpag",
-		  url : "Catalogo/IMG/scd2.jpag",
+		  name : "scd2.jpeg",
+		  url : "Catalogo/IMG/scd2.jpeg",
 		  prezzo  : "90€",
 		  taglia : "39",
 		  disp : "si",
@@ -633,8 +639,8 @@ export const catalogo = {
 		  stile : "elegante"
 		},
 		{
-		  name : "scd3.jpag",
-		  url  : "Catalogo/IMG/scd3.jpag",
+		  name : "scd3.jpeg",
+		  url  : "Catalogo/IMG/scd3.jpeg",
 		  prezzo  : "50€",
 		  taglia : "40",
 		  disp : "si",
@@ -802,36 +808,36 @@ export const catalogo = {
 		maglie : [
 
 			{
-				name: "mg1.jpag",
-				url: "Catalogo/IMG/mg1.jpag",
+				name: "mg1.jpeg",
+				url: "Catalogo/IMG/mg1.jpeg",
 				prezzo : "30€"
 			},
 			{
-				name: "mg2.jpag",
-				url: "Catalogo/IMG/mg2.jpag",
+				name: "mg2.jpeg",
+				url: "Catalogo/IMG/mg2.jpeg",
 				prezzo : "35€"
 			},
 			{
-				name: "mg3.jpag",
-				url : "Catalogo/IMG/mg3.jpag",
+				name: "mg3.jpeg",
+				url : "Catalogo/IMG/mg3.jpeg",
 				prezzo : "30€"
 			}
 		],
 		scarpe : [
 
 			{
-				name: "sc1.jpag",
-				url: "Catalogo/IMG/sc1.jpag",
+				name: "sc1.jpeg",
+				url: "Catalogo/IMG/sc1.jpeg",
 				prezzo : "80€"
 			},
 			{
-				name: "sc2.jpag",
-				url: "Catalogo/IMG/sc2.jpag",
+				name: "sc2.jpeg",
+				url: "Catalogo/IMG/sc2.jpeg",
 				prezzo : "90€"
 			},
 			{
-				name: "sc3.jpag",
-				url : "Catalogo/IMG/sc3.jpag",
+				name: "sc3.jpeg",
+				url : "Catalogo/IMG/sc3.jpeg",
 				prezzo : "50€"
 			}
 		]
@@ -859,36 +865,36 @@ export const catalogo = {
 		maglie : [
 
 			{
-				name: "mgd1.jpag",
-				url: "Catalogo/IMG/mgd1.jpag",
+				name: "mgd1.jpeg",
+				url: "Catalogo/IMG/mgd1.jpeg",
 				prezzo : "30€"
 			},
 			{	
-				name: "mgd2.jpag",
-				url: "Catalogo/IMG/mgd2.jpag",
+				name: "mgd2.jpeg",
+				url: "Catalogo/IMG/mgd2.jpeg",
 				prezzo : "35€"
 			},
 			{
-				name: "mgd3.jpag",
-				url : "Catalogo/IMG/mgd3.jpag",
+				name: "mgd3.jpeg",
+				url : "Catalogo/IMG/mgd3.jpeg",
 				prezzo : "30€"
 			}
 		],
 		scarpe : [
 
 			{
-				name: "scd1.jpag",
-				url: "Catalogo/IMG/scd1.jpag",
+				name: "scd1.jpeg",
+				url: "Catalogo/IMG/scd1.jpeg",
 				prezzo : "80€"
 			},
 			{
-				name: "scd2.jpag",
-				url: "Catalogo/IMG/scd2.jpag",
+				name: "scd2.jpeg",
+				url: "Catalogo/IMG/scd2.jpeg",
 				prezzo : "90€"
 			},
 			{
-				name: "scd3.jpag",
-				url : "Catalogo/IMG/scd3.jpag",
+				name: "scd3.jpeg",
+				url : "Catalogo/IMG/scd3.jpeg",
 				prezzo : "50€"
 			}
 		]

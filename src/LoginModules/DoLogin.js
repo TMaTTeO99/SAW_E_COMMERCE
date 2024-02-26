@@ -35,7 +35,7 @@ export function DoLogin({className}) {
 	const [formLogin, setFormLogin] = useState(true);
 	const [formCreate, setFormCreate] = useState(false);
 	const [formResetPWD, setFormResetPWD] = useState(false);
-	const [dataLogin, setdataLogin] = useContext(LoginContext);
+	
 	
 
 	const navigate = useNavigate();

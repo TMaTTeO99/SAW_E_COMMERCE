@@ -16,14 +16,16 @@ import './Style/StyleEmailForm.css';
 
 export default function App({dataHome}) {
   
-  const [products, setProducts] = useState([]);
-  const [myData, setmyData] = useContext(LoginContext);
+
+  const {datalogin, setDataLogin, inputSearch, setinputSearch} = useContext(LoginContext);
   
+
   var text = 'ACCEDI'; //testo da settare nell header 
   
   //se l utente è loggato
-  if(Object.keys(myData).length !== 0) {
-    text = myData.user.email.toString().split('@')[0];
+  if(Object.keys(datalogin).length !== 0) {
+    console.log("datalogin" + datalogin.user.email);
+    text = datalogin.user.email.toString().split('@')[0];
   }
   
 
@@ -39,7 +41,7 @@ export default function App({dataHome}) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}>
               <Home textForUser={text}
-                    setProducts={setProducts}
+                  
                     dataPreview={dataHome}
                     />
             </motion.div>
@@ -49,7 +51,14 @@ export default function App({dataHome}) {
           <Route path="/test" element={<Test/>}/>
           <Route path="/DoLogin" element={<DoLogin/>}/>
           <Route path="/ManageAccount" element={<ManageAccount/>}/>
-          <Route path='/ProductSearched' element={<ProductSearched searchedProducts={products}/>}/>
+
+
+            <Route path="/ProductSearched" element={
+              <ProductSearched 
+                 
+                                 textForUser={text}/>
+                                 }/>
+
           <Route path="/Error_Login" element={<Error mex={LoginFailed}/>}/>
           <Route path="/Error_Reset" element={<Error mex={ResetPasswordFailed}/>}/>
           <Route path="/Error_Create" element={<Error mex={CreateFailed}/>}/>
