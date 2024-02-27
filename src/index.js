@@ -5,6 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { getPreview } from './FetchProducts';
 import {MyProvider} from './LoginContext';
+import { initializeFirestore, persistentLocalCache } from "firebase/firestore";
+import { app } from './LoginModules/LoginConfig';
+
+export const Key = 'akasdbieubc37yASDBANDS2939834sfew9203LHGKPRTK80329dvsjkdfòwbfòoo2382rfosen182398ueodnqoqporj392ur32';
 
 
 /**
@@ -29,6 +33,12 @@ if('serviceWorker' in navigator) {
 else {
   //notificare all utente di cambiare browser e fallire
 }
+
+// Inizializza Firebase per settare il cacheing
+initializeFirestore(app, {
+	localCache: persistentLocalCache(),
+});
+
 
 
 

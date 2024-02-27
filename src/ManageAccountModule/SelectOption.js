@@ -14,13 +14,17 @@ export function SelectOption({handlePassword, handleDelate}) {
 	const navigate = useNavigate();
 	const handleBack = () => navigate('/');
 
-	function doLogout() {
+	async function doLogout() {
 	
-		signOut(auth).
+		await signOut(auth).
 		then(() => {
-			console.log("logout fatto")
-			setDataLogin({});
-			localStorage.setItem("loginData", JSON.stringify({}));
+			
+			const log = {
+				login : "no",
+				data : {}
+			};
+			setDataLogin(log);
+			localStorage.setItem("loginData", JSON.stringify(log));
 			navigate('/');
 		})
 		.catch((error) => console.log("logout fallito: " + error));

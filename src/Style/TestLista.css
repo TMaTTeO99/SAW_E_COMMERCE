@@ -1,0 +1,20 @@
+.carousel {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  }
+  
+  .image-container {
+	display: flex;
+	justify-content: space-between;
+	width: 60%; /* Modifica la larghezza a tuo piacimento */
+  }
+  
+  .image-container img {
+	max-width: 30%; /* Modifica la dimensione delle immagini a tuo piacimento */
+	opacity: 0.5; /* Imposta l'opacità a 0.5 per le immagini non attive */
+  }
+  
+  .image-container img.active {
+	opacity: 1; /* Imposta l'opacità a 1 per l'immagine attiva */
+  }

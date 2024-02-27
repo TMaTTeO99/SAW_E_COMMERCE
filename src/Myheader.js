@@ -31,7 +31,7 @@ export function MyHeader({textForUser}) {
 	const rederict = '/test';
 	const navigate = useNavigate();
 
-	const flagLogin = Object.keys(datalogin).length !== 0 ? true : false;
+	const flagLogin = datalogin.login === "si" ? true : false;
 
 	
 	

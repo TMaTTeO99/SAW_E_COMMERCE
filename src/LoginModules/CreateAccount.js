@@ -1,17 +1,42 @@
-import { useContext} from 'react';
+import { useContext, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import {LoginContext} from '../LoginContext';
 import {auth} from "./LoginConfig";
 import back from '../Images/back.png';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {uploadCards} from '../FetchProducts';
+import '../Style/StyleFormCard.css';
 
 export function CreateAccount({handleBack}){
 
-	const [dataLogin, setdataLogin] = useContext(LoginContext);
+	const {datalogin, setDataLogin, inputSearch, setinputSearch} = useContext(LoginContext);
 	const navigate = useNavigate();
+	const [addCard, setAddCard] = useState(false);
+	
+	const sympleHandleBack = () => setAddCard(false); 
+
+	const [cardNumber, setCardNumber] = useState('');
+    const [expiryDate, setExpiryDate] = useState('');
+    const [cvv, setCvv] = useState('');
+    const [cardHolderName, setCardHolderName] = useState('');
+
+    const handleSubmitCard = (event) => {
+        event.preventDefault();
+
+		uploadCards({
+			numcard: cardNumber,
+			scadenza: expiryDate,
+			code: cvv,
+			proprietario: cardHolderName
+		});
+
+		console.log(cardNumber, expiryDate, cvv, cardHolderName);
+		//navigate('/test');
+    };
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
 		const email = e.target.elements.email.value;
 		const password = e.target.elements.password.value;
 		
@@ -20,22 +45,32 @@ export function CreateAccount({handleBack}){
 		.then((userCredential) => {
 			//salvo i dati anche nello storage del browser per poter recuperare le info in caso di ricarica 
 			//della pagina
-			localStorage.setItem("loginData", JSON.stringify(userCredential));
-			setdataLogin(userCredential);
-			navigate('/test');
+
+			setAddCard(true);
+			const log = {
+				login : "si",
+				data : userCredential
+			};
+			localStorage.setItem("loginData", JSON.stringify(log));
+			setDataLogin(userCredential);
+			
 		})
-		.catch((error) => {
-			navigate('/Error_Create');
+		.catch((err) => {
+
+			alert(err.code)
+		
 		});
 	};
 	return (
 		<div className='EmailFormTop_1'>
 			
+			{!addCard &&
+			<>
 			<div id='divBack'>
 				<img src={back} id='backID' onClick={handleBack}/>
 				<button onClick={handleBack}> BACK</button>
 			</div>
-
+			 
 			<div className='EmailFormTop_2'>
 				
 				<h2 id='h2_2'>ISCRIVITI</h2>
@@ -63,6 +98,56 @@ export function CreateAccount({handleBack}){
 		
 				</div>
 			</div>	
+			</>
+			}
+			{addCard && 
+			<>
+				<div id='divBack'>
+					<img src={back} id='backID' onClick={sympleHandleBack}/>
+					<button onClick={handleBack}> BACK</button>
+				</div>
+				
+				<div className='CardFormDiv'>
+
+					<h2 id='h2_3'>ISCRIVITI</h2>
+					
+					<div className='DivFormCard'>
+						
+						<form onSubmit={handleSubmitCard} id='formCard'>
+				
+							<label className='LabelsCard'>
+								Numero della carta:
+								<div className='DivInputInner'>
+									<input className='inputCard' type="text" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} required />	
+								</div>
+								
+							</label>
+							<label className='LabelsCard'>
+								Data di scadenza (MM/YY):
+								<div className='DivInputInner'>
+									<input className='inputCard' type="text" value={expiryDate} onChange={(e) => setExpiryDate(e.target.value)} required />
+								</div>
+								
+							</label>
+							<label className='LabelsCard'>
+								CVV:
+								<div className='DivInputInner'>
+									<input className='inputCard' type="text" value={cvv} onChange={(e) => setCvv(e.target.value)} required />
+								</div>
+							</label>
+							<label className='LabelsCard'>
+								Nome del titolare della carta:
+								<div className='DivInputInner'>
+									<input className='inputCard' type="text" value={cardHolderName} onChange={(e) => setCardHolderName(e.target.value)} required />
+								</div>
+							</label>
+							<p id='buttonCard' onClick={handleSubmitCard}>Aggiungi carta</p>
+						</form>
+
+					</div>
+				</div>
+			</>
+			}
 
 		</div>
 	);	

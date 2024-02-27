@@ -2,7 +2,8 @@
 import { collection, addDoc, getDocs, getDoc, query, where} from "firebase/firestore"; 
 import { getFirestore } from "firebase/firestore";
 import { app } from './LoginModules/LoginConfig';
-
+import {Key} from './index';
+import CryptoJS from "crypto-js";
 //////
 //import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
@@ -54,33 +55,40 @@ export async function upload() {
 	catch (e) {
 		console.error("Error adding document: ", e);
 	}
-	
+}
+function myCypherData(data) {
+
+	const ciphertext = CryptoJS.AES.encrypt(data, Key).toString();
+
+	console.log("data " + data + " ciphertext "+ ciphertext);
 
 }
-/*
-export async function getURLs(data) {
+export async function uploadCards(card) {
 
-	var URLs = [];
-	const storage = getStorage(app);
 	
-	await data.forEach(async (obj) => {
+	const db = getFirestore(app);
+	try {
+		//qui prima di fare l up-load devo cifrare i dati
 
-		var imageRef = ref(storage, obj.url);
-		
-		var t = await getDownloadURL(imageRef)
-		.then((url) => {
-			console.log("url in then : " + url);
-			//console.log("il vettore : " + URLs);
-			return url;
-		});
-		URLs.push(t);
-	});
-	console.log("alla fine: " );
-	URLs.forEach(v => console.log("le url recuperate: " + v));
-	return URLs;
-
-}*/
-
+		const protectedCard = {
+			numcard: myCypherData(card.numcard),
+			scadenza: myCypherData(card.scadenza),
+			code: myCypherData(card.code),
+			proprietario: myCypherData(card.proprietario)
+		}
+		const docRef = await addDoc(collection(db, "cards"), card);
+		console.log("Document written with ID: ", docRef.id);
+		/**
+		 * per decifrare
+		 * 
+		 * const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
+		   const originalText = bytes.toString(CryptoJS.enc.Utf8);
+		 */
+	} 
+	catch (e) {
+		console.error("Error adding document: ", e);
+	}
+}
 ///////////////////////////////////////////////////////
 
 
@@ -89,33 +97,35 @@ export async function getPreview(){
 	
 	const db = getFirestore(app);
 	
-	try {
-		const snapshot = await getDocs(collection(db, "preview"));
-		//console.log(snapshot.docs[0].data().payload);
+	const snapshot = await getDocs(collection(db, "preview"))
+	.then(r => {return r;})
+	.catch((err) => {
+		console.log(err);
+		return null;
+	});
+	if(snapshot) {
 		return snapshot.docs[0].data().prodotti;
 	}
-	catch(e) {
-		console.log(e);
-		//in caso di errore ritono un dizionario fittizio
-		return [];
-	}
+	return [];
+	
 }
 
 export async function getDictionary() {
 
 	const db = getFirestore(app);
 	
-	try {
-		const snapshot = await getDocs(collection(db, "dizionario"));
-		console.log(snapshot.docs[0].data().payload);
-		console.log("type of " + typeof snapshot.docs[0].data().payload);
+	
+	const snapshot = await getDocs(collection(db, "dizionario"))
+	.then(r => {return r;})
+	.catch((err) => {
+		console.log(err);
+		return null;
+	});
+	if(snapshot) {
 		return snapshot.docs[0].data().payload;
 	}
-	catch(e) {
-		console.log(e);
-		//in caso di errore ritono un dizionario fittizio
-		return new ["maglietta", "camicia", "pantaloni", "jeans", "giacca", "cappotto", "scarpe"];
-	}
+	return ["maglietta", "camicia", "pantaloni", "jeans", "giacca", "cappotto", "scarpe"];
+		
 }
 
 async function checkGender(processedWords) {

@@ -1,0 +1,44 @@
+#formCard {
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+}
+.LabelsCard {
+	
+	display: flex;
+	flex-direction: column;
+	padding: 4%;
+	padding-left: 10%;
+}
+.CardFormDiv {
+
+	flex-direction: column;
+	background-color: white;
+	justify-content: center;
+	margin-top: 60%;
+	margin-left: 50%;
+	margin-right: 10%;
+	width: 130%;
+}
+#h2_3 {
+	margin-left: 30%;
+}
+#buttonCard {
+
+	flex-direction: column;
+	justify-content: center;
+	margin-left: 30%;
+	margin-top: 20%;
+	transition: color 0.3s ease;
+	cursor: pointer;
+}
+#buttonCard:hover {
+
+	color: #9b2be6;
+}
+.inputCard{
+
+	width: 100%;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+}

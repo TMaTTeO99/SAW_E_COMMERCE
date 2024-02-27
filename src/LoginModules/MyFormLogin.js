@@ -11,31 +11,39 @@ export function MyFormLogin({handleBack, ViewCreateAccount, ViewResetPassword}) 
 	const {datalogin, setDataLogin, inputSearch, setinputSearch} = useContext(LoginContext);
 	const navigate = useNavigate();
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 
 		e.preventDefault();
 		const email = e.target.elements.email.value;
 		const password = e.target.elements.password.value;
 		
 		
-		signInWithEmailAndPassword(auth, email, password)
+		await signInWithEmailAndPassword(auth, email, password)
 		.then((userCredential) => {
 			//salvo i dati anche nello storage del browser per poter recuperare le info in caso di ricarica 
 			//della pagina
-			localStorage.setItem("loginData", JSON.stringify(userCredential));
-			setDataLogin(userCredential);
+			const log = {
+				login : "si",
+				data : userCredential
+			};
+			localStorage.setItem("loginData", JSON.stringify(log));
+			setDataLogin(log);
 
 			// TODO: per ora solo modulo di test, da modificare.
-			navigate('/test');
+			navigate('/');
 			
 		})
 		.catch((error) => {
-
-			/**
-			 * Caso in cui il log-in ha fallito faccio visualizzare all'utente un modulo di errore
-			 */
-			//qui in base all errore devo visualizzare un modulo differente
-			navigate('/Error_Login');//rediriggo l utente verso il modulo di errore
+			
+			switch(error.code) {
+				case 'auth/invalid-credential':
+					alert('Email o Password errate');
+				break;
+				default :
+					navigate('/Error_Login');//rediriggo l utente verso il modulo di errore
+				break;
+			}
+			
 			
 		});
 	};

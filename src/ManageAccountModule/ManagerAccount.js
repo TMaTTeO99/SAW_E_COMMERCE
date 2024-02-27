@@ -2,13 +2,13 @@
 //import '../Style/TempForm.css';
 
 import { motion } from 'framer-motion';
+import { getAuth, delateUser, deleteUser } from 'firebase/auth';
 import {auth} from "../LoginModules/LoginConfig";
 import {LoginContext} from '../LoginContext';
 import { useContext, useState, useEffect } from 'react';
 import {useNavigate } from 'react-router-dom';
 import {LeftColumn} from '../LoginModules/LoginBase';
 import {ResetPassword} from '../LoginModules/ResetPassword';
-import {adminEmail} from '../LoginModules/LoginConfig';
 import { SelectOption } from './SelectOption';
 
 export function ManageAccount() {
@@ -16,14 +16,37 @@ export function ManageAccount() {
 	const [selectOption, setselectOption] = useState(true);
 	const [backBlurred, setBackBlurred] = useState(false);
 	const [formResetPWD, setFormResetPWD] = useState(false);
-
+	const {datalogin, setDataLogin, inputSearch, setinputSearch} = useContext(LoginContext);
 	const navigate = useNavigate();
 
 
 	const activeBlur = () => setBackBlurred(true);
 	const deactiveBlur = () => setBackBlurred(false);
-	const backHome = () => navigate('/');
 	
+
+	const delateAccount = async () => {
+		const confirmDelete = window.confirm("Sei sicuro di voler eliminare il tuo account?");
+  		if (confirmDelete) {
+    		
+			deleteUser(getAuth().currentUser)
+			.then(() => {
+				const log = {
+					login : "no",
+					data : {}
+				};
+				localStorage.setItem("loginData", JSON.stringify(log));
+				setDataLogin(log);
+				
+				alert('Profilo cancellato con successo');
+				navigate('/');
+			})
+			.catch((err) => {
+				alert('Impossibile cancellare profilo');
+				console.log(err);
+			});
+
+  		}
+	}
 	const setViewRecuperaPWD = () =>  {
 
 		setselectOption(false);
@@ -63,7 +86,8 @@ export function ManageAccount() {
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
 						transition={{ duration: 0.5 }}>
-						<SelectOption handlePassword={setViewRecuperaPWD}/>
+						<SelectOption handlePassword={setViewRecuperaPWD}
+										handleDelate={delateAccount}/>
 
 					</motion.div>
 

@@ -23,9 +23,12 @@ export default function App({dataHome}) {
   var text = 'ACCEDI'; //testo da settare nell header 
   
   //se l utente è loggato
+  if(datalogin.login === "si"){
+    console.log("datalogin" + datalogin);
+    text = datalogin.data.user.email.toString().split('@')[0];
+  }
   if(Object.keys(datalogin).length !== 0) {
-    console.log("datalogin" + datalogin.user.email);
-    text = datalogin.user.email.toString().split('@')[0];
+    
   }
   
 
@@ -55,9 +58,8 @@ export default function App({dataHome}) {
 
             <Route path="/ProductSearched" element={
               <ProductSearched 
-                 
-                                 textForUser={text}/>
-                                 }/>
+                textForUser={text}/>}
+                />
 
           <Route path="/Error_Login" element={<Error mex={LoginFailed}/>}/>
           <Route path="/Error_Reset" element={<Error mex={ResetPasswordFailed}/>}/>
