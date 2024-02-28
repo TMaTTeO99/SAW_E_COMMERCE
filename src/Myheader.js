@@ -93,7 +93,7 @@ export function MyHeader() {
 					
 				{/*temp */}
 				
-				<img className='logoHome' src={logo} alt='MyEcommerce'/>		
+				<img className='logoHome' src={logo} alt='MyEcommerce' onClick={(e) => navigate('/')}/>		
 				<div id='sezioniID'>
 
 					<div className='containerClothes' >

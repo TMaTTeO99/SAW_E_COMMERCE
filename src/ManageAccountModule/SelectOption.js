@@ -1,18 +1,23 @@
 import { useNavigate } from 'react-router-dom';
 import {LoginContext} from '../LoginContext';
-import { useContext} from 'react';
+import { useContext, useState} from 'react';
 import back from '../Images/back.png';
 import {auth} from "../LoginModules/LoginConfig";
 import { signOut } from 'firebase/auth';
+import {CreateAccount} from '../LoginModules/CreateAccount';
 import '../Style/Back.css';
 import '../Style/StyleSelectOptionAccount.css';
 
 export function SelectOption({handlePassword, handleDelate}) {
 
 	const {datalogin, setDataLogin, inputSearch, setinputSearch} = useContext(LoginContext);
-
+	
+	const [hidenOption, setHidenOption] = useState(false);
+	
 	const navigate = useNavigate();
 	const handleBack = () => navigate('/');
+	const handleBackCreate = () => setHidenOption(false);
+	const setFormVisible = () =>  setHidenOption(true);
 
 	async function doLogout() {
 	
@@ -33,11 +38,14 @@ export function SelectOption({handlePassword, handleDelate}) {
 	return (
 
 		<>
+			{!hidenOption &&
+			
+			<>
 			<div id='divBack'>
 				<img src={back} id='backID' onClick={handleBack}/>
 				<button onClick={handleBack}> BACK</button>
 			</div>
-		
+			
 			<div className='divAllDiv'>
 				
 				<div className='divContainer' >
@@ -54,13 +62,29 @@ export function SelectOption({handlePassword, handleDelate}) {
 						</div>
 						<div className='logout_class' onClick={doLogout}>
 							<p>LOG-OUT</p>
-						</div>		
+						</div>
+						<div className='logout_class' onClick={setFormVisible}>
+							<p>AGGIUNGI CARTA</p>
+						</div>
+						{/*
+							<div className='logout_class' onClick={''}>
+							<p>ELIMINA CARTA</p>
+						</div>
+						*/}
+								
 											
 					</div>
 					
 				</div>
 
 			</div>
+			</>
+			}
+			{hidenOption && 
+				<CreateAccount handleBack={handleBackCreate}
+							   onlyCardForm={true}/>
+			}
+			
 		</>
 
 

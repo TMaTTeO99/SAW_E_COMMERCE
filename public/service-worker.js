@@ -190,9 +190,8 @@ self.addEventListener("activate", function (event) {
 //la servirà prima da lì
 self.addEventListener("fetch", function (event) { 
 
-
+  //non gestisco le chiamate come login logout creazione profilo... per evitare errori di firebase sulla console
   if (event.request.url.indexOf('firestore.googleapis.com') !== -1) {
-    
     return;
   }
   

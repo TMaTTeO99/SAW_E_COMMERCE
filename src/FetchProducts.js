@@ -1,30 +1,25 @@
 
-import { collection, addDoc, getDocs, getDoc, query, where, doc, setDoc, updateDoc, arrayUnion} from "firebase/firestore"; 
+import { collection, deleteDoc, getDocs, getDoc, query, where, doc, setDoc, updateDoc, arrayUnion} from "firebase/firestore"; 
 import { getFirestore } from "firebase/firestore";
 import { app } from './LoginModules/LoginConfig';
 import {Key} from './index';
 import CryptoJS from "crypto-js";
-//////
-//import { getStorage, ref, getDownloadURL } from "firebase/storage";
-
-/////
 
 
 import levenshtein from 'js-levenshtein';
 
 
 ///////////////////////////////////////////////////////
-import {catalogo} from "./TempDataProduct";
+//import {catalogo} from "./TempDataProduct";
 //////////////temp
 
 function correctInput(input, dictionary) {
 
-	// Se l'input dell'utente è nel dizionario, restituisci l'input così com'è
+	// Se l'input dell'utente è nel dizionario
 	if (dictionary.includes(input)) {
 	  return input;
 	}  
-	// Altrimenti, trova la parola nel dizionario che è più "vicina" all'input dell'utente
-	// Questo è solo un esempio e potrebbe non funzionare per tutti i casi
+	// Altrimenti, cerco la parola nel dizionario che è più "vicina" all'input dell'utente
 	let closestWord = dictionary[0];
 	let closestDistance = levenshtein(input, closestWord);
   
@@ -40,7 +35,7 @@ function correctInput(input, dictionary) {
 } 
 
 
-export async function upload() {
+/*export async function upload() {
 
 	
 	const db = getFirestore(app);
@@ -55,7 +50,7 @@ export async function upload() {
 	catch (e) {
 		console.error("Error adding document: ", e);
 	}
-}
+}*/
 function myCypherData(data) {
 
 	const ciphertext = CryptoJS.AES.encrypt(data, Key).toString();
@@ -96,7 +91,6 @@ export async function uploadCards(card, flag) {
 				usercard: arrayUnion(protectedCard)
 			});
 			console.log("Document uploaded");
-
 		}
 		return true;
 	} 
@@ -137,9 +131,19 @@ export async function checkCreditCardOnDB(card) {
 	return flag;
 
 }
-///////////////////////////////////////////////////////
+
+export async function deleteAllCard(ID) {
+
+	const db = getFirestore(app);
+	return await deleteDoc(doc(db, "cards", ID))
+	.then(result => result)
+	.catch((err) => {
+		console.log(err);
+		return err;
+	});
 
 
+}
 
 export async function getPreview(){
 	

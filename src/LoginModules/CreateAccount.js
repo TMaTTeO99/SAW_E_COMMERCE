@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import {LoginContext} from '../LoginContext';
 import {auth} from "./LoginConfig";
 import back from '../Images/back.png';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import {uploadCards} from '../FetchProducts';
 import {checkCreditCardOnDB} from '../FetchProducts';
 import '../Style/StyleFormCard.css';
+import { FormCarta } from './FormCarta';
 
 
 function checkCreditCardFormat(cardNumber, expiryDate, cvv) {
@@ -56,16 +57,16 @@ async function addAccount(email, password, setAddCard, setDataLogin) {
 
 
 
-export function CreateAccount({handleBack}){
+export function CreateAccount({handleBack, onlyCardForm}){
 
 	const {datalogin, setDataLogin, inputSearch, setinputSearch} = useContext(LoginContext);
 	const navigate = useNavigate();
-	const [addCard, setAddCard] = useState(false);
+	const [addCard, setAddCard] = useState(onlyCardForm);
 	
-	const [email, setEmail] = useState();
-	const [password, setPassword] = useState();
-
-	const sympleHandleBack = () => setAddCard(false); 
+	const [email, setEmail] = useState(Object.keys(datalogin).length !== 0 && datalogin.login === "si" ? datalogin.data.user.email : '');
+	const [password, setPassword] = useState(Object.keys(datalogin).length !== 0 && datalogin.login === "si" ? datalogin.data.user.password : '');
+	
+	const sympleHandleBack = () => setAddCard(!onlyCardForm); 
 
 	const [cardNumber, setCardNumber] = useState('');
     const [expiryDate, setExpiryDate] = useState('');
@@ -105,10 +106,19 @@ export function CreateAccount({handleBack}){
 			
 			if(flag !== -1) {
 				if(await uploadCards(card, flag)){
-					if(await addAccount(email, password, setAddCard, setDataLogin)) {
+
+					if(!onlyCardForm){
+						if(await addAccount(email, password, setAddCard, setDataLogin)) {
+							alert('Profilo Creato');
+							navigate('/');
+						}
+						else alert('ERRORE. Impossibile Creare Profilo');
+					}
+					else {
+						alert('Carta Di Credito Aggiunta');
 						navigate('/');
 					}
-					else alert('ERRORE. Impossibile Creare Profilo'); 
+					 
 				}
 				else alert('ERRORE. Impossibile Aggiungere Carta al Momento'); 
 			}
@@ -126,27 +136,7 @@ export function CreateAccount({handleBack}){
 		setEmail(e.target.elements.email.value);
 		setPassword(e.target.elements.password.value);
 		setAddCard(true);
-		/*
-		createUserWithEmailAndPassword(auth, email, password)
-		.then((userCredential) => {
-			//salvo i dati anche nello storage del browser per poter recuperare le info in caso di ricarica 
-			//della pagina
-
-			setAddCard(true);
-			const log = {
-				login : "si",
-				data : userCredential
-			};
-			localStorage.setItem("loginData", JSON.stringify(log));
-			setDataLogin(userCredential);
-			
-		})
-		.catch((err) => {
-
-			alert(err.code)
 		
-		});
-		*/
 	};
 	return (
 		<div className='EmailFormTop_1'>
@@ -187,55 +177,18 @@ export function CreateAccount({handleBack}){
 			</div>	
 			</>
 			}
-			{addCard && 
-			<>
-				<div id='divBack'>
-					<img src={back} id='backID' onClick={sympleHandleBack}/>
-					<button onClick={handleBack}> BACK</button>
-				</div>
-				
-				<div className='CardFormDiv'>
-
-					<h2 id='h2_3'>ISCRIVITI</h2>
-					
-					<div className='DivFormCard'>
-						
-						<form onSubmit={handleSubmitCard} id='formCard'>
-				
-							<label className='LabelsCard'>
-								Numero della carta:
-								<div className='DivInputInner'>
-									<input className='inputCard' type="text" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} required />	
-								</div>
-								
-							</label>
-							<label className='LabelsCard'>
-								Data di scadenza (MM/YY):
-								<div className='DivInputInner'>
-									<input className='inputCard' type="text" value={expiryDate} onChange={(e) => setExpiryDate(e.target.value)} required />
-								</div>
-								
-							</label>
-							<label className='LabelsCard'>
-								CVV:
-								<div className='DivInputInner'>
-									<input className='inputCard' type="text" value={cvv} onChange={(e) => setCvv(e.target.value)} required />
-								</div>
-							</label>
-							<label className='LabelsCard'>
-								Nome del titolare della carta:
-								<div className='DivInputInner'>
-									<input className='inputCard' type="text" value={cardHolderName} onChange={(e) => setCardHolderName(e.target.value)} required />
-								</div>
-							</label>
-							<p id='buttonCard' onClick={handleSubmitCard}>Aggiungi carta</p>
-						</form>
-
-					</div>
-				</div>
-			</>
-			}
-
+			{addCard && <FormCarta 
+				sympleHandleBack={sympleHandleBack}
+				handleSubmitCard={handleSubmitCard}
+				cardNumber={cardNumber}
+				setCardNumber={setCardNumber}
+				expiryDate={expiryDate}
+				setExpiryDate={setExpiryDate}
+				cvv={cvv}
+				setCvv={setCvv}
+				cardHolderName={cardHolderName}
+				setCardHolderName={setCardHolderName}
+				/>} 
 		</div>
 	);	
 

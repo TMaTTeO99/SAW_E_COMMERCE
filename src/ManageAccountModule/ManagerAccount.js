@@ -2,14 +2,16 @@
 //import '../Style/TempForm.css';
 
 import { motion } from 'framer-motion';
-import { getAuth, delateUser, deleteUser } from 'firebase/auth';
+import { getAuth, deleteUser } from 'firebase/auth';
 import {auth} from "../LoginModules/LoginConfig";
+import { onAuthStateChanged } from 'firebase/auth';
 import {LoginContext} from '../LoginContext';
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import {useNavigate } from 'react-router-dom';
 import {LeftColumn} from '../LoginModules/LoginBase';
 import {ResetPassword} from '../LoginModules/ResetPassword';
 import { SelectOption } from './SelectOption';
+import {deleteAllCard} from '../FetchProducts';
 
 export function ManageAccount() {
 	
@@ -28,23 +30,29 @@ export function ManageAccount() {
 		const confirmDelete = window.confirm("Sei sicuro di voler eliminare il tuo account?\nI dati relativi alle carte di credito saranno eliminati");
   		if (confirmDelete) {
     		
+			//qui devo eliminare i dati su firestore che riguardano le carte di credito
+			
+			if(getAuth().currentUser !== null) {
 
-			deleteUser(getAuth().currentUser)
-			.then(() => {
-				const log = {
-					login : "no",
-					data : {}
-				};
-				localStorage.setItem("loginData", JSON.stringify(log));
-				setDataLogin(log);
+				const resultDelateCards = await deleteAllCard(datalogin.data.user.email);
 
-				alert('Profilo cancellato con successo');
-				navigate('/');
-			})
-			.catch((err) => {
-				alert('Impossibile cancellare profilo');
-				console.log(err);
-			});
+				deleteUser(getAuth().currentUser)
+				.then(() => {
+					const log = {
+						login : "no",
+						data : {}
+					};
+					localStorage.setItem("loginData", JSON.stringify(log));
+					setDataLogin(log);
+
+					alert('Profilo cancellato con successo');
+					navigate('/');
+				})
+				.catch((err) => {
+					alert('Impossibile cancellare profilo');
+					console.log(err);
+				});
+			}
 
   		}
 	}
