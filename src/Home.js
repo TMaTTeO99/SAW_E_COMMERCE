@@ -51,7 +51,7 @@ export function ProductPreview({product}) {
 
 
 
-export function Home({textForUser, dataPreview}) {
+export function Home({ dataPreview}) {
 	
 	const speed = 4;
 	const scrollContainer = useRef(null);
@@ -84,9 +84,7 @@ export function Home({textForUser, dataPreview}) {
 
 	return (
 		<div id="Home_id">
-			<MyHeader textForUser={textForUser}
-					
-					  />	
+			<MyHeader />	
 			<main className='mainclassnm'>
 				
 				<div className="product-list" ref={scrollContainer}>

@@ -13,7 +13,7 @@ import { ListEmpty } from "./ErrorModules/ListEmptyModule";
 
 import {useNavigate } from 'react-router-dom';
 
-export function ProductSearched({textForUser}) {
+export function ProductSearched() {
 
 	
 
@@ -158,7 +158,7 @@ export function ProductSearched({textForUser}) {
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
 			transition={{ duration: 0.5 }}>
-				<MyHeader textForUser={textForUser}/>
+				<MyHeader />
 				<ListEmpty/>
 			</motion.div>
 		}
@@ -169,7 +169,7 @@ export function ProductSearched({textForUser}) {
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
 					transition={{ duration: 0.5 }}>
-					<MyHeader textForUser={textForUser}/>
+					<MyHeader />
 				</motion.div>
 				<>
 					<div className="product-list" ref={scrollContainerMaglie}>

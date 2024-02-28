@@ -166,7 +166,7 @@ self.addEventListener('fetch', async event => {
   }
   
 });*/
-/*
+
 const CACHE = "my-cache-v1";
 
 const precacheFiles = [ '/','/index.html'];
@@ -192,10 +192,8 @@ self.addEventListener("fetch", function (event) {
 
 
   if (event.request.url.indexOf('firestore.googleapis.com') !== -1) {
-    console.log("event.request url " + event.request.url);
-    return fetch(event.request)
-    .then(resp => resp)
-    .catch(err => console.log(err));
+    
+    return;
   }
   
   if (event.request.method !== "GET") return fetch(event.request);
@@ -246,4 +244,4 @@ function updateCache(request, response) {
   return caches.open(CACHE).then(function (cache) {
     return cache.put(request, response);
   });
-} */
+} 

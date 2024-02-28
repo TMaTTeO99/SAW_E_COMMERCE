@@ -20,16 +20,7 @@ export default function App({dataHome}) {
   const {datalogin, setDataLogin, inputSearch, setinputSearch} = useContext(LoginContext);
   
 
-  var text = 'ACCEDI'; //testo da settare nell header 
   
-  //se l utente è loggato
-  if(datalogin.login === "si"){
-    console.log("datalogin" + datalogin);
-    text = datalogin.data.user.email.toString().split('@')[0];
-  }
-  if(Object.keys(datalogin).length !== 0) {
-    
-  }
   
 
   return (
@@ -43,10 +34,7 @@ export default function App({dataHome}) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}>
-              <Home textForUser={text}
-                  
-                    dataPreview={dataHome}
-                    />
+              <Home dataPreview={dataHome}/>
             </motion.div>
           }/>
           
@@ -56,10 +44,9 @@ export default function App({dataHome}) {
           <Route path="/ManageAccount" element={<ManageAccount/>}/>
 
 
-            <Route path="/ProductSearched" element={
-              <ProductSearched 
-                textForUser={text}/>}
-                />
+          <Route path="/ProductSearched" element={
+            <ProductSearched />
+          }/>
 
           <Route path="/Error_Login" element={<Error mex={LoginFailed}/>}/>
           <Route path="/Error_Reset" element={<Error mex={ResetPasswordFailed}/>}/>

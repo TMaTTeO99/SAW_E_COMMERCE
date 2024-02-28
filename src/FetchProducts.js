@@ -1,5 +1,5 @@
 
-import { collection, addDoc, getDocs, getDoc, query, where} from "firebase/firestore"; 
+import { collection, addDoc, getDocs, getDoc, query, where, doc, setDoc, updateDoc, arrayUnion} from "firebase/firestore"; 
 import { getFirestore } from "firebase/firestore";
 import { app } from './LoginModules/LoginConfig';
 import {Key} from './index';
@@ -61,9 +61,17 @@ function myCypherData(data) {
 	const ciphertext = CryptoJS.AES.encrypt(data, Key).toString();
 
 	console.log("data " + data + " ciphertext "+ ciphertext);
-
+	return ciphertext;
 }
-export async function uploadCards(card) {
+function myDecipherData(data) {
+	
+	const bytes = CryptoJS.AES.decrypt(data, Key);
+	const originalText = bytes.toString(CryptoJS.enc.Utf8);
+	
+	console.log("data " + data + " originalText "+ originalText);
+	return originalText;
+}
+export async function uploadCards(card, flag) {
 
 	
 	const db = getFirestore(app);
@@ -74,20 +82,60 @@ export async function uploadCards(card) {
 			numcard: myCypherData(card.numcard),
 			scadenza: myCypherData(card.scadenza),
 			code: myCypherData(card.code),
+			user: myCypherData(card.user),
 			proprietario: myCypherData(card.proprietario)
 		}
-		const docRef = await addDoc(collection(db, "cards"), card);
-		console.log("Document written with ID: ", docRef.id);
-		/**
-		 * per decifrare
-		 * 
-		 * const bytes = CryptoJS.AES.decrypt(ciphertext, SECRET_KEY);
-		   const originalText = bytes.toString(CryptoJS.enc.Utf8);
-		 */
+		
+		//se il documento non esiste lo creo da zero
+		if(flag === 0) {
+			const docRef = await setDoc(doc(db, "cards", card.user), {usercard : [protectedCard]});
+			console.log("Document written");
+		}
+		else if(flag === 1) {//se il documento esiste aggiungo la carta
+			const docRef = await updateDoc(doc(db, "cards", card.user), {
+				usercard: arrayUnion(protectedCard)
+			});
+			console.log("Document uploaded");
+
+		}
+		return true;
 	} 
 	catch (e) {
 		console.error("Error adding document: ", e);
+		return false;
 	}
+}
+export async function checkCreditCardOnDB(card) {
+	
+	var flag = 1; 
+	const db = getFirestore(app);
+	const docRef = doc(db, 'cards', card.user);
+	const docSnap = await getDoc(docRef);
+
+	if(!docSnap.exists()) return 0;//documento inesistente
+
+	const tmpCard = {
+		numcard: myCypherData(card.numcard),
+		scadenza: myCypherData(card.scadenza),
+		code: myCypherData(card.code),
+		user: myCypherData(card.user),
+		proprietario: myCypherData(card.proprietario)
+	}
+
+
+	docSnap.data().usercard.forEach((crd) => {
+
+		if(card.numcard === myDecipherData(crd.numcard) && card.scadenza === myDecipherData(crd.scadenza)
+			&& card.code === myDecipherData(crd.code) && card.user === myDecipherData(crd.user) && card.proprietario === myDecipherData(crd.proprietario)) 
+		{ 
+			flag = -1;//il ducmento esiste e la carta è contenuta
+		}
+
+	});
+	
+	//il ducumento esiste ma non ha la carta che l untente vuole inserire ora
+	return flag;
+
 }
 ///////////////////////////////////////////////////////
 

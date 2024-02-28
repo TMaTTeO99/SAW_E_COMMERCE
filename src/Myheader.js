@@ -18,8 +18,9 @@ import {getDictionary} from './FetchProducts';
 //import { getURLs } from './FetchProducts';
 //temp
 
-export function MyHeader({textForUser}) {
+export function MyHeader() {
 
+	
 	const [inputSearchValue, setSearchValue] = useState('');
 	const {datalogin, setDataLogin, inputSearch, setinputSearch} = useContext(LoginContext);
 	
@@ -32,7 +33,13 @@ export function MyHeader({textForUser}) {
 	const navigate = useNavigate();
 
 	const flagLogin = datalogin.login === "si" ? true : false;
-
+	
+	var textForUser = 'ACCEDI'; //testo da settare nell header 
+  
+  	//se l utente è loggato
+  	if(datalogin.login === "si"){
+  	  textForUser = datalogin.data.user.email.toString().split('@')[0];
+  	}
 	
 	
 	useEffect(() => {
@@ -73,12 +80,17 @@ export function MyHeader({textForUser}) {
 		{ windowWidth > soglia ? 
 			(<div className='headerClass'>
 				
-				{/*temp */}
+				{/*temp 
+				
 					<p style={styleObject} onClick={(e) => upload()}>UPLOAD-dizionario</p>
-				{/*temp */}
+				*/}
 					
 				{/*temp */}
+					
+				{/*temp 
 					<p style={styleObject} onClick={(e) => getDictionary()}>_____get-dizionario</p>
+				*/}
+					
 				{/*temp */}
 				
 				<img className='logoHome' src={logo} alt='MyEcommerce'/>		

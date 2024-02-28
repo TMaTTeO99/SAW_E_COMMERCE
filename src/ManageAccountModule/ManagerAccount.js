@@ -25,9 +25,10 @@ export function ManageAccount() {
 	
 
 	const delateAccount = async () => {
-		const confirmDelete = window.confirm("Sei sicuro di voler eliminare il tuo account?");
+		const confirmDelete = window.confirm("Sei sicuro di voler eliminare il tuo account?\nI dati relativi alle carte di credito saranno eliminati");
   		if (confirmDelete) {
     		
+
 			deleteUser(getAuth().currentUser)
 			.then(() => {
 				const log = {
@@ -36,7 +37,7 @@ export function ManageAccount() {
 				};
 				localStorage.setItem("loginData", JSON.stringify(log));
 				setDataLogin(log);
-				
+
 				alert('Profilo cancellato con successo');
 				navigate('/');
 			})
