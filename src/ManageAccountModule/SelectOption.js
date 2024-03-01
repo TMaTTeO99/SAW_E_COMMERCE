@@ -82,7 +82,8 @@ export function SelectOption({handlePassword, handleDelate}) {
 			}
 			{hidenOption && 
 				<CreateAccount handleBack={handleBackCreate}
-							   onlyCardForm={true}/>
+							   onlyCardForm={true}
+							   handleBackEmailCard={handleBackCreate}/>
 			}
 			
 		</>

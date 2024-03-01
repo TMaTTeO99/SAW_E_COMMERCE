@@ -4,19 +4,27 @@ import './Style/StyleFooter.css';
 import { LoadingSpinnerList } from './LoadingSpinnerList';
 import React, { useRef, useEffect } from 'react';
 import { MyHeader } from './Myheader';
-import { getFirestore } from "firebase/firestore";
-import { collection, getDocs} from "firebase/firestore"; 
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import {app} from './LoginModules/LoginConfig';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
-export function ProductPreview({product}) {
+export function ProductPreview({product, nav}) {
 	
 	const [urlImage, setUrlImage] = useState(null);
 	const [flagURL, setFlagUrl] = useState(false);
 	
 	const storage = getStorage(app);
+	
+	const handleClick = (product, urlImage) => {
+		//prima di andare nell altro modulo setto i dati
+		
+		const prod = {prt: product ,url: urlImage};	
+		localStorage.setItem("selectedProduct", JSON.stringify(prod));
+		nav('/BuyProduct');
+	}
+	
 	useEffect(() => {
 		
 	var imageRef = ref(storage, product.url);
@@ -35,8 +43,13 @@ export function ProductPreview({product}) {
 
 	if(flagURL){
 		return (
-			<div className="product-preview">
-				<img className='imageProduct' src={urlImage}/>
+			<div className="product-preview" onClick={(e) => handleClick(product, urlImage)}>
+				<img className='imageProduct' src={urlImage} />
+				<div className='divDescrizione'>
+					<p className='descrizione'>{product.description[4] + " " + product.genere + " " + product.description[2]} </p>
+					<p className='prezzo'>{"Prezzo: " + product.prezzo} </p>
+				</div>
+				
 			</div>
 		);
 	}
@@ -51,10 +64,12 @@ export function ProductPreview({product}) {
 
 
 
-export function Home({ dataPreview}) {
+export function Home({dataPreview}) {
 	
 	const speed = 4;
 	const scrollContainer = useRef(null);
+
+	const navigate = useNavigate();
 
 	const scroll = (scrollOffset) => {
 		if (scrollContainer.current) {
@@ -89,7 +104,7 @@ export function Home({ dataPreview}) {
 				
 				<div className="product-list" ref={scrollContainer}>
 					{dataPreview.map((product, index) => (
-						<ProductPreview key={index} product={product} />
+						<ProductPreview key={index} product={product} nav={navigate} />
 					))}
 				</div>
 			</main>

@@ -1,0 +1,46 @@
+#FormAddress {
+	display: flex;
+	flex-direction: column;
+	border-radius: 10px;
+	margin-right: 25%;
+	margin-left: 0%;
+	height: 60vh;
+	width: 20vw;
+	padding: 2%;
+	background-color: rgb(220, 199, 248);;
+}
+.h3AddForm{
+	font-size: 2vh;
+	cursor: pointer;
+	transition: color 0.3s ease;
+	text-transform: uppercase;
+	
+}
+#inPaese, #inCittà, #inVia {
+	padding-left: 5%;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	border: none;
+}
+#btnInsertAddress {
+	display: flex;
+	justify-content: center;
+	font-size: 75%;
+	transition: color 0.3s ease;
+}
+#dive_btnAddress {
+	cursor: pointer;
+	background-color: transparent;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	border-color: black;
+	text-transform: uppercase;
+	transition: background-color 0.3s ease;
+	margin-top: 56%;
+}
+#dive_btnAddress:hover {
+	background-color: black;
+}
+#dive_btnAddress:hover #btnInsertAddress{
+	color: white;
+}

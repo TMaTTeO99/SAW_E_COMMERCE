@@ -56,7 +56,7 @@ export function MyHeader() {
 	}, []);
 
 	const onClicckHandlerProfile = () =>  flagLogin ? navigate('/ManageAccount') : navigate('/DoLogin');
-	const onSubmitSearch = /*async*/ (event) => {
+	const onSubmitSearch = (event) => {
 
 		event.preventDefault();
 		var arrayInput = inputSearchValue.split(' ');
@@ -66,10 +66,10 @@ export function MyHeader() {
 		
 	}
 	//temp
-	const styleObject = {
+	/*const styleObject = {
 		color: 'yellow',
 		cursor: 'pointer',
-	};
+	};*/
 	//temp
 
 
@@ -83,6 +83,7 @@ export function MyHeader() {
 				{/*temp 
 				
 					<p style={styleObject} onClick={(e) => upload()}>UPLOAD-dizionario</p>
+					
 				*/}
 					
 				{/*temp */}

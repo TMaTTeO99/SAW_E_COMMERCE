@@ -11,13 +11,14 @@ import {motion} from 'framer-motion';
 import { useContext, useState} from 'react';
 import {ProductSearched} from './ListProductSearched';
 import {ManageAccount} from './ManageAccountModule/ManagerAccount';
+import {BuyProduct} from './BuyProductModule'
 import './Style/StyleEmailForm.css';
 
 
 export default function App({dataHome}) {
   
 
-  const {datalogin, setDataLogin, inputSearch, setinputSearch} = useContext(LoginContext);
+  const {datalogin, setDataLogin, inputSearch, setinputSearch, productSelected, setproductSelected } = useContext(LoginContext);
   
 
   
@@ -48,6 +49,8 @@ export default function App({dataHome}) {
             <ProductSearched />
           }/>
 
+          <Route path="/BuyProduct" element={<BuyProduct dataProduct={productSelected}/>}/>
+        
           <Route path="/Error_Login" element={<Error mex={LoginFailed}/>}/>
           <Route path="/Error_Reset" element={<Error mex={ResetPasswordFailed}/>}/>
           <Route path="/Error_Create" element={<Error mex={CreateFailed}/>}/>

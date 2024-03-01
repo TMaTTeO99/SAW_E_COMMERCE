@@ -1,5 +1,5 @@
 
-import { collection, deleteDoc, getDocs, getDoc, query, where, doc, setDoc, updateDoc, arrayUnion} from "firebase/firestore"; 
+import { collection, deleteDoc, getDocs, addDoc, getDoc, query, where, doc, setDoc, updateDoc, arrayUnion} from "firebase/firestore"; 
 import { getFirestore } from "firebase/firestore";
 import { app } from './LoginModules/LoginConfig';
 import {Key} from './index';
@@ -10,7 +10,7 @@ import levenshtein from 'js-levenshtein';
 
 
 ///////////////////////////////////////////////////////
-//import {catalogo} from "./TempDataProduct";
+import {Preview} from "./TempDataProduct";
 //////////////temp
 
 function correctInput(input, dictionary) {
@@ -35,22 +35,22 @@ function correctInput(input, dictionary) {
 } 
 
 
-/*export async function upload() {
+export async function upload() {
 
 	
 	const db = getFirestore(app);
 	try {
-		catalogo.scarpe.bambino.forEach(async (obj) => {
-			const docRef = await addDoc(collection(db, "scarpe"), obj);
+		/*Preview.prodotti.forEach(async (obj) => {
+			const docRef = await addDoc(collection(db, "preview"), obj);
 			console.log("Document written with ID: ", docRef.id);
-		});
-		//const docRef = await addDoc(collection(db, "preview"), Preview);
-		//console.log("Document written with ID: ", docRef.id);
+		});*/
+		const docRef = await addDoc(collection(db, "preview"), Preview);
+		console.log("Document written with ID: ", docRef.id);
 	} 
 	catch (e) {
 		console.error("Error adding document: ", e);
 	}
-}*/
+}
 function myCypherData(data) {
 
 	const ciphertext = CryptoJS.AES.encrypt(data, Key).toString();

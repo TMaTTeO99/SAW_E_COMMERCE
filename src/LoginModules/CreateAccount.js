@@ -57,7 +57,7 @@ async function addAccount(email, password, setAddCard, setDataLogin) {
 
 
 
-export function CreateAccount({handleBack, onlyCardForm}){
+export function CreateAccount({handleBackEmail, handleBackEmailCard, onlyCardForm}){
 
 	const {datalogin, setDataLogin, inputSearch, setinputSearch} = useContext(LoginContext);
 	const navigate = useNavigate();
@@ -66,7 +66,7 @@ export function CreateAccount({handleBack, onlyCardForm}){
 	const [email, setEmail] = useState(Object.keys(datalogin).length !== 0 && datalogin.login === "si" ? datalogin.data.user.email : '');
 	const [password, setPassword] = useState(Object.keys(datalogin).length !== 0 && datalogin.login === "si" ? datalogin.data.user.password : '');
 	
-	const sympleHandleBack = () => setAddCard(!onlyCardForm); 
+	const sympleHandleBack = () => setAddCard(false); 
 
 	const [cardNumber, setCardNumber] = useState('');
     const [expiryDate, setExpiryDate] = useState('');
@@ -144,8 +144,8 @@ export function CreateAccount({handleBack, onlyCardForm}){
 			{!addCard &&
 			<>
 			<div id='divBack'>
-				<img src={back} id='backID' onClick={handleBack}/>
-				<button onClick={handleBack}> BACK</button>
+				<img src={back} id='backID' onClick={handleBackEmail}/>
+				<button onClick={handleBackEmail}> BACK</button>
 			</div>
 			 
 			<div className='EmailFormTop_2'>
@@ -178,7 +178,7 @@ export function CreateAccount({handleBack, onlyCardForm}){
 			</>
 			}
 			{addCard && <FormCarta 
-				sympleHandleBack={sympleHandleBack}
+				sympleHandleBack={onlyCardForm ? handleBackEmailCard : sympleHandleBack}
 				handleSubmitCard={handleSubmitCard}
 				cardNumber={cardNumber}
 				setCardNumber={setCardNumber}

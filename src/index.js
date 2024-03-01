@@ -45,6 +45,7 @@ initializeFirestore(app, {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const previewData = await getPreview(); 
 
+
 root.render(
   <MyProvider>
       <App dataHome={previewData}/>

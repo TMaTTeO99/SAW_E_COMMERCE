@@ -24,13 +24,25 @@
 	overflow: hidden;
 }
 .imageProduct {
+	
 	width: 250px;
 	height: 350px;
 	cursor: pointer;
 	transition: transform 0.3s ease-in-out;
 }
+.prezzo , .descrizione{
+
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: color 0.3s ease;
+
+}
+.prezzo:hover , .descrizione:hover{
+
+	color:  #9b2be6;; 
+
+}
 .mainclassnm {
 	padding: 10px;
 }
 
-  

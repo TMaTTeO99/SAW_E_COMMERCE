@@ -13,7 +13,7 @@ import { ListEmpty } from "./ErrorModules/ListEmptyModule";
 
 import {useNavigate } from 'react-router-dom';
 
-export function ProductSearched() {
+export function ProductSearched({setDataSelected}) {
 
 	
 
@@ -174,7 +174,7 @@ export function ProductSearched() {
 				<>
 					<div className="product-list" ref={scrollContainerMaglie}>
 						{maglie.map((product, index) => (
-							<ProductPreview key={index} product={product} />
+							<ProductPreview key={index} product={product} nav={navigate} setDataSelected={setDataSelected}/>
 						))}
 					</div>
 				</> 
@@ -182,14 +182,14 @@ export function ProductSearched() {
 					<div className="product-list" ref={scrollContainerScarpe}>
 							
 						{scarpe.map((product, index) => (
-							<ProductPreview key={index} product={product} />
+							<ProductPreview key={index} product={product} nav={navigate} setDataSelected={setDataSelected}/>
 						))}
 					</div>
 				</> 
 				<>
 					<div className="product-list" ref={scrollContainerPantaloni}>
 						{pantaloni.map((product, index) => (
-							<ProductPreview key={index} product={product} />	
+							<ProductPreview key={index} product={product} nav={navigate} setDataSelected={setDataSelected}/>	
 						))}
 					</div>
 				</>

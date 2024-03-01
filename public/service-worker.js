@@ -171,7 +171,7 @@ const CACHE = "my-cache-v1";
 
 const precacheFiles = [ '/','/index.html'];
 
-
+  
 self.addEventListener("install", function (event) {
   self.skipWaiting();
   event.waitUntil(

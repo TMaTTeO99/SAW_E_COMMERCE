@@ -119,9 +119,9 @@ export function DoLogin({className}) {
 						 * allora utilizzo setViewOptionLogin, altrimenti hiddenViewOptionLogin
 						 * in questo modo posso ritornare alla schermrata corretta
 						 */}
-						<CreateAccount handleBack={
-							fromNavigation ? hiddenViewOptionLogin : setViewOptionLogin
-							}/>
+						<CreateAccount handleBackEmail={fromNavigation ? hiddenViewOptionLogin : setViewOptionLogin}
+							handleBackEmailCard={fromNavigation ? hiddenViewOptionLogin : setViewOptionLogin}
+							onlyCardForm={false}/>
 					</motion.div>	
 				}
 				{formResetPWD && 
