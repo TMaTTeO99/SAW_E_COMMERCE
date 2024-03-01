@@ -6,9 +6,9 @@ import back from '../Images/back.png';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import {uploadCards} from '../FetchProducts';
 import {checkCreditCardOnDB} from '../FetchProducts';
-import '../Style/StyleFormCard.css';
 import { FormCarta } from './FormCarta';
-
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import '../Style/StyleFormCard.css';
 
 function checkCreditCardFormat(cardNumber, expiryDate, cvv) {
 
@@ -35,22 +35,42 @@ function checkCreditCardFormat(cardNumber, expiryDate, cvv) {
 }
 async function addAccount(email, password, setAddCard, setDataLogin) {
 
-	
+	console.log("ENTEOOOOOOO");
 	return createUserWithEmailAndPassword(auth, email, password)
-	.then((userCredential) => {
-		//salvo i dati anche nello storage del browser per poter recuperare le info in caso di ricarica 
-		//della pagina
+	.then( async (userCredential) => {
 		
-		setAddCard(true);
-		const log = {
-			login : "si",
-			data : userCredential
-		};
-		localStorage.setItem("loginData", JSON.stringify(log));
-		setDataLogin(log);
-		return true;
+		
+		//devo fare il login 
+
+		console.log("SI CREAZONE **** ");
+		return await signInWithEmailAndPassword(auth, email, password)
+		.then((userCredential) => {
+			//salvo i dati anche nello storage del browser per poter recuperare le info in caso di ricarica 
+			//della pagina
+		
+			setAddCard(true);
+			const log = {
+				login : "si",
+				data : userCredential
+			};
+			localStorage.setItem("loginData", JSON.stringify(log));
+			setDataLogin(log);
+
+			console.log("SI LOGINNN **** ");
+			return true;
+			
+		})
+		.catch((error) => {
+			console.log("NO LOGINNN **** ");
+			return false;
+		});
+		
 	})
-	.catch(() => {return false;});
+	.catch(() => {
+		
+		console.log("NO CREAZIONE **** ");
+		return false;
+	});
 	
 	
 }
@@ -99,31 +119,51 @@ export function CreateAccount({handleBackEmail, handleBackEmailCard, onlyCardFor
 				scadenza: expiryDate,
 				code: cvv,
 				user: email,
-				proprietario: cardHolderName
+				proprietario: cardHolderName,
+				credit: "1000"
 			}
-			//controllo se la carta esiste nel db
-			const flag = await checkCreditCardOnDB(card);
-			
-			if(flag !== -1) {
-				if(await uploadCards(card, flag)){
 
-					if(!onlyCardForm){
-						if(await addAccount(email, password, setAddCard, setDataLogin)) {
+			if(!onlyCardForm){
+				
+				if(await addAccount(email, password, setAddCard, setDataLogin)) {
+					
+					//controllo se la carta esiste nel db
+					const flag = await checkCreditCardOnDB(card);
+					if(flag !== -1) {
+
+						if(await uploadCards(card, flag)){
+							
 							alert('Profilo Creato');
 							navigate('/');
+
 						}
-						else alert('ERRORE. Impossibile Creare Profilo');
+						else alert('ERRORE. Impossibile Aggiungere Carta al Momento'); 
+					
 					}
-					else {
+					else alert('Carta Gia Esistente');
+					
+					
+				}
+				else alert('ERRORE. Impossibile Creare Profilo');
+			}
+			else {
+
+				const flag = await checkCreditCardOnDB(card);
+				if(flag !== -1) {
+
+					if(await uploadCards(card, flag)){
+						
 						alert('Carta Di Credito Aggiunta');
 						navigate('/');
-					}
-					 
-				}
-				else alert('ERRORE. Impossibile Aggiungere Carta al Momento'); 
-			}
-			else alert('Carta Gia Esistente');
 
+					}
+					else alert('ERRORE. Impossibile Aggiungere Carta al Momento'); 
+				
+				}
+				else alert('Carta Gia Esistente');
+				
+			}
+				
 			break;
 		}
 

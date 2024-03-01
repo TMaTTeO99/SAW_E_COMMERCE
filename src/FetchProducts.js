@@ -55,15 +55,13 @@ function myCypherData(data) {
 
 	const ciphertext = CryptoJS.AES.encrypt(data, Key).toString();
 
-	console.log("data " + data + " ciphertext "+ ciphertext);
 	return ciphertext;
 }
-function myDecipherData(data) {
+export function myDecipherData(data) {
 	
 	const bytes = CryptoJS.AES.decrypt(data, Key);
 	const originalText = bytes.toString(CryptoJS.enc.Utf8);
 	
-	console.log("data " + data + " originalText "+ originalText);
 	return originalText;
 }
 export async function uploadCards(card, flag) {
@@ -72,13 +70,14 @@ export async function uploadCards(card, flag) {
 	const db = getFirestore(app);
 	try {
 		//qui prima di fare l up-load devo cifrare i dati
-
+console.log("card.credit *********" + card.credit)
 		const protectedCard = {
 			numcard: myCypherData(card.numcard),
 			scadenza: myCypherData(card.scadenza),
 			code: myCypherData(card.code),
 			user: myCypherData(card.user),
-			proprietario: myCypherData(card.proprietario)
+			proprietario: myCypherData(card.proprietario),
+			credit: myCypherData(card.credit)
 		}
 		
 		//se il documento non esiste lo creo da zero
@@ -99,6 +98,16 @@ export async function uploadCards(card, flag) {
 		return false;
 	}
 }
+export async function getCards(user) {
+
+	const db = getFirestore(app);
+	const docRef = doc(db, 'cards', user);
+	const docSnap = await getDoc(docRef);
+
+	if(docSnap.exists) return docSnap.data().usercard;
+
+	return [];
+}
 export async function checkCreditCardOnDB(card) {
 	
 	var flag = 1; 
@@ -107,14 +116,6 @@ export async function checkCreditCardOnDB(card) {
 	const docSnap = await getDoc(docRef);
 
 	if(!docSnap.exists()) return 0;//documento inesistente
-
-	const tmpCard = {
-		numcard: myCypherData(card.numcard),
-		scadenza: myCypherData(card.scadenza),
-		code: myCypherData(card.code),
-		user: myCypherData(card.user),
-		proprietario: myCypherData(card.proprietario)
-	}
 
 
 	docSnap.data().usercard.forEach((crd) => {

@@ -1,0 +1,121 @@
+/*.scrolling-list{
+	display: flex;
+	margin-top: 1%;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none; 
+	-ms-overflow-style: none;  
+}
+.scrolling-list::-webkit-scrollbar {
+	display: none; 
+}
+.list-item {
+	
+	flex: 0 0 auto;
+	margin-right: 16px;
+	border-radius: 15px;
+	scroll-snap-align: start;
+	padding: 1vh;
+	overflow: hidden;
+}
+.ColorCard {
+
+	background-color: rgb(220, 199, 248);
+	border-radius: 10px;
+	padding: 5%;
+	width: 100%;
+}
+.dataCard {
+
+	font-size: 100%;
+
+}
+.divSup {
+	padding: 10px;
+}
+*/
+
+
+.scrolling-list{
+	display: flex;
+	margin-top: 1%;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none; 
+	-ms-overflow-style: none;   
+}
+.scrolling-list::-webkit-scrollbar {
+	display: none; 
+}
+.list-item {
+	
+	flex: 0 0 auto;
+	margin-right: 16px;
+	border-radius: 15px;
+	scroll-snap-align: start;
+	padding: 1vw;
+	overflow: hidden;
+	cursor: pointer;
+}
+.ColorCard {
+
+	background-color: rgb(220, 199, 248);
+	border-radius: 10px;
+	padding: 5%;
+	width: 100%;
+}
+.ColorCard-selected {
+	background-color: #f0f0f0; 
+	border: 2px solid #000; 
+	border-radius: 10px;
+}
+.dataCard {
+
+	font-size: 100%;
+
+}
+.divSup {
+	padding: 10px;
+}
+#prova_1 {
+
+	display: flex;
+	flex-direction: column;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none; 
+	-ms-overflow-style: none; 
+}	  
+
+#prova_1::-webkit-scrollbar {
+	display: none; 
+}
+
+.FinalBuyButton {
+	display: flex;
+	justify-content: center;	
+	transition: color 0.3s ease;
+	font-size: 2vh;
+	padding-left: 5%;
+}
+.FinalBuyButtonDiv {
+	cursor: pointer;
+	background-color: transparent;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	border-color: black;
+	text-transform: uppercase;
+	transition: background-color 0.3s ease;
+	margin-top: 8%;	
+	width: 20vh;
+	margin-left: 1%;
+}
+.FinalBuyButtonDiv:hover {
+	background-color: black;
+}
+.FinalBuyButtonDiv:hover .FinalBuyButton{
+	color: white;
+}

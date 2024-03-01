@@ -51,7 +51,9 @@ export function FormCarta({sympleHandleBack,
 							<input className='inputCard' type="text" value={cardHolderName} onChange={(e) => setCardHolderName(e.target.value)} required />
 						</div>
 					</label>
-					<p id='buttonCard' onClick={handleSubmitCard}>Aggiungi carta</p>
+					<div id='dive_btn_formCard_add' >
+						<button id='btn_formCard_add' type='submit'>Aggiungi carta</button>
+					</div>
 				</form>
 			</div>
 		</div>
