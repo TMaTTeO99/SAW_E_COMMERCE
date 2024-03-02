@@ -40,6 +40,20 @@ initializeFirestore(app, {
 });
 
 
+if(!("Notification" in window)){
+  alert("Il Browser Non Supporta Le Notifiche");
+}
+else if(Notification.permission !== 'denied') {
+  Notification.requestPermission().then((permession) => {
+    if(permession === 'granted') {
+      const notification = new Notification("Benvenuto Nel Mio E-commerce", {
+        icon:'../public/icons/logo1_p.png'
+      });
+    }
+  })
+}
+
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -50,11 +64,6 @@ root.render(
   <MyProvider>
       <App dataHome={previewData}/>
   </MyProvider>
-  /**
-    <React.StrictMode>
-    per ora lascio qeusto commentato per non avere richiami multipli di usestate e useeffect
-  </React.StrictMode>
-*/
 );
 
 

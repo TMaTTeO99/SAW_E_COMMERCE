@@ -39,7 +39,7 @@
 
 .scrolling-list{
 	display: flex;
-	margin-top: 1%;
+	margin-top: 20%;
 	overflow-x: auto;
 	scroll-snap-type: x mandatory;
 	-webkit-overflow-scrolling: touch;
@@ -111,7 +111,7 @@
 	transition: background-color 0.3s ease;
 	margin-top: 8%;	
 	width: 20vh;
-	margin-left: 1%;
+	margin-left: 20vw;
 }
 .FinalBuyButtonDiv:hover {
 	background-color: black;

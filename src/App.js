@@ -12,6 +12,7 @@ import { useContext, useState} from 'react';
 import {ProductSearched} from './ListProductSearched';
 import {ManageAccount} from './ManageAccountModule/ManagerAccount';
 import {BuyProduct} from './BuyProductModule'
+import {MyOrders} from './MyOrders'
 import './Style/StyleEmailForm.css';
 
 
@@ -38,13 +39,13 @@ export default function App({dataHome}) {
               <Home dataPreview={dataHome}/>
             </motion.div>
           }/>
-          
+          /MyOrders
           
           <Route path="/test" element={<Test/>}/>
           <Route path="/DoLogin" element={<DoLogin/>}/>
           <Route path="/ManageAccount" element={<ManageAccount/>}/>
 
-
+          <Route path="/MyOrders" element={<MyOrders/>}/>
           <Route path="/ProductSearched" element={
             <ProductSearched />
           }/>

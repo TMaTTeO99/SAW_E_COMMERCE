@@ -34,7 +34,7 @@ function correctInput(input, dictionary) {
 	return closestWord;
 } 
 
-
+////////////////////////////////////////////////////////////////////////
 export async function upload() {
 
 	
@@ -51,7 +51,9 @@ export async function upload() {
 		console.error("Error adding document: ", e);
 	}
 }
-function myCypherData(data) {
+
+//////////////////////////////////////////////////////////////////////////
+export function myCypherData(data) {
 
 	const ciphertext = CryptoJS.AES.encrypt(data, Key).toString();
 
@@ -64,13 +66,55 @@ export function myDecipherData(data) {
 	
 	return originalText;
 }
+export async function getOrders(user) {
+
+	const db = getFirestore(app);
+	
+	const docRef = doc(db, 'orders', user);
+	const docSnap = await getDoc(docRef);
+
+	
+	if(docSnap.exists) return docSnap.data().userOrders;
+
+	return [];
+
+
+
+}
+export async function uploadOrder(data, user) {
+
+	const db = getFirestore(app);
+
+	try {
+
+		const stapshot = await getDocs(collection(db, "orders"));
+
+		if(stapshot.empty) {
+
+			const docRef = await setDoc(doc(db, "orders", user), {userOrders : [data]});
+			console.log("Document uploaded");
+		}
+		else {
+			const docRef = await updateDoc(doc(db, "orders", user), {
+				userOrders: arrayUnion(data)
+			});
+			console.log("Document uploaded");
+		}
+		return true;
+	}
+	catch(e) {
+		console.error("Error adding document: ", e);
+		return false;
+	}
+
+}
 export async function uploadCards(card, flag) {
 
 	
 	const db = getFirestore(app);
 	try {
+
 		//qui prima di fare l up-load devo cifrare i dati
-console.log("card.credit *********" + card.credit)
 		const protectedCard = {
 			numcard: myCypherData(card.numcard),
 			scadenza: myCypherData(card.scadenza),
@@ -108,6 +152,56 @@ export async function getCards(user) {
 
 	return [];
 }
+export async function upDateCard(cards, user) {
+
+
+	const db = getFirestore(app);
+	const docRef = doc(db, 'cards', user);
+
+	return await updateDoc(docRef, {
+		usercard: cards
+	});
+
+} 
+export async function updateProduct(coll, dataProduct) {
+
+
+	
+	const db = getFirestore(app);
+	
+	const snapshot = await getDocs(query(collection(db, coll),
+		where("name", "==", dataProduct.name)));
+
+	
+
+	
+	if(!snapshot.empty) {	
+	
+		const docRef = doc(db, coll, snapshot.docs[0].id);
+	
+		const quantità =  dataProduct.quantità - 1;
+		const disp = quantità > 0 ? "si" : "no";
+
+
+		return await updateDoc(docRef, {
+			
+			...dataProduct,
+			quantita: quantità,
+			disp: disp 
+
+		})
+		.then(() => {return 1;})
+		.catch(() => {return 0;});
+
+	}
+	else {
+		alert("NON TROVATO");
+	}
+	return 0;
+
+
+}
+
 export async function checkCreditCardOnDB(card) {
 	
 	var flag = 1; 
@@ -156,7 +250,8 @@ export async function getPreview(){
 		console.log(err);
 		return null;
 	});
-	if(snapshot) {
+	
+	if(snapshot && snapshot.docs.length > 0) {
 		return snapshot.docs[0].data().prodotti;
 	}
 	return [];
@@ -214,7 +309,7 @@ async function getGender() {
 	catch(e) {
 		console.log(e);
 		//in caso di errore ritono un dizionario fittizio
-		return new ["uomo", "donna", "bambino"];
+		return ["uomo", "donna", "bambino"];
 	}
 
 }
@@ -230,7 +325,7 @@ export async function getProductType() {
 	catch(e) {
 		console.log(e);
 		//in caso di errore ritono un dizionario fittizio
-		return new ["scarpe", "maglie", "pantaloni"];
+		return ["scarpe", "maglie", "pantaloni"];
 	}
 
 }

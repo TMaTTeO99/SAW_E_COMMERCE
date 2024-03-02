@@ -4,6 +4,10 @@ import { useContext, useState, useRef, useEffect } from 'react';
 import { LoginContext } from './LoginContext';
 import { getCards } from './FetchProducts';
 import {myDecipherData} from './FetchProducts'; 
+import {myCypherData} from './FetchProducts';
+import {upDateCard} from './FetchProducts';
+import {updateProduct} from './FetchProducts';
+import {uploadOrder} from './FetchProducts';
 import {motion} from 'framer-motion';
 import back from './Images/back.png';
 import './Style/StyleBuyProduct.css';
@@ -64,7 +68,9 @@ export function BuyProduct() {
 	const scrollContainer = useRef(null);
 
 	const [idx, setIdx] = useState(-1);
+	const [crdsHidden, setCrdsHidden] = useState([]);
 	const [crds, setCrds] = useState([]);
+
 	const [infoView, setinfoView] = useState(true);
 	const [addressForm, setAddressForm] = useState(false);
 	const product = JSON.parse(localStorage.getItem("selectedProduct"));
@@ -100,37 +106,86 @@ export function BuyProduct() {
 	}
 	const Buy = async () => {
 
+		//controllo il saldo della carta
+		
+		if(idx > -1) {
+			const saldo = myDecipherData(crds[idx].credit); 
+		
+			if(parseInt(product.prt.prezzo, 10) > parseInt(saldo, 10) ) {
+				//qui devo visualizzare messaggio di saldo insufficente e uscire
+				return;	
+			}
+			if(product.prt.quantita <= 0) {
+				//qui devo visualizzare messaggio di non disponibilità
 
-		//qui devo effettuare acquisto reale 
+				return;
+			}
+			//sistemo i dati
+			const credit = myDecipherData(crds[idx].credit);
+			const newCredit = parseInt(credit, 10) - parseInt(product.prt.prezzo, 10);
 
+			crds[idx].credit = myCypherData(newCredit.toString());
+
+			//qui modifico i dati su firestore riguardo la carta di credito, 
+			return await upDateCard(crds, datalogin.data.user.email)
+				.then( async () => {
+
+
+					//devo modificare i dati su firestore riguardo il prodotto
+					if(await updateProduct(product.prt.prodotto , product.prt) === 0) {
+						alert("Impossibile Effettuare ordine Al Momendo");	
+						return -1;
+					}
+					else {
+						alert("Ordine Effettuato");
+						//qui devo aggiungere l ordine agli ordini dell utente
+						//su firestore
+
+						product.prt.url = product.url;
+						
+						if(await uploadOrder(product.prt, datalogin.data.user.email)) {
+							alert("ORDINA CARICATO");
+						}
+						else alert("IMPOSSIBILE CARICARE ORDINE");
+
+
+
+						return 1;
+					}
+
+				})
+				.catch(() => {
+					console.log("DATI NON AGGIONRATI DELLA CARTA");
+					return -2;
+				});
+			}
+			alert("Selezionare Carta Di Credito");
 
 	}
 	const handleSubmitAddress = async (e) => {
 
-		/*console.log(citta.current.value)
-		console.log(paese.current.value)
-		console.log(via.current.value)
-		*/
 
 		setinfoView(false);
 		setAddressForm(false);
 		const cardsUser = await getCards(datalogin.data.user.email);
+		const hiddenCards = [];
 		cardsUser.forEach((v) => {
 			
-			v.numcard = hidenNumCard(v.numcard);
-			v.code = hidenCode(v.code)
-			v.proprietario = myDecipherData(v.proprietario);
-			v.scadenza = hidenData(v.scadenza);
+			hiddenCards.push({
+				numcard: hidenNumCard(v.numcard),
+				code: hidenCode(v.code), 	 
+				proprietario: myDecipherData(v.proprietario),
+				scadenza: hidenData(v.scadenza),
+				credit: v.credit	
+			});
 
 		})
-		setCrds(cardsUser); 
+		setCrds(cardsUser);
+		setCrdsHidden(hiddenCards); 
 		
 		if (scrollContainer.current) {
 			scrollContainer.current.addEventListener('wheel', handleWheel);
 		}
-
-		
-
 
 	}
 	
@@ -150,12 +205,20 @@ export function BuyProduct() {
 		
 			<div className="BuyProductDiv">
 
+				
 
 
 				<div className="BuyProductDivImage">
 					<img id='imgPrd' src={product.url}/>
 				</div>
-
+					{!infoView && 
+					<div className='backContainer'>
+						<div id='divBack'>
+							<img src={back} id='backID' onClick={handleBack}/>
+							<button onClick={handleBack}> BACK</button>
+						</div>
+					</div>
+					}
 				{infoView && 
 				
 				<div className="BuyProductDivOption">
@@ -183,7 +246,7 @@ export function BuyProduct() {
 						<p className='pByuPr'>{"Prezzo: " + product.prt.prezzo}</p>
 					</div>
 					<div id='dive_btn' onClick={(e) => BuyProduct()}>
-						<button id='btnAccedi' onClick={(e) => BuyProduct()}>Accedi</button>
+						<button id='btnAccedi' onClick={(e) => BuyProduct()}>Acquista</button>
 					</div>
 					
 				</div>
@@ -219,7 +282,7 @@ export function BuyProduct() {
 									<input ref={via} id='inVia' name='via' required />
 								</div>
 								<div id='dive_btn'>
-									<button id='btnAccedi' type='submit'>Accedi</button>
+									<button id='btnAccedi' type='submit'>Inserisci</button>
 								</div>
 
 						  	</div>
@@ -228,29 +291,21 @@ export function BuyProduct() {
 						</motion.div>
 					</div>
 				}
-				{/*
-					Qui devo far scomparire i componenti precedenti
-					e far decidere quale carta usare per fare l acquisto
-					e poi comprare il prodotto, dopo aver comprato il prodotto
-					l utente deve ricevere la notifica
-					di acquisto effettuato 
-				*/}
 				{!infoView && 
 
 					//qui inserisco anche il tasto back
+					<>
 					<div id='prova_1'>
+
 						<motion.div
               			initial={{ opacity: 0 }}
               			animate={{ opacity: 1 }}
               			exit={{ opacity: 0 }}
               			transition={{ duration: 0.5 }}>
-						<div id='divBack'>
-							<img src={back} id='backID' onClick={handleBack}/>
-							<button onClick={handleBack}> BACK</button>
-						</div>
+						
 						<div className="scrolling-list" ref={scrollContainer}>
 
-							{crds.map((item, index) => (
+							{crdsHidden.map((item, index) => (
 							  <div key={index} className="list-item">
 
 								<div className={ idx === index ? "ColorCard-selected" : "ColorCard"} 
@@ -265,11 +320,16 @@ export function BuyProduct() {
 							))}
 						</div>
 							
+						</motion.div>
+
 						<div className='FinalBuyButtonDiv' onClick={(e) => Buy()}>
 							<h2 className='FinalBuyButton' >Effettua pagamento</h2>
 						</div>
-						</motion.div>
+					
 					</div>
+
+					
+					</>
 				}
 
 			</div>

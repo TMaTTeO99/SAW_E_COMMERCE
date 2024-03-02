@@ -18,6 +18,7 @@ export function SelectOption({handlePassword, handleDelate}) {
 	const handleBack = () => navigate('/');
 	const handleBackCreate = () => setHidenOption(false);
 	const setFormVisible = () =>  setHidenOption(true);
+	const manageOrders = () => navigate('/MyOrders')
 
 	async function doLogout() {
 	
@@ -65,6 +66,9 @@ export function SelectOption({handlePassword, handleDelate}) {
 						</div>
 						<div className='logout_class' onClick={setFormVisible}>
 							<p>AGGIUNGI CARTA</p>
+						</div>
+						<div className='logout_class' onClick={manageOrders}>
+							<p>ORDINI EFFETTUATI</p>
 						</div>
 						{/*
 							<div className='logout_class' onClick={''}>

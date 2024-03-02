@@ -6,6 +6,11 @@ import '../Style/Back.css';
 import { Link} from 'react-router-dom'; 
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * Il codice di right column da eliminare
+ */
+
+
 export function RightColumn({GoogleHandler, EmailPasswordhandler, ViewCreateAccount, CheckBack}) {
 
 	const navigate = useNavigate();
@@ -31,26 +36,25 @@ export function RightColumn({GoogleHandler, EmailPasswordhandler, ViewCreateAcco
 				<button onClick={handleBack}> BACK</button>
 			</div>
 		
-		<div className='divLoginOption'>
+			<div className='divLoginOption'>
 
-			<div className='containerLoginType' >
+				<div className='containerLoginType' >
 
 
-				<h2 id='h2_2'>LOG-IN</h2>
+					<h2 id='h2_2'>LOG-IN</h2>
 
-				<div id='ContainerLogDiv'>		
-					<div className='Login_class_1' onClick={GoogleHandler}>
-						<img src={google} className='Link_' />
-					</div>		
-					<div className='Login_class_2' onClick={EmailPasswordhandler}>
-						<img src={email} className='Link_' />
-					</div>						
+					<div id='ContainerLogDiv'>		
+						<div className='Login_class_1' onClick={GoogleHandler}>
+							<img src={google} className='Link_' />
+						</div>		
+						<div className='Login_class_2' onClick={EmailPasswordhandler}>
+							<img src={email} className='Link_' />
+						</div>						
+					</div>
+					<Link id='create' onClick={setViewFromDefult}>Crea un account</Link>
 				</div>
-				<Link id='create' onClick={setViewFromDefult}>Crea un account</Link>
-			</div>
-			
 
-		</div>
+			</div>
 		</>
 	);
 
