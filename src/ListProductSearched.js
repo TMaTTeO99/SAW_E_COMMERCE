@@ -8,10 +8,12 @@ import {motion} from 'framer-motion';
 import { MyHeader } from './Myheader';
 import { fetchData } from './FetchProducts';
 import { LoginContext } from "./LoginContext";
-import { useContext , useReducer} from "react";
+import { useContext } from "react";
 import { ListEmpty } from "./ErrorModules/ListEmptyModule";
-
 import {useNavigate } from 'react-router-dom';
+
+import logo from './Images/logo1.png';
+import './Style/StyleSearchedProduct.css'
 
 export function ProductSearched({setDataSelected}) {
 
@@ -163,37 +165,49 @@ export function ProductSearched({setDataSelected}) {
 			</motion.div>
 		}
 		{!isEmpty && 
+
 			<>
-				<motion.div
+			<motion.div
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
 					transition={{ duration: 0.5 }}>
 					<MyHeader />
-				</motion.div>
-				<>
+				
+
+			<div className="listsContainer">
+				
+				<div className="DivOrderList">
 					<div className="product-list" ref={scrollContainerMaglie}>
 						{maglie.map((product, index) => (
 							<ProductPreview key={index} product={product} nav={navigate} setDataSelected={setDataSelected}/>
 						))}
 					</div>
-				</> 
-				<>
+						
 					<div className="product-list" ref={scrollContainerScarpe}>
-							
+
 						{scarpe.map((product, index) => (
 							<ProductPreview key={index} product={product} nav={navigate} setDataSelected={setDataSelected}/>
 						))}
 					</div>
-				</> 
-				<>
+						
 					<div className="product-list" ref={scrollContainerPantaloni}>
 						{pantaloni.map((product, index) => (
 							<ProductPreview key={index} product={product} nav={navigate} setDataSelected={setDataSelected}/>	
 						))}
 					</div>
-				</>
+				</div>
+				<div className="DivRightPannel">
+					<img className='logoProduct' src={logo} alt='MyEcommerce'/>
+					<h2 id='h2_logoProduct'>MY_E_COMMERCE</h2>
+					
+				</div>
+					
+
+			</div>
+			</motion.div>
 			</>
+
 		}
 	</>
 	);

@@ -87,6 +87,33 @@ export async function uploadOrder(data, user) {
 
 	try {
 
+		const docRef = doc(db, "orders", user);
+		const docSnap = await getDoc(docRef);
+
+		if(!docSnap.exists()) {
+
+			await setDoc(docRef, {userOrders : [data]});
+			console.log("Document uploaded");
+		}
+		else {
+			let userOrders = docSnap.data().userOrders;
+			userOrders.push(data);
+
+			await updateDoc(docRef, {
+				userOrders: userOrders
+			});
+			console.log("Document uploaded");
+		}
+		return true;
+	}
+	catch(e) {
+		console.error("Error adding document: ", e);
+		return false;
+	}
+	/*const db = getFirestore(app);
+
+	try {
+
 		const stapshot = await getDocs(collection(db, "orders"));
 
 		if(stapshot.empty) {
@@ -95,6 +122,7 @@ export async function uploadOrder(data, user) {
 			console.log("Document uploaded");
 		}
 		else {
+			
 			const docRef = await updateDoc(doc(db, "orders", user), {
 				userOrders: arrayUnion(data)
 			});
@@ -105,7 +133,7 @@ export async function uploadOrder(data, user) {
 	catch(e) {
 		console.error("Error adding document: ", e);
 		return false;
-	}
+	}*/
 
 }
 export async function uploadCards(card, flag) {
@@ -189,6 +217,7 @@ export async function updateProduct(coll, dataProduct) {
 			quantita: quantità,
 			disp: disp 
 
+
 		})
 		.then(() => {return 1;})
 		.catch(() => {return 0;});
@@ -227,17 +256,15 @@ export async function checkCreditCardOnDB(card) {
 
 }
 
-export async function deleteAllCard(ID) {
+export async function deleteAll(ID, col) {
 
 	const db = getFirestore(app);
-	return await deleteDoc(doc(db, "cards", ID))
+	return await deleteDoc(doc(db, col, ID))
 	.then(result => result)
 	.catch((err) => {
 		console.log(err);
 		return err;
 	});
-
-
 }
 
 export async function getPreview(){

@@ -63,7 +63,6 @@ function hidenData(data) {
 
 export function BuyProduct() {
 	
-	const {datalogin, setDataLogin, inputSearch, setinputSearch} = useContext(LoginContext);
 	
 	const scrollContainer = useRef(null);
 
@@ -82,6 +81,9 @@ export function BuyProduct() {
 	const navigate = useNavigate();
 	const speed = 4;
 	
+	//const {datalogin, setDataLogin, inputSearch, setinputSearch} = useContext(LoginContext);
+	const datalogin = JSON.parse(localStorage.getItem("loginData"));
+
 	const handleBack = () => {
 		setinfoView(true);
 		setAddressForm(true);
@@ -100,8 +102,9 @@ export function BuyProduct() {
 	};
 
 
-	const BuyProduct = () => {
-		if(datalogin.login !== 'si') {navigate('/DoLogin');}
+	const buyProduct = () => {
+
+		if(!datalogin || datalogin.login !== 'si') {navigate('/DoLogin');}
 		setAddressForm(true);
 	}
 	const Buy = async () => {
@@ -142,13 +145,19 @@ export function BuyProduct() {
 						//su firestore
 
 						product.prt.url = product.url;
+						const toUpLoad = {
+
+							...product.prt,
+							data: new Date().toLocaleDateString(),
+
+						}
 						
+
+
 						if(await uploadOrder(product.prt, datalogin.data.user.email)) {
-							alert("ORDINA CARICATO");
+							console.log("Ordine Caricato");
 						}
 						else alert("IMPOSSIBILE CARICARE ORDINE");
-
-
 
 						return 1;
 					}
@@ -245,8 +254,8 @@ export function BuyProduct() {
 												"Taglia: Non disponibile"}</p>						
 						<p className='pByuPr'>{"Prezzo: " + product.prt.prezzo}</p>
 					</div>
-					<div id='dive_btn' onClick={(e) => BuyProduct()}>
-						<button id='btnAccedi' onClick={(e) => BuyProduct()}>Acquista</button>
+					<div id='dive_btn' onClick={(e) => buyProduct()}>
+						<button id='btnAccedi' onClick={(e) => buyProduct()}>Acquista</button>
 					</div>
 					
 				</div>

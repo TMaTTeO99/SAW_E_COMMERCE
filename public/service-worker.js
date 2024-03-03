@@ -13,8 +13,23 @@ self.addEventListener("install", function (event) {
 });
 
 //Attivo il service worker
-self.addEventListener("activate", function (event) {
+/*self.addEventListener("activate", function (event) {
   event.waitUntil(self.clients.claim());
+});*/
+
+//cache versioning
+self.addEventListener("activate", event => {
+
+  const currentCaches = [CACHE];
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return cacheNames.filter(cacheName => !currentCaches.includes(cacheName));
+    }).then(cachesToDelete => {
+      return Promise.all(cachesToDelete.map( cacheToDelete => {
+        return caches.delete(cacheToDelete);
+      }));
+    }).then(() => self.clients.claim())
+  );
 });
 
 //Se il recupero fallisce, cercherà la richiesta nella cache e
@@ -41,10 +56,10 @@ self.addEventListener("fetch", function (event) {
       },
 
       function () {
-        //La risposta non è stata trovata nella cache, quindi la cerchiamo sul server
+        //La risposta non è stata trovata nella cacher
         return fetch(event.request)
           .then(function (response) {
-            //Se la richiesta ha successo, la aggiungiamo o la aggiorniamo nella cache
+            
             event.waitUntil(updateCache(event.request, response.clone()));
             return response;
           })
@@ -58,8 +73,8 @@ self.addEventListener("fetch", function (event) {
 });
 
 function fromCache(request) {
-  //Fa un controllo per vedere se c’è nella cache
-  //Se non c’è, restituisce la risposta
+  //Faccio un controllo per vedere se c’è nella cache
+  //Se non c’è, restituisc0 la risposta
   return caches.open(CACHE).then(function (cache) {
     return cache.match(request).then(function (matching) {
       if (!matching || matching.status === 404) {

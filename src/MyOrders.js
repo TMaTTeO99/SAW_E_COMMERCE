@@ -40,7 +40,7 @@ export function MyOrders() {
 							<h2>DESCRIZONE</h2>
 							<p>{order.data}</p>
 							{order.description.map((v, idx) => (
-								<p>{v}</p>
+								<p key={idx}>{v}</p>
 							))}
 							<p>{order.prezzo}</p>
 						</div>

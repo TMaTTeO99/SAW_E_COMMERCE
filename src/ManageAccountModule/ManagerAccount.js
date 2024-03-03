@@ -11,7 +11,7 @@ import {useNavigate } from 'react-router-dom';
 import {LeftColumn} from '../LoginModules/LoginBase';
 import {ResetPassword} from '../LoginModules/ResetPassword';
 import { SelectOption } from './SelectOption';
-import {deleteAllCard} from '../FetchProducts';
+import {deleteAll} from '../FetchProducts';
 
 export function ManageAccount() {
 	
@@ -34,8 +34,8 @@ export function ManageAccount() {
 			
 			if(getAuth().currentUser !== null) {
 
-				const resultDelateCards = await deleteAllCard(datalogin.data.user.email);
-
+				await deleteAll(datalogin.data.user.email, "cards");
+				await deleteAll(datalogin.data.user.email, "orders");
 				deleteUser(getAuth().currentUser)
 				.then(() => {
 					const log = {

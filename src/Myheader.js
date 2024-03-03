@@ -65,6 +65,12 @@ export function MyHeader() {
 		navigate('/ProductSearched');
 		
 	}
+	const handleStaticSearch = (input) => {
+
+		localStorage.setItem("searchData", JSON.stringify(input));
+		setinputSearch(input);
+		navigate('/ProductSearched');
+	}
 	//temp
 	/*const styleObject = {
 		color: 'yellow',
@@ -97,14 +103,14 @@ export function MyHeader() {
 				<img className='logoHome' src={logo} alt='MyEcommerce' onClick={(e) => navigate('/')}/>		
 				<div id='sezioniID'>
 
-					<div className='containerClothes' >
-						<Link className='clothesClass' onClick={() => navigate(rederict)}>UOMO</Link>
+					<div className='containerClothes' onClick={() => handleStaticSearch(['uomo'])} >
+						<p className='clothesClass' >UOMO</p>
 					</div>
-					<div className='containerClothes'>
-						<Link className='clothesClass' onClick={() => navigate(rederict)}>DONNA</Link>
+					<div className='containerClothes' onClick={() => handleStaticSearch(['donna'])}>
+						<p className='clothesClass' >DONNA</p>
 					</div>
-					<div className='containerClothes'>
-						<Link className='clothesClass' onClick={() => navigate(rederict)} >BAMBINI</Link>
+					<div className='containerClothes' onClick={() => handleStaticSearch(['bambino'])}>
+						<p className='clothesClass'  >BAMBINI</p>
 					</div>
 				</div>
 						
@@ -128,7 +134,7 @@ export function MyHeader() {
 				<div className='headerClass'>
 					
 					<div>
-						<img className='logoHome' src={logo} alt='MyEcommerce'/>		
+						<img className='logoHome' src={logo} alt='MyEcommerce' onClick={(e) => navigate('/')}/>		
 
 						{/**
 						 * Componenti per il login e la registrazione
@@ -140,14 +146,14 @@ export function MyHeader() {
 					</div>
 					<div id='sezioniID'>
 
-						<div className='containerClothes' >
-							<Link className='clothesClass' onClick={() => navigate(rederict)}>UOMO</Link>
+						<div className='containerClothes' onClick={() => handleStaticSearch(['uomo'])} >
+							<p className='clothesClass' >UOMO</p>
 						</div>
-						<div className='containerClothes'>
-							<Link className='clothesClass' onClick={() => navigate(rederict)}>DONNA</Link>
+						<div className='containerClothes' onClick={() => handleStaticSearch(['donna'])}>
+							<p className='clothesClass' >DONNA</p>
 						</div>
-						<div className='containerClothes'>
-							<Link className='clothesClass' onClick={() => navigate(rederict)} >BAMBINI</Link>
+						<div className='containerClothes' onClick={() => handleStaticSearch(['bambino'])} >
+							<p className='clothesClass' >BAMBINI</p>
 						</div>
 					</div>
 
