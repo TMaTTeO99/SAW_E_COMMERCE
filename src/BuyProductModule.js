@@ -115,12 +115,12 @@ export function BuyProduct() {
 			const saldo = myDecipherData(crds[idx].credit); 
 		
 			if(parseInt(product.prt.prezzo, 10) > parseInt(saldo, 10) ) {
-				//qui devo visualizzare messaggio di saldo insufficente e uscire
+				alert("Saldo Sulla Carta Insufficente");
 				return;	
 			}
 			if(product.prt.quantita <= 0) {
 				//qui devo visualizzare messaggio di non disponibilità
-
+				alert("Prodotto Non Disponibile");
 				return;
 			}
 			//sistemo i dati
@@ -164,7 +164,7 @@ export function BuyProduct() {
 
 				})
 				.catch(() => {
-					console.log("DATI NON AGGIONRATI DELLA CARTA");
+					alert("Transazione Fallita");
 					return -2;
 				});
 			}

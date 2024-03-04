@@ -1,4 +1,4 @@
-const CACHE = "my-cache-v-3";
+const CACHE = "my-cache-v-1-1";
 
 const precacheFiles = [ '/','/index.html'];
 
@@ -30,8 +30,7 @@ self.addEventListener("activate", event => {
   );
 });
 
-//Se il recupero fallisce, cercherà la richiesta nella cache e
-//la servirà prima da lì
+//Se il recupero fallisce, cerco la richiesta nella cache e
 self.addEventListener("fetch", function (event) { 
 
   //non gestisco le chiamate come login logout creazione profilo... per evitare errori di firebase sulla console
