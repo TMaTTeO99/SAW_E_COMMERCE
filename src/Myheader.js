@@ -4,19 +4,9 @@ import profile from './Images/profilo.png';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState} from 'react';
-
-
-import {upload} from './FetchProducts';
-import { fetchData } from './FetchProducts';
 import { useContext} from 'react';
-import {LoginContext} from './LoginContext';
-//temp
-import {catalogo} from "./TempDataProduct";
-import { dictionary } from "./TempDataProduct";
-import { productDictionary } from "./TempDataProduct";
-import {getDictionary} from './FetchProducts';
-//import { getURLs } from './FetchProducts';
-//temp
+import {LoginContext} from './MyContext';
+
 
 export function MyHeader() {
 
@@ -49,7 +39,6 @@ export function MyHeader() {
 	
 		window.addEventListener('resize', handleResize);
 	
-		// Pulizia dell'evento quando il componente viene smontato
 		return () => {
 		  window.removeEventListener('resize', handleResize);
 		};
@@ -71,12 +60,6 @@ export function MyHeader() {
 		setinputSearch(input);
 		navigate('/ProductSearched');
 	}
-	//temp
-	/*const styleObject = {
-		color: 'yellow',
-		cursor: 'pointer',
-	};*/
-	//temp
 
 
 	const soglia = 704;
@@ -86,19 +69,6 @@ export function MyHeader() {
 		{ windowWidth > soglia ? 
 			(<div className='headerClass'>
 				
-				{/*temp 
-				
-					<p style={styleObject} onClick={(e) => upload()}>UPLOAD-dizionario</p>
-					
-				*/}
-					
-				{/*temp */}
-					
-				{/*temp 
-					<p style={styleObject} onClick={(e) => getDictionary()}>_____get-dizionario</p>
-				*/}
-					
-				{/*temp */}
 				
 				<img className='logoHome' src={logo} alt='MyEcommerce' onClick={(e) => navigate('/')}/>		
 				<div id='sezioniID'>
@@ -120,10 +90,6 @@ export function MyHeader() {
 					<button className="searchBarBTN" type='submit' >Cerca</button>
 				</form>
 					
-				
-				{/**
-				 * Componenti per il login e la registrazione
-				 */}
 				<div className='DIVLogInSignUp'>
 				 	<Link className='logIn' to={flagLogin ? '/' : '/DoLogin'}>{textForUser}</Link>
 					<img className='imgProfile' src={profile} alt='profilo' onClick={onClicckHandlerProfile}/>
@@ -136,9 +102,6 @@ export function MyHeader() {
 					<div>
 						<img className='logoHome' src={logo} alt='MyEcommerce' onClick={(e) => navigate('/')}/>		
 
-						{/**
-						 * Componenti per il login e la registrazione
-						 */}
 						<div className='DIVLogInSignUp'>
 						 	<Link className='logIn' to={flagLogin ? '/' : '/DoLogin'} >{textForUser}</Link>
 							<img className='imgProfile' src={profile} alt='profilo' onClick={onClicckHandlerProfile}/>

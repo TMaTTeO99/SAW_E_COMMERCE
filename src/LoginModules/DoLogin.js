@@ -2,15 +2,15 @@ import '../Style/StyleDoLogin.css';
 import '../Style/TempForm.css';
 
 import { motion } from 'framer-motion';
-import {auth} from "./LoginConfig";
-import {LoginContext} from '../LoginContext';
+import {auth} from "../MyConfig";
+import {LoginContext} from '../MyContext';
 import { useContext, useState, useEffect } from 'react';
 import {useNavigate } from 'react-router-dom';
 import {MyFormLogin} from './MyFormLogin';
 import {CreateAccount} from './CreateAccount';
 import {LeftColumn, RightColumn} from './LoginBase';
 import {ResetPassword} from './ResetPassword';
-import {adminEmail} from './LoginConfig';
+import {adminEmail} from '../MyConfig';
 
 
 

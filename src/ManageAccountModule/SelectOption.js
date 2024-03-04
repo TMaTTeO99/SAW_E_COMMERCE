@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import {LoginContext} from '../LoginContext';
+import {LoginContext} from '../MyContext';
 import { useContext, useState} from 'react';
 import back from '../Images/back.png';
-import {auth} from "../LoginModules/LoginConfig";
+import {auth} from "../MyConfig";
 import { signOut } from 'firebase/auth';
 import {CreateAccount} from '../LoginModules/CreateAccount';
 import '../Style/Back.css';

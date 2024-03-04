@@ -1,4 +1,4 @@
-const CACHE = "my-cache-v1";
+const CACHE = "my-cache-v-3";
 
 const precacheFiles = [ '/','/index.html'];
 
@@ -12,12 +12,10 @@ self.addEventListener("install", function (event) {
   );
 });
 
-//Attivo il service worker
-/*self.addEventListener("activate", function (event) {
-  event.waitUntil(self.clients.claim());
-});*/
 
-//cache versioning
+
+//Attivo il service worker
+//cache versioning, ad ogni modifica dei file del progetto, devo cambiare il nome della cache che uso
 self.addEventListener("activate", event => {
 
   const currentCaches = [CACHE];

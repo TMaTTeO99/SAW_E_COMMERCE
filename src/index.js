@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './Style/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { getPreview } from './FetchProducts';
-import {MyProvider} from './LoginContext';
+import { getPreview } from './Utils';
+import {MyProvider} from './MyContext';
 import { initializeFirestore, persistentLocalCache } from "firebase/firestore";
-import { app } from './LoginModules/LoginConfig';
+import { app } from './MyConfig';
 
 export const Key = 'akasdbieubc37yASDBANDS2939834sfew9203LHGKPRTK80329dvsjkdfòwbfòoo2382rfosen182398ueodnqoqporj392ur32';
 
@@ -29,9 +29,6 @@ if('serviceWorker' in navigator) {
     console.log("Service Worker Ready");    
   });
 
-}
-else {
-  //notificare all utente di cambiare browser e fallire
 }
 
 // Inizializza Firebase per settare il cacheing
@@ -65,6 +62,5 @@ root.render(
       <App dataHome={previewData}/>
   </MyProvider>
 );
-
 
 reportWebVitals();

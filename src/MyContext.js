@@ -25,18 +25,15 @@ const MyProvider = ({children}) => {
 		const savedData = localStorage.getItem("loginData");
 		if(savedData) {
 			setDataLogin(JSON.parse(savedData));
-			//console.log(JSON.stringify(datalogin) + "  <---- I dati setatto nel contesto");
 		}
 		const savedSearchData = localStorage.getItem("searchData");
 		if(savedSearchData) {
 			setinputSearch(JSON.parse(savedSearchData));
-			//console.log(JSON.stringify(savedSearchData) + "  <---- I dati setatto nel contesto");
 		}
 		const savedProductSelected = localStorage.getItem("selectedProduct");
 	
 		if(savedProductSelected){
-			setproductSelected(JSON.parse(savedProductSelected));;
-			//console.log("savedProductSelected: " + savedProductSelected);
+			setproductSelected(JSON.parse(savedProductSelected));
 		}
 
 	}, []);

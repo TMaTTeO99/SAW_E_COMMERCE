@@ -1,8 +1,8 @@
 import { useContext} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import {LoginContext} from '../LoginContext';
-import {auth} from "./LoginConfig";
+import {LoginContext} from '../MyContext';
+import {auth} from "../MyConfig";
 import back from '../Images/back.png';
 
 

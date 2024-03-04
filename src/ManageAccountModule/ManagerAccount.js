@@ -3,15 +3,15 @@
 
 import { motion } from 'framer-motion';
 import { getAuth, deleteUser } from 'firebase/auth';
-import {auth} from "../LoginModules/LoginConfig";
+import {auth} from "../MyConfig";
 import { onAuthStateChanged } from 'firebase/auth';
-import {LoginContext} from '../LoginContext';
+import {LoginContext} from '../MyContext';
 import { useContext, useState } from 'react';
 import {useNavigate } from 'react-router-dom';
 import {LeftColumn} from '../LoginModules/LoginBase';
 import {ResetPassword} from '../LoginModules/ResetPassword';
 import { SelectOption } from './SelectOption';
-import {deleteAll} from '../FetchProducts';
+import {deleteAll} from '../Utils';
 
 export function ManageAccount() {
 	

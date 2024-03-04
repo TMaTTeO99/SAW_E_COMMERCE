@@ -1,9 +1,9 @@
 import back from '../Images/back.png';
 import '../Style/TempForm.css';
-import { auth } from './LoginConfig';
+import { auth } from '../MyConfig';
 import { useNavigate } from 'react-router-dom';
 import { sendPasswordResetEmail } from 'firebase/auth';
-import { TestPopUp } from './TestPopUp';
+import { TestPopUp } from './PopUp';
 import { useState } from 'react';
 
 export function ResetPassword({handleBack, BlurOn, BlurOff, backBlurred}) {

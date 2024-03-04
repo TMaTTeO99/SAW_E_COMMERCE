@@ -51,3 +51,16 @@
 	margin: 5px 0;
 	margin-left: 12%;
 }
+  
+#h2_EmptyList {
+
+	text-transform: uppercase;
+	transition: color 0.3s; 
+	margin-left: 30%;
+	margin-top: 10%;
+	font-size: 2vw;
+}
+  
+#h2_EmptyList:hover {
+	color: #9b2be6;
+}

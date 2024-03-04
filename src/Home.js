@@ -5,7 +5,7 @@ import { LoadingSpinnerList } from './LoadingSpinnerList';
 import React, { useRef, useEffect } from 'react';
 import { MyHeader } from './Myheader';
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import {app} from './LoginModules/LoginConfig';
+import {app} from './MyConfig';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -27,18 +27,14 @@ export function ProductPreview({product, nav}) {
 	
 	useEffect(() => {
 		
-	var imageRef = ref(storage, product.url);
+		var imageRef = ref(storage, product.url);
 		
 		getDownloadURL(imageRef)
 		.then((url) => {
-			
 			setUrlImage(url);
 			setFlagUrl(true);
 		})
-		.catch((error) => {
-			console.log("imageRef : " + imageRef);
-			console.log(error);
-		});
+		.catch((error) => {console.log(error);});
 	}, [product]);
 
 	if(flagURL){
@@ -49,7 +45,6 @@ export function ProductPreview({product, nav}) {
 					<p className='descrizione'>{product.description[4] + " " + product.genere + " " + product.description[2]} </p>
 					<p className='prezzo'>{"Prezzo: " + product.prezzo} </p>
 				</div>
-				
 			</div>
 		);
 	}

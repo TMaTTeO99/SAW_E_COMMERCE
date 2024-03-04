@@ -1,40 +1,4 @@
-/*.scrolling-list{
-	display: flex;
-	margin-top: 1%;
-	overflow-x: auto;
-	scroll-snap-type: x mandatory;
-	-webkit-overflow-scrolling: touch;
-	scrollbar-width: none; 
-	-ms-overflow-style: none;  
-}
-.scrolling-list::-webkit-scrollbar {
-	display: none; 
-}
-.list-item {
-	
-	flex: 0 0 auto;
-	margin-right: 16px;
-	border-radius: 15px;
-	scroll-snap-align: start;
-	padding: 1vh;
-	overflow: hidden;
-}
-.ColorCard {
 
-	background-color: rgb(220, 199, 248);
-	border-radius: 10px;
-	padding: 5%;
-	width: 100%;
-}
-.dataCard {
-
-	font-size: 100%;
-
-}
-.divSup {
-	padding: 10px;
-}
-*/
 
 
 .scrolling-list{

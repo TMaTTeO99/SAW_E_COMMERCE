@@ -1,7 +1,7 @@
 
 import { collection, deleteDoc, getDocs, addDoc, getDoc, query, where, doc, setDoc, updateDoc, arrayUnion} from "firebase/firestore"; 
 import { getFirestore } from "firebase/firestore";
-import { app } from './LoginModules/LoginConfig';
+import { app } from './MyConfig';
 import {Key} from './index';
 import CryptoJS from "crypto-js";
 
@@ -9,9 +9,6 @@ import CryptoJS from "crypto-js";
 import levenshtein from 'js-levenshtein';
 
 
-///////////////////////////////////////////////////////
-import {Preview} from "./TempDataProduct";
-//////////////temp
 
 function correctInput(input, dictionary) {
 
@@ -30,20 +27,16 @@ function correctInput(input, dictionary) {
 		closestDistance = distance;
 	  }
 	}
-	console.log("parola trovata: " + closestWord);
 	return closestWord;
 } 
 
 ////////////////////////////////////////////////////////////////////////
-export async function upload() {
+
+/*export async function upload() {
 
 	
 	const db = getFirestore(app);
 	try {
-		/*Preview.prodotti.forEach(async (obj) => {
-			const docRef = await addDoc(collection(db, "preview"), obj);
-			console.log("Document written with ID: ", docRef.id);
-		});*/
 		const docRef = await addDoc(collection(db, "preview"), Preview);
 		console.log("Document written with ID: ", docRef.id);
 	} 
@@ -51,7 +44,7 @@ export async function upload() {
 		console.error("Error adding document: ", e);
 	}
 }
-
+*/
 //////////////////////////////////////////////////////////////////////////
 export function myCypherData(data) {
 
@@ -74,7 +67,7 @@ export async function getOrders(user) {
 	const docSnap = await getDoc(docRef);
 
 	
-	if(docSnap.exists) return docSnap.data().userOrders;
+	if(docSnap.data()) return docSnap.data().userOrders;
 
 	return [];
 
@@ -110,30 +103,6 @@ export async function uploadOrder(data, user) {
 		console.error("Error adding document: ", e);
 		return false;
 	}
-	/*const db = getFirestore(app);
-
-	try {
-
-		const stapshot = await getDocs(collection(db, "orders"));
-
-		if(stapshot.empty) {
-
-			const docRef = await setDoc(doc(db, "orders", user), {userOrders : [data]});
-			console.log("Document uploaded");
-		}
-		else {
-			
-			const docRef = await updateDoc(doc(db, "orders", user), {
-				userOrders: arrayUnion(data)
-			});
-			console.log("Document uploaded");
-		}
-		return true;
-	}
-	catch(e) {
-		console.error("Error adding document: ", e);
-		return false;
-	}*/
 
 }
 export async function uploadCards(card, flag) {
@@ -176,7 +145,7 @@ export async function getCards(user) {
 	const docRef = doc(db, 'cards', user);
 	const docSnap = await getDoc(docRef);
 
-	if(docSnap.exists) return docSnap.data().usercard;
+	if(docSnap.data()) return docSnap.data().usercard;
 
 	return [];
 }
@@ -330,7 +299,6 @@ async function getGender() {
 	
 	try {
 		const snapshot = await getDocs(collection(db, "gender"));
-		//console.log(snapshot.docs[0].data().payload);
 		return snapshot.docs[0].data().payload;
 	}
 	catch(e) {
@@ -346,7 +314,7 @@ export async function getProductType() {
 	
 	try {
 		const snapshot = await getDocs(collection(db, "product"));
-		//console.log(snapshot.docs[0].data().payload);
+		
 		return snapshot.docs[0].data().payload;
 	}
 	catch(e) {
@@ -482,13 +450,11 @@ export async function fetchData(userInput) {
 		userInput.forEach((word) => {
 			processedWords.push(correctInput(word, dizionario));
 		})
-		console.log("dati corretti:")
 		processedWords.forEach((word) => console.log(word));
 
 
 		flagProduct = await checkProduct(processedWords);
 		
-		console.log("flagProduct " + flagProduct);
 
 		//caso in cui l utente non ha inserito il prodotto
 		if(flagProduct === -1){
@@ -502,7 +468,6 @@ export async function fetchData(userInput) {
 			 * caso in cui non ha inserito il genere
 			 */
 			if(flagGender === -1){
-				console.log("no gender");
 				var data;
 				await getDataGenerics(processedWords, db).then((d) => data = d);
 				return data;
@@ -528,7 +493,6 @@ export async function fetchData(userInput) {
 		
 			var productSelected = processedWords[flagProduct];
 			processedWords.splice(flagProduct, 1);
-			console.log("productSelected " + productSelected);
 			//faccio le query sul prodotto ma non sul genere
 			await getDataProduct(processedWords, productSelected, db).then((d) => data = d);
 			return data;
@@ -542,9 +506,6 @@ export async function fetchData(userInput) {
 
 		var productSelected = processedWords[flagProduct];
 		var genderSelected = processedWords[flagGender];
-		
-		console.log("productSelected " + productSelected);
-		console.log(" genderSelected " +  genderSelected);
 		
 
 		processedWords.splice(flagProduct, 1);

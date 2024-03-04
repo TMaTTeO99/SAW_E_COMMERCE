@@ -1,11 +1,11 @@
 import { useContext, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import {LoginContext} from '../LoginContext';
-import {auth} from "./LoginConfig";
+import {LoginContext} from '../MyContext';
+import {auth} from "../MyConfig";
 import back from '../Images/back.png';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
-import {uploadCards} from '../FetchProducts';
-import {checkCreditCardOnDB} from '../FetchProducts';
+import {uploadCards} from '../Utils';
+import {checkCreditCardOnDB} from '../Utils';
 import { FormCarta } from './FormCarta';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import '../Style/StyleFormCard.css';
@@ -35,14 +35,12 @@ function checkCreditCardFormat(cardNumber, expiryDate, cvv) {
 }
 async function addAccount(email, password, setAddCard, setDataLogin) {
 
-	console.log("ENTEOOOOOOO");
 	return createUserWithEmailAndPassword(auth, email, password)
 	.then( async (userCredential) => {
 		
 		
 		//devo fare il login 
 
-		console.log("SI CREAZONE **** ");
 		return await signInWithEmailAndPassword(auth, email, password)
 		.then((userCredential) => {
 			//salvo i dati anche nello storage del browser per poter recuperare le info in caso di ricarica 
@@ -56,19 +54,15 @@ async function addAccount(email, password, setAddCard, setDataLogin) {
 			localStorage.setItem("loginData", JSON.stringify(log));
 			setDataLogin(log);
 
-			console.log("SI LOGINNN **** ");
 			return true;
 			
 		})
 		.catch((error) => {
-			console.log("NO LOGINNN **** ");
 			return false;
 		});
 		
 	})
 	.catch(() => {
-		
-		console.log("NO CREAZIONE **** ");
 		return false;
 	});
 	

@@ -4,9 +4,8 @@ import {Error} from './ErrorModules/ErroreModule';
 import {LoginFailed} from './Messages/ErrorMessages';
 import {CreateFailed} from './Messages/ErrorMessages';
 import {ResetPasswordFailed} from './Messages/ErrorMessages';
-import {Test} from './TestAfterLogin';
 import {DoLogin} from './LoginModules/DoLogin';
-import {LoginContext} from './LoginContext';
+import {LoginContext} from './MyContext';
 import {motion} from 'framer-motion';
 import { useContext, useState} from 'react';
 import {ProductSearched} from './ListProductSearched';
@@ -21,10 +20,7 @@ export default function App({dataHome}) {
 
   const {datalogin, setDataLogin, inputSearch, setinputSearch, productSelected, setproductSelected } = useContext(LoginContext);
   
-
   
-  
-
   return (
   
     <Router>
@@ -39,19 +35,15 @@ export default function App({dataHome}) {
               <Home dataPreview={dataHome}/>
             </motion.div>
           }/>
-          /MyOrders
           
-          <Route path="/test" element={<Test/>}/>
           <Route path="/DoLogin" element={<DoLogin/>}/>
           <Route path="/ManageAccount" element={<ManageAccount/>}/>
 
           <Route path="/MyOrders" element={<MyOrders/>}/>
-          <Route path="/ProductSearched" element={
-            <ProductSearched />
-          }/>
 
+
+          <Route path="/ProductSearched" element={<ProductSearched />}/>
           <Route path="/BuyProduct" element={<BuyProduct dataProduct={productSelected}/>}/>
-        
           <Route path="/Error_Login" element={<Error mex={LoginFailed}/>}/>
           <Route path="/Error_Reset" element={<Error mex={ResetPasswordFailed}/>}/>
           <Route path="/Error_Create" element={<Error mex={CreateFailed}/>}/>

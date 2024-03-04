@@ -1,7 +1,7 @@
 import { MyHeader } from "./Myheader";
-import {useEffect, useContext, useState} from 'react';
-import { LoginContext } from './LoginContext';
-import {getOrders} from './FetchProducts';
+import {useEffect, useState} from 'react';
+import {getOrders} from './Utils';
+import {motion} from 'framer-motion';
 import './Style/StyleMyOrders.css';
 
 
@@ -10,16 +10,16 @@ export function MyOrders() {
 	
 	const [orders, setOrders] = useState([]);
 	const loginData = JSON.parse(localStorage.getItem("loginData"));
-	
+
 	useEffect(() => {
 		const fetchOrders = async () => {
 
 			const tmp = await getOrders(loginData.data.user.email);	
 			setOrders(tmp);
+
 		  };
 		
 		fetchOrders();
-		
 	}, [])
 
 	
@@ -27,8 +27,8 @@ export function MyOrders() {
 
 		return (
 			<>
-			<MyHeader/>
-			
+
+				<MyHeader/>
 				<div className="order-history">
       			{orders.map((order, index) => (
       			  
@@ -53,10 +53,22 @@ export function MyOrders() {
 	else {
 		
 		return (
-
-
-			<></>
-
+			<>
+			<MyHeader/>
+			<motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}>
+            <div className="ContainerListEmpty">
+				
+				<div className="EmptyListOrder">
+					<h2 id="h2_EmptyList">Non hai ancora effettuato ordini</h2>			
+				</div>
+			</div>
+			</motion.div>
+			
+			</>
 		);
 	}
 
